@@ -25,6 +25,11 @@
     &:extend(.ui.purple.button all);
 }
 
+.ui.button.download-button:hover {
+    background-color: #00ED00;
+    color: black;
+}
+
 .ui.button.hw-button {
     background-color: darken(@purple, 10%);
 }
@@ -60,6 +65,8 @@
 .ui.home {
     .getting-started-segment {
         background-position: 50% 25%;
+        max-height: fit-content;
+        height: 5rem;
     }
     .detailview .actions .card-action {
         &:first-child .button.approve {
@@ -85,12 +92,70 @@
     }
 }
 
+/* Too Small Monitor */
+@media only screen and (min-width: 300px) and (max-width: @computerBreakpoint) {
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 10rem;
+        }
+    }      
+}
+
 /* Small Monitor */
 @media only screen and (min-width: @computerBreakpoint) and (max-width: @largestSmallMonitor) {
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 15rem;
+        }
+    }      
 }
 
 /* Large Monitor */
-@media only screen and (min-width: @largeMonitorBreakpoint) {
+@media only screen and (min-width: @largeMonitorBreakpoint) and (max-width: 2000px) {
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 25rem;
+        }
+    }      
+}
+
+/* Extra Large Monitor */
+@media only screen and (min-width: 2000px) and (max-width: 3000px){
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 35rem;
+        }
+    }      
+}
+
+/* Extra Large Monitor */
+@media only screen and (min-width: 3000px) and (max-width: 4000px){
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 40rem;
+        }
+    }      
+}
+
+/* Extra Large Monitor */
+@media only screen and (min-width: 4000px){
+    .ui.home {
+        .getting-started-segment {
+            background-position: 50% 25%;
+            max-height: fit-content;
+            height: 50rem;
+        }
+    }      
 }
 
 

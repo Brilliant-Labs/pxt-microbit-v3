@@ -73,7 +73,7 @@ export function renderBrowserDownloadInstructions(): JSX.Element {
                             <div className="column">
                                 <div className="ui">
                                     <div className="image">
-                                        <img alt={lf("Comic connecting micro:bit to computer")} className="ui medium rounded image" src="./static/download/connect.png" />
+                                        <img alt={lf("Comic connecting micro:bit to computer")} className="ui medium rounded image" src="./docs/static/download/connect.png" />
                                     </div>
                                     <div className="content">
                                         <div className="description">
@@ -88,7 +88,7 @@ export function renderBrowserDownloadInstructions(): JSX.Element {
                             <div className="column">
                                 <div className="ui">
                                     <div className="image">
-                                        <img alt={lf("Comic moving hex file to micro:bit")} className="ui medium rounded image" src="./static/download/transfer.png" />
+                                        <img alt={lf("Comic moving hex file to micro:bit")} className="ui medium rounded image" src="./docs/static/download/transfer.png" />
                                     </div>
                                     <div className="content">
                                         <div className="description">
