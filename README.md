@@ -29,11 +29,13 @@ The local server lets you to run the editor and serve the documentation from you
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
 2. Clone this repository.
 ```
-git clone https://github.com/microsoft/pxt-microbit
+git clone https://github.com/brilliant-labs/pxt-microbit-v3
+rename pxt-microbit-v3 pxt
 cd pxt-microbit
 ```
 3. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
+git switch --track origin/code-canary_BL_stable3.0 
 npm install -g pxt
 ```
 4. Install the pxt-microbit dependencies.
@@ -43,6 +45,8 @@ npm install
 
 Go to the **Running** section.
 
+
+
 ### Developer Setup
 
 This is the typical setup used by the MakeCode team to work on the microbit.
@@ -51,29 +55,39 @@ This is the typical setup used by the MakeCode team to work on the microbit.
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
 ```
-git clone https://github.com/microsoft/pxt
+git clone https://github.com/brilliant-labs/pxt-v3
+rename pxt-v3 pxt
 cd pxt
 ```
 4. Install the dependencies of pxt and build it
 ```
+git switch --track origin/code-canary_BL_stable6.0 
 npm install
 npm run build
 cd ..
 ```
 5. Clone the pxt-common-packages repository
 ```
-git clone https://github.com/microsoft/pxt-common-packages
+git clone https://github.com/brilliant-labs/pxt-common-packages-v3
+rename pxt-common-packages-v3 pxt-common-packages
 cd pxt-common-packages
+git switch --track origin/code-canary_BL_stable7.0 
 npm install
 cd ..
 ```
 6. Clone this repository.
 ```
-git clone https://github.com/microsoft/pxt-microbit
+git clone https://github.com/brilliant-labs/bboard-tutorials-v3
+rename rename pxt-microbit-v3 rename pxt-microbit
+cd..
+
+git clone https://github.com/brilliant-labs/pxt-microbit-v3
+rename pxt-microbit-v3 pxt-microbit
 cd pxt-microbit
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
+git switch --track origin/code-canary_BL_stable3.0 
 npm install -g pxt
 ```
 8. Install the pxt-microbit dependencies.
@@ -84,36 +98,41 @@ npm install
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
+change `rmdir /Q /S` by `rm -rf` for Mac/Linux shells).
 ```
+rmdir /Q /S node_modules/pxt-core/
+rmdir /Q /S node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
+
+cd docs/static/mb/projects/
+ln -s ../../../../../bboard-tutorials/
+cd ../../../../
 ```
 Note the above command assumes the folder structure of   
 ```
        makecode
           |
-  ----------------------------------
-  |       |                        |
- pxt      pxt-common-packages  pxt-microbit
+  -----------------------------------------------------
+  |       |                        |                  |
+ pxt      pxt-common-packages  pxt-microbit  bboard-tutorials. 
  ```
+
+
+
+
 
 ### Running
 
 Run this command from inside pxt-microbit to open a local web server
+To install local htt server (add `sudo` for Mac/Linux shells):
 ```
-pxt serve
+npm install -g http-server
 ```
-If the local server opens in the wrong browser, make sure to copy the URL containing the local token. 
-Otherwise, the editor will not be able to load the projects.
-
-If you need to modify the `.cpp` files (and have installed yotta), enable yotta compilation using the `--localbuild` flag:
+Any time you create a new staticpkg start the htt server using:
 ```
-pxt serve --local
-```
-
-If you want to speed up the build, you can use the ``rebundle`` option, which skips building and simply refreshes the target information
-```
-pxt serve --rebundle
+pxt staticpkg
+http-server -c-1 built/packaged
 ```
 
 ### Cleaning
