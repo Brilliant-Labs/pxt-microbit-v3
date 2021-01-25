@@ -28,14 +28,16 @@ The local server lets you to run the editor and serve the documentation from you
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
 2. Clone this repository.
+   Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
+   (change `rename` by `mv` for Mac/Linux shells).
 ```
 git clone https://github.com/brilliant-labs/pxt-microbit-v3
 rename pxt-microbit-v3 pxt
 cd pxt-microbit
+git switch --track origin/code-canary_BL_stable3.0 
 ```
 3. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
-git switch --track origin/code-canary_BL_stable3.0 
 npm install -g pxt
 ```
 4. Install the pxt-microbit dependencies.
@@ -54,6 +56,8 @@ This is the typical setup used by the MakeCode team to work on the microbit.
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
+   Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
+   (change `rename` by `mv` for Mac/Linux shells).
 ```
 git clone https://github.com/brilliant-labs/pxt-v3
 rename pxt-v3 pxt
@@ -78,8 +82,7 @@ cd ..
 6. Clone this repository.
 ```
 git clone https://github.com/brilliant-labs/bboard-tutorials-v3
-rename rename pxt-microbit-v3 rename pxt-microbit
-cd..
+rename bboard-tutorials-v3 bboard-tutorials
 
 git clone https://github.com/brilliant-labs/pxt-microbit-v3
 rename pxt-microbit-v3 pxt-microbit
