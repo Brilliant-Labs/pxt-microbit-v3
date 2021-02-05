@@ -53,7 +53,7 @@ const enum BoardID {
 
 // }
 
-
+const BUILT_IN_PERIPHERAL = 0
 const enum ClickID {
 
 
@@ -64,8 +64,7 @@ const enum ClickID {
     //% block="Clickboard B"
     B = 2,
 
-    //% block="No Click"
-    Zero = 0
+
 
 }
 // function checkifexists(): number{
@@ -171,7 +170,7 @@ enum moduleIDs {
     ADC_module_id = 9,
     MUSIC_module_id = 10,
     EEPROM_module_id = 0xD,
-    NEOPIXEL_module_id = 0xE,
+    BLiXel_module_id = 0xE,
     STATUS_module_id = 0x10
 }
 
@@ -255,17 +254,23 @@ let PWM_PR_id = 2
 let PWM_channel_id
 let PWM_dutyCycle
 
-//Neopixel Function IDs
+//BLiXel Function IDs
 
-let NEOPIXEL_ADD = 0x01
-let NEOPIXEL_REMOVE = 0x02
-let NEOPIXEL_SHOW = 0x03
-let NEOPIXEL_HIDE = 0x04
-let NEOPIXEL_CLEAR = 0x05
-let NEOPIXEL_STRIP_WRITE_SINGLE_DATA = 0x06
-let NEOPIXEL_STRIP_WRITE_BUFFER_DATA = 0x07
-let NEOPIXEL_STRIP_READ_SINGLE_DATA = 0x08
-let NEOPIXEL_STRIP_READ_BUFFER_DATA = 0x09
+let BLiXel_ADD = 0x01
+let BLiXel_REMOVE = 0x02
+let BLiXel_SHOW = 0x03
+let BLiXel_HIDE = 0x04
+let BLiXel_CLEAR = 0x05
+let BLiXel_STRIP_WRITE_SINGLE_DATA = 0x06
+let BLiXel_STRIP_WRITE_BUFFER_DATA = 0x07
+let BLiXel_STRIP_READ_SINGLE_DATA = 0x08
+let BLiXel_STRIP_READ_BUFFER_DATA = 0x09
+let BLiXel_STRIP_SET_COLOUR = 0x0A
+let BLiXel_STRIP_SET_PIXEL = 0x0B
+let BLiXel_STRIP_BAR_GRAPH = 0x0C
+let BLiXel_STRIP_SET_BRIGHTNESS = 0x0D
+
+
 
 
 
@@ -366,23 +371,24 @@ namespace bBoard_Control {
 
     }
 
-    export function pinEventCheck(clickAddress: number, pin: clickIOPin, direction: bBoardEvents): number {
+    export function pinEventCheck(boardID:BoardID,clickID: ClickID, pin: clickIOPin, direction: bBoardEvents): number {
         let buf = pins.createBuffer(2);
         let functionID = direction == bBoardEvents.CN_HIGH ? STATUS_INTERRUPT_CN_HIGH : STATUS_INTERRUPT_CN_LOW
-        if (BLiX(Math.round(clickAddress / 3), clickAddress % 3, pin, STATUS_module_id, functionID, null,null, 2).getNumber(NumberFormat.UInt16LE, 0)) {
+        if (BLiX(boardID, clickID, pin, STATUS_module_id, functionID, null,null, 2).getNumber(NumberFormat.UInt16LE, 0)) {
             return 1
         }
 
         return null
     }
-    export function pinEventSet(clickAddress: number, pin: clickIOPin, direction: bBoardEvents) {
+    export function pinEventSet(boardID:BoardID,clickID: ClickID, pin: clickIOPin, direction: bBoardEvents) {
+        let absoluteClickAddress = boardID*3 + clickID;
         let functionID = direction == bBoardEvents.CN_HIGH ? STATUS_INTERRUPT_ENABLE_CN_HIGH_SET : STATUS_INTERRUPT_ENABLE_CN_LOW_SET
-        BLiX(Math.round(clickAddress / 3), clickAddress % 3, pin, STATUS_module_id, functionID,null, null, 0)
+        BLiX(boardID, clickID, pin, STATUS_module_id, functionID,null, null, 0)
     }
 
-    export function pinEventClear(clickAddress: number, pin: clickIOPin, direction: bBoardEvents) {
+    export function pinEventClear(boardID:BoardID,clickID: ClickID, pin: clickIOPin, direction: bBoardEvents) {
         let functionID = direction == bBoardEvents.CN_HIGH ? STATUS_INTERRUPT_ENABLE_CN_HIGH_CLR : STATUS_INTERRUPT_ENABLE_CN_LOW_CLR
-        BLiX(Math.round(clickAddress / 3), clickAddress % 3, pin, STATUS_module_id, functionID,null, null, 0)
+        BLiX(boardID, clickID, pin, STATUS_module_id, functionID,null, null, 0)
     }
 
 
@@ -417,10 +423,11 @@ namespace bBoard_Control {
                             currentClickMask = (clickMask & (0x0001 << clickIndex));
                             if (currentClickMask) {
                                 clickMask = clickMask & ~(0x0001 << clickIndex)
-                               
+                                boardID = Math.idiv(clickAddressID,3)
+                                clickID = clickAddressID%3
 
                                 eventMask = getInterruptSource(boardID, clickID)
-
+           
                                 for (let eventIndex = 0; eventIndex < 64; eventIndex++) {
                                     if (eventMask == 0) {
                                         break;
@@ -429,8 +436,8 @@ namespace bBoard_Control {
                                        
                                         eventMask = eventMask & ~(0x0001 << eventIndex)
                                         currentEventMask = 0x0001 << eventIndex
-                                
-                                        control.raiseEvent(BLiX_INT_EVENT,blixIntValue(clickIndex,currentEventMask))
+                               
+                                        control.raiseEvent(BLiX_INT_EVENT,getEventValue(getBoardID(clickIndex),getClickID(clickIndex),currentEventMask))
 
 
                               
@@ -457,12 +464,22 @@ namespace bBoard_Control {
             basic.pause(20);
         }
     })
+    function getBoardID(absoluteClickAddress:number)
+    {
+        return Math.idiv(absoluteClickAddress,3)
+    }
 
+    function getClickID(absoluteClickAddress:number)
+    {
+        return absoluteClickAddress%3
+    }
     export let BLiX_INT_EVENT = 28000
-    export function blixIntValue(clickAddr:number,eventNumber:number):number
+
+
+    export function getEventValue(boardID:BoardID, clickID:ClickID,eventNumber:number):number
     {
         eventNumber = eventNumber<<8;
-        return (eventNumber|clickAddr)
+        return (eventNumber|(boardID*3 + clickID))
     }
 
 
@@ -554,17 +571,17 @@ namespace bBoard_Control {
     let PWM_channel_id
     let PWM_dutyCycle
 
-    //Neopixel Function IDs
+    //BLiXel Function IDs
 
-    let NEOPIXEL_ADD = 0x01
-    let NEOPIXEL_REMOVE = 0x02
-    let NEOPIXEL_SHOW = 0x03
-    let NEOPIXEL_HIDE = 0x04
-    let NEOPIXEL_CLEAR = 0x05
-    let NEOPIXEL_STRIP_WRITE_SINGLE_DATA = 0x06
-    let NEOPIXEL_STRIP_WRITE_BUFFER_DATA = 0x07
-    let NEOPIXEL_STRIP_READ_SINGLE_DATA = 0x08
-    let NEOPIXEL_STRIP_READ_BUFFER_DATA = 0x09
+    let BLiXel_ADD = 0x01
+    let BLiXel_REMOVE = 0x02
+    let BLiXel_SHOW = 0x03
+    let BLiXel_HIDE = 0x04
+    let BLiXel_CLEAR = 0x05
+    let BLiXel_STRIP_WRITE_SINGLE_DATA = 0x06
+    let BLiXel_STRIP_WRITE_BUFFER_DATA = 0x07
+    let BLiXel_STRIP_READ_SINGLE_DATA = 0x08
+    let BLiXel_STRIP_READ_BUFFER_DATA = 0x09
 
     // ADC Function Ids
     let ADC_READ_id = 16
@@ -964,7 +981,7 @@ namespace bBoard_Control {
 
 
 
-    function setPin(clickPin: clickIOPin, boardID: BoardID, clickID: ClickID) {
+    export function setPin(clickPin: clickIOPin, boardID: BoardID, clickID: ClickID) {
 
         BLiX(boardID, clickID, clickPin, GPIO_module_id, SET_id, null,null, 0)
         // 'Set clickboard output pins values HIGH' command
@@ -973,7 +990,7 @@ namespace bBoard_Control {
 
 
 
-    function clearPin(clickPin: clickIOPin, boardID: BoardID, clickID: ClickID) {
+    export function clearPin(clickPin: clickIOPin, boardID: BoardID, clickID: ClickID) {
 
         // 'Set clickboard output pins values LOW' command
 
