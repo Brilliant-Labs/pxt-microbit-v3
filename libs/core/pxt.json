@@ -77,7 +77,8 @@
         "Reed.ts",
         "Water_Detect.ts",
         "Thermo_6.ts",
-        "CO_2.ts"
+        "CO_2.ts",
+        "force.ts"
     ],
     "testFiles": [],
     "public": true,
