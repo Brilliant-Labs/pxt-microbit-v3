@@ -37,7 +37,7 @@ namespace Motion {
 
         //% blockId=Motion_Enabled
         //% block="$this $enable motion"
-        //% advanced=false
+        //% advanced=true
         //% blockNamespace=Motion
         //% this.shadow=variables_get
         //% this.defl="Motion"
