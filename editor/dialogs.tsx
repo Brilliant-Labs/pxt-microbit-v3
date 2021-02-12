@@ -12,7 +12,7 @@ export function renderUsbPairDialog(firmwareUrl?: string, failedOnce?: boolean):
                     <div className="column">
                         <div className="ui">
                             <div className="image">
-                                <img alt={lf("Comic connecting micro:bit to computer")} className="ui medium rounded image" src="./static/download/connect.png" />
+                                <img alt={lf("Comic connecting micro:bit to computer")} className="ui medium rounded image" src="./docs/static/download/connect.png" />
                             </div>
                             <div className="content">
                                 <div className="description">
@@ -27,7 +27,7 @@ export function renderUsbPairDialog(firmwareUrl?: string, failedOnce?: boolean):
                     <div className="column">
                         <div className="ui">
                             <div className="image">
-                                <img alt={lf("Comic of successful micro:bit connection")} className="ui medium rounded image" src="./static/download/pair.png" />
+                                <img alt={lf("Comic of successful micro:bit connection")} className="ui medium rounded image" src="./docs/static/download/pair.png" />
                             </div>
                             <div className="content">
                                 <div className="description">
