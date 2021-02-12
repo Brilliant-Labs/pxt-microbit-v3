@@ -37,7 +37,8 @@ namespace Keylock {
         //% blockId=Keylock_getLockPosition
         //% block="$this Get lock position"
         //% weight=60 
-        //% blockNamespace=Keylock
+        //% blockNamespace=Keylock 
+        //% advanced=true
         //% this.shadow=variables_get
         //% this.defl="Keylock"
         getLockPosition(): number {
