@@ -7,6 +7,7 @@ namespace CO2 {
         True = 1,
         False = 0
     }
+    
     /**
      * Sets CO2 Click object.
      * @param boardID the boardID

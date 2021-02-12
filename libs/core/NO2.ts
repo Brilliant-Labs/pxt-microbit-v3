@@ -4,7 +4,10 @@
 //% labelLineWidth=1002
 //% advanced=true
 namespace NO2 {
-
+    export enum I2C_RepeatStart {
+        True = 1,
+        False = 0
+    }
 
     /**
      * Sets NO2 Click object.
