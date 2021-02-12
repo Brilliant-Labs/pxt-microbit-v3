@@ -37,7 +37,7 @@ namespace NO2 {
         private sensitivity: number
 
         constructor(boardID: BoardID, clickID: ClickID, sensitivity: number) {
-            this.sensitivity = Math.abs(sensitivity / 1000000000)
+            this.sensitivity = Math.abs(sensitivity / 1000000)
             this.myBoardID = boardID
             this.myClickID = clickID;
             this.NO2_Initialize()
@@ -70,7 +70,7 @@ namespace NO2 {
         }
 
         //%blockId=NO2_ReadConcentration
-        //%block="Get $this NO2 concentration reading"
+        //%block="Get $this NO2 concentration reading in ppm(parts per million)"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=NO2
