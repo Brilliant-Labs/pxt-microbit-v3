@@ -13,7 +13,7 @@ namespace ButtonG {
     }
 
     /**
-     * Sets Button G object.
+     * Sets ButtonG object.
      * @param boardID the boardID
      * @param clickID the ClickID
      * @param ButtonG the ButtonG Object
