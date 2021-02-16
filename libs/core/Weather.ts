@@ -123,28 +123,32 @@ namespace Weather {
         }
 //TODO: Solve get
         getreg(reg: number): number {
-            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
+//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
             //I2Cs.i2cWriteNumber(this.Weather_I2C_Addr, reg, clickBoardNum, NumberFormat.UInt8BE, false)
-            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8BE))
-            return bufr.getNumber(NumberFormat.UInt8BE, 0);
+//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8BE))
+//            return bufr.getNumber(NumberFormat.UInt8BE, 0);
+            return 0;
         }
 
         getInt8LE(reg: number): number {
-            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8LE))
-            return bufr.getNumber(NumberFormat.UInt8LE, 0);
+//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
+//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8LE))
+//            return bufr.getNumber(NumberFormat.UInt8LE, 0);
+            return 0;
         }
 
         getUInt16LE(reg: number): number {
-            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt16LE))
-            return bufr.getNumber(NumberFormat.UInt16LE, 0);
-        }
+//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
+//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt16LE))
+//            return bufr.getNumber(NumberFormat.UInt16LE, 0);
+            return 0;
+        }   
 
         getInt16LE(reg: number): number {
-            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.Int16LE))
-            return bufr.getNumber(NumberFormat.Int16LE, 0);
+//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
+//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.Int16LE))
+//            return bufr.getNumber(NumberFormat.Int16LE, 0);
+            return 0;   
         }
 
         get(): void {
