@@ -83,7 +83,8 @@
         "IR_Sense3.ts",
         "IrThermo_3.ts",
         "NFC_Tag_2.ts",        
-        "Proximity_2.ts"        
+        "Proximity_2.ts",
+        "uv3.ts"        
     ],
     "testFiles": [],
     "public": true,
