@@ -29,6 +29,7 @@ namespace IR_Distance {
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
             this.myClickID = clickID;
+            this.enable(IR_enable.On) 
         }
 
         //% blockId=IRDistance_getDistance
