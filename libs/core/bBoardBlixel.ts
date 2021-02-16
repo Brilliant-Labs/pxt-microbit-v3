@@ -132,7 +132,7 @@ namespace BLiXel {
 
 
             bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null,BLiXelBuffer,0)
-            
+            show();
         }
 
 
