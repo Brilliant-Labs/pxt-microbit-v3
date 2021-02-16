@@ -100,10 +100,11 @@ namespace Thermo_6 {
         //% this.shadow=variables_get
         //% this.defl="Thermo_6"
         writeMAX31875(register: number, value: number) {
-            let i2cBuffer = pins.createBuffer(3)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value >> 8)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, value & 0xFF)
+            let i2cBuffer = pins.createBuffer(4)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, register)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, value >> 8)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 3, value & 0xFF)
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
         }
 
