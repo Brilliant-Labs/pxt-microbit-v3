@@ -84,7 +84,8 @@
         "IrThermo_3.ts",
         "NFC_Tag_2.ts",        
         "Proximity_2.ts",
-        "uv3.ts"        
+        "uv3.ts",
+        "Line_Follower.ts"        
     ],
     "testFiles": [],
     "public": true,
