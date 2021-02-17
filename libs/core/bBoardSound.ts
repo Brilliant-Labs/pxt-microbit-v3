@@ -28,7 +28,9 @@ namespace bBoard_Sound {
     let toneBuffer = pins.createBuffer(4);
     toneBuffer.setNumber(NumberFormat.UInt16LE, 0, frequency)
     toneBuffer.setNumber(NumberFormat.UInt16LE, 2, duration)
+   
 
+bBoard_Control.BLiX(BoardID.zero,BUILT_IN_PERIPHERAL,0,moduleIDs.MUSIC_module_id,functionID.setVolume,[music.volume()],null,0);
     bBoard_Control.BLiX(BoardID.zero,BUILT_IN_PERIPHERAL,0,moduleIDs.MUSIC_module_id,functionID.playTone,null,toneBuffer,0);
     basic.pause(duration)
 })
