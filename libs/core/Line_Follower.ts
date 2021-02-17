@@ -188,9 +188,7 @@ namespace Line_Follower {
             }
             return false;
         }
-
     }
-
 }
 
 
