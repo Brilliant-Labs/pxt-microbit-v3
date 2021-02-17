@@ -51,7 +51,7 @@ export function renderUsbPairDialog(firmwareUrl?: string, failedOnce?: boolean):
             <div className="ui header inverted">{lf("Update Firmware")}</div>
             <strong className="ui small">{lf("You must have version 0249 or above of the firmware")}</strong>
             <div className="image">
-                <img alt={lf("Comic rainbow updating micro:bit firmware")} className="ui image" src="./static/download/firmware.png" />
+                <img alt={lf("Comic rainbow updating micro:bit firmware")} className="ui image" src="./docs/static/download/firmware.png" />
             </div>
             <a className="ui button" role="button" href={firmwareUrl} target="_blank">{lf("Check Firmware")}</a>
         </div>
