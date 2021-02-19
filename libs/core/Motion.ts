@@ -42,6 +42,7 @@ namespace Motion {
         //% this.shadow=variables_get
         //% this.defl="Motion"
         motionEnable(enable: Motion.motionState) {
+            //TODO: just change detection timeout, is not properly disable/enable
             bBoard_Control.writePin(enable, clickIOPin.RST, this.myBoardID, this.myClickID)
         }
 
