@@ -40,12 +40,13 @@ namespace IR_Distance {
         //% this.defl="IR_Distance"
         //note:  this sensor not read under 5 cm distance
         getDistance(): number {
-            //TODO: solve Math.pow is not working
+            //TODO: use altern waiting solve Math.pow
             let read = bBoard_Control.analogRead(clickADCPin.AN, this.myBoardID, this.myClickID)
-            let x = Math.round(read)
-            let y = Math.pow(x, 1.35)
+            let x = Math.round(read)*1.00001
+            let y = ((x) ** (1.35))
             let z = Math.roundWithPrecision ((250000 / y), 1)
-            return z          
+            let altern = Math.round (100 / Math.exp(0.0011 * read))               
+            return altern
         }
 
         //% blockId=IRDistance_getValue
