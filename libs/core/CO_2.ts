@@ -33,6 +33,7 @@ namespace CO_2 {
         private readonly Vadc_3 = 3.3 / 4096
         private myBoardID: number
         private myClickID: number
+        private myI2CAddress:number
         private sensitivity: number
 
         constructor(boardID: BoardID, clickID: ClickID, sensitivity: number) {
@@ -43,6 +44,7 @@ namespace CO_2 {
         }
 
         CO_Initialize() {
+            this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             bBoard_Control.clearPin(clickIOPin.RST, this.myBoardID, this.myClickID) // enable device
             this.Write_CO_Register(this.LOCK, 0x00) //In write mode 
             this.Write_CO_Register(this.MODECN, 0x03) //FET Short Disabled, 3 lead amperometric
@@ -55,7 +57,7 @@ namespace CO_2 {
             let i2cBuffer = pins.createBuffer(2)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress, i2cBuffer, this.myBoardID, this.myClickID)
         }
 
         //% blockId=CO_ReadConcentration
@@ -89,13 +91,10 @@ namespace CO_2 {
 
         // Read a byte from register 'reg'
         Read_CO_Register(register: number): number {
-            let tempBuf = pins.createBuffer(3)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
-
-            return bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_READ_NO_MEM_id, [this.DEFAULT_I2C_ADDRESS, 2], null, 2).getUint8(0)
+            let i2cBuffer = pins.createBuffer(2);
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, register, NumberFormat.Int8LE, true, this.myBoardID, this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 2, this.myBoardID, this.myClickID);
+            return i2cBuffer.getUint8(0)
         }
 
         CO_readADC(): number {
