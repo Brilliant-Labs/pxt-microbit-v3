@@ -83,7 +83,8 @@
         "NO2.ts",
         "force.ts",
         "Line_Follower.ts",
-        "uv3.ts"        
+        "uv3.ts",
+        "Proximity_2.ts"        
     ],
     "testFiles": [],
     "public": true,
