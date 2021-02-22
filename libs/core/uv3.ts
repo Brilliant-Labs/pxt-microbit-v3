@@ -16,7 +16,6 @@ namespace UV_3 {
         return new UV_3(boardID, clickID);
     }
 
-
     export class UV_3 {
         private readonly VEML6070_ADDR_ARA = (0x18 >> 1)
         private readonly VEML6070_ADDR_CMD = (0x70 >> 1)
@@ -29,9 +28,11 @@ namespace UV_3 {
         private readonly VEML6070_CMD_IT_2T = 0x08
         private readonly VEML6070_CMD_IT_4T = 0x0C
         private readonly VEML6070_CMD_DEFAULT = 0x02
+        private controlReg : number;
 
         private myBoardID: number
         private myClickID: number
+        private myI2CAddress:number
 
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
@@ -39,7 +40,8 @@ namespace UV_3 {
         }
 
         initialize() {
-            this.writeVEML6070(this.VEML6070_ADDR_CMD, this.VEML6070_CMD_DEFAULT) //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
+            this.controlReg = this.VEML6070_CMD_DEFAULT; //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
+            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT) //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
         }
 
         //%blockId=VEML6070_write
@@ -50,10 +52,7 @@ namespace UV_3 {
         //% this.shadow=variables_get
         //% this.defl="UV_3"
         writeVEML6070(register: number, value: number) {
-            let i2cBuffer = pins.createBuffer(2)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+            bBoard_Control.i2cWriteNumber(register, value, NumberFormat.UInt8LE, false, this.myBoardID, this.myClickID)   
         }
 
         //%blockId=VEML6070_UVSteps
@@ -77,10 +76,8 @@ namespace UV_3 {
         //% this.shadow=variables_get
         //% this.defl="UV_3"
         enableShutdown() {
-
-            //TODO: Solve Shutdown
-            //this.controlReg = this.controlReg & 0xFE;
-            //this.writeVEML6070(this.controlReg);
+            this.controlReg = this.controlReg & 0xFE;
+            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT);
         }
 
         //%blockId=VEML6070_disable
@@ -91,9 +88,8 @@ namespace UV_3 {
         //% this.shadow=variables_get
         //% this.defl="UV_3"
         disableShutdown() {
-            //TODO: Solve Shutdown
-            // this.controlReg = this.controlReg | 0x01;
-            // this.writeVEML6070(this.controlReg);
+            this.controlReg = this.controlReg | 0x01;
+            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT);
         }
 
         //%blockId=VEML6070_read
@@ -104,8 +100,9 @@ namespace UV_3 {
         //% this.shadow=variables_get
         //% this.defl="UV_3"
         readVEML6070(register: number): number {
-            let i2cBuffer = pins.createBuffer(1);
-            i2cBuffer = bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_READ_NO_MEM_id, [register, 1], null, 1)
+            let i2cBuffer = pins.createBuffer(2);
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,1,this.myBoardID,this.myClickID);           
             return i2cBuffer.getUint8(0)
         }
     }
