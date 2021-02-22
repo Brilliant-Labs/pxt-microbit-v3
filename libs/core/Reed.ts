@@ -51,7 +51,7 @@ namespace Reed {
         //% this.shadow=variables_get
         //% this.defl="Reed"
         onMagnetDetected(a: () => void): void {
-            bBoard_Control.eventInit(bBoardEvents.CN_HIGH, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
+            bBoard_Control.eventInit(bBoardEventsMask.CN_HIGH, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
             bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.CS, bBoardEventsMask.CN_HIGH) //Tell the BLiX which pin you want to monitor for high or low
             control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_HIGH), clickIOPin.CS, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
         }
