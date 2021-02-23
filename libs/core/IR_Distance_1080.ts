@@ -12,6 +12,8 @@ namespace IR_Distance_1080 {
     //% advanced=false
     //% blockSetVariable="IR_Distance_1080"
     //% weight=110
+    
+    //TODO: limit AnalogPin to bBoard Ports
     export function createIR_Distance_1080(portID: AnalogPin): IR_Distance_1080 {
         return new IR_Distance_1080(portID);
     }
