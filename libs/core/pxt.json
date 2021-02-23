@@ -84,7 +84,8 @@
         "force.ts",
         "Line_Follower.ts",
         "uv3.ts",
-        "Proximity_2.ts"        
+        "Proximity_2.ts",
+        "IR_Sense3.ts"        
     ],
     "testFiles": [],
     "public": true,
