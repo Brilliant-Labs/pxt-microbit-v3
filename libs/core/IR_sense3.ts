@@ -32,9 +32,9 @@ namespace IR_Sense_3 {
         private readonly IRL = 0x05
         private readonly IRH = 0x06
 
-        private myBoardID: number
-        private myClickID: number
-        private myI2CAddress:number
+        private myBoardID: BoardID
+        private myClickID: ClickID
+        private myI2CAddress: number
 
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID
