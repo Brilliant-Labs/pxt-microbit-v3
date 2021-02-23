@@ -62,8 +62,6 @@ namespace IR_Sense_3 {
             bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
         }
 
-        //TODO: Clear Interruption
-
         //% blockId=onHumanDetected 
         //% block="$this on human detected" 
         //% blockAllowMultiple=0
@@ -73,7 +71,13 @@ namespace IR_Sense_3 {
         onHumanDetected(a: () => void): void {
             bBoard_Control.eventInit(bBoardEventsMask.CN_LOW, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
             bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.INT, bBoardEventsMask.CN_LOW) //Tell the BLiX which pin you want to monitor for high or low
-            control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_LOW), clickIOPin.INT, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
+            control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_LOW), clickIOPin.INT, () => this.eventHandler(a)); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
+        }
+
+        eventHandler(a: () => void): void {
+            if (this.isHumanDetected()){
+                a();
+            }
         }
 
         //%blockId=IR_Sense_3_isHumandDetected
