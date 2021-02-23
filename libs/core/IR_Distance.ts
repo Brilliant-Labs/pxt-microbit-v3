@@ -1,4 +1,4 @@
-//-------------------------Click Board RI_Distance -----------------------------------
+//-------------------------Click Board IR_Distance -----------------------------------
 //% weight=100 color=#33BEBB icon="↔"
 //% advanced=true
 //% labelLineWidth=1002
