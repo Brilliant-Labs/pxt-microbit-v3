@@ -692,7 +692,7 @@ namespace bBoard_Control {
 
 
     //%blockId=set_Duty
-    //%block="$this set duty cycle on pin $clickPin to $duty"
+    //%block="set duty cycle on pin $clickPin to $duty on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% duty.min=0 duty.max=100 
@@ -718,7 +718,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=PWM_frequency
-    //%block="$this set PWM frequency on pin $clickPin to $PWMfreq"
+    //%block="set PWM frequency on pin $clickPin to $PWMfreq on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -770,7 +770,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=is_UART_Data_Avail
-    //%block="$this is UART data available?"
+    //%block="is UART data available on $boardID $clickID?"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -796,7 +796,7 @@ namespace bBoard_Control {
     * @param baud the baud rate, eg: 115200
     */
     //% weight=4 advanced=false
-    //% blockId=bBoard_UART_frequency block="$this set UART baud to $baud"
+    //% blockId=bBoard_UART_frequency block="set UART baud to $baud on $boardID $clickID"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% baud.delf=115200
@@ -816,7 +816,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=send_UART_Buffer
-    //%block="$this send buffer $buff"
+    //%block="send buffer $buff on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -837,7 +837,7 @@ namespace bBoard_Control {
 
 
     //%blockId=get_UART_Byte
-    //%block="$this read string"
+    //%block="read string on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -860,7 +860,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=send_UART_String
-    //%block="send string $UARTString to board%boardID click%clickID"
+    //%block="send string $UARTString on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -902,7 +902,7 @@ namespace bBoard_Control {
 
 
     //%blockId=set_IO_direction
-    //%block="$this set pin $clickPin to $direction"
+    //%block="set pin $clickPin to $direction on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -923,7 +923,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=Open_Drain_set
-    //%block="$this $ODC_Enable open drain on $clickPin"
+    //%block="$ODC_Enable open drain on $clickPin on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -943,7 +943,7 @@ namespace bBoard_Control {
 
 
     //%blockId=GPIO_pull_set
-    //%block="$this set pin $clickPin to $pullDirection"
+    //%block="set pin $clickPin to $pullDirection on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -964,7 +964,7 @@ namespace bBoard_Control {
 
 
     //%blockId=digital_Read_Pin
-    //%block="$this digital read pin $clickPin"
+    //%block="digital read pin $clickPin on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -983,7 +983,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=write_pin
-    //%block="$this write pin $clickPin to $value"
+    //%block="write pin $clickPin to $value on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1032,7 +1032,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=Analog_Read
-    //%block="$this analog read pin %clickPin"
+    //%block="analog read pin %clickPin on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1066,7 +1066,7 @@ namespace bBoard_Control {
 
 
     //%blockId=getFirmwareVersion
-    //%block="Get firmware version of $boardID at slot $clickID"
+    //%block="Get firmware version of $boardID at slot $clickID on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1124,7 +1124,7 @@ namespace bBoard_Control {
 
 
     //%blockId=getInterruptSource
-    //%block="Get Interrupt source on $boardID at slot $clickID"
+    //%block="Get Interrupt source on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1166,7 +1166,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write
-    //%block="$this spi write $value"
+    //%block="spi write $value on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1186,7 +1186,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write_array
-    //%block="$this spi write array $arrayValues"
+    //%block="spi write array $arrayValues on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1209,7 +1209,7 @@ namespace bBoard_Control {
     * @param frequency the clock frequency, eg: 1000000
     */
     //% help=pins/spi-frequency weight=4 advanced=true
-    //% blockId=bBoard_spi_frequency block="$this spi set frequency $frequency"
+    //% blockId=bBoard_spi_frequency block="spi set frequency $frequency on $boardID $clickID"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% defl="SPISettings"
@@ -1231,7 +1231,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write_buffer
-    //%block="$this spi write buffer $bufferValues"
+    //%block="spi write buffer $bufferValues on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1251,7 +1251,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=spi_Mode_Select
-    //%block="$this spi set mode to $mode"
+    //%block="spi set mode to $mode on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1296,7 +1296,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Read
-    //%block="$this spi read $numBytes bytes"
+    //%block="spi read $numBytes bytes on $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1320,7 +1320,7 @@ namespace bBoard_Control {
     * Set the SPI Chip Select Pin
     */
     //% weight=4 advanced=true
-    //% blockId=bBoard_spi_CS block="$this spi assign CS Pin to pin $clickPin"
+    //% blockId=bBoard_spi_CS block="spi assign CS Pin to pin $clickPin on $boardID $clickID"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% defl="SPISettings"
@@ -1358,7 +1358,7 @@ namespace bBoard_Control {
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
     //% blockNamespace=bBoard_Control
-    //% block="$this i2c read $numBytes bytes at i2c address $address" weight=6
+    //% block="i2c read $numBytes bytes at i2c address $address on $boardID $clickID" weight=6
 
     //% shadow=variables_get
     //% defl="I2CSettings"
@@ -1385,7 +1385,7 @@ namespace bBoard_Control {
     //%blockId=i2c_Read
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
-    //% block="$this i2c read $numBytes bytes |at memory address $memAddress |at i2c address $address" weight=6
+    //% block="i2c read $numBytes bytes |at memory address $memAddress |at i2c address $address on $boardID $clickID" weight=6
     //% advanced=true
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
@@ -1415,7 +1415,7 @@ namespace bBoard_Control {
      * Write one number to a 7-bit I2C address.
      */
     //% blockId=i2c_write_number
-    //% block="i2c $this write number $value|to i2c address $address|of format $format | repeated $repeated" weight=6
+    //% block="i2c write number $value|to i2c address $address|of format $format | repeated $repeated on $boardID $clickID" weight=6
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
