@@ -37,13 +37,15 @@ namespace bBoard_Motor {
       bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.enableMotor, data, null, 0)
   }
 
-  /**
-   * motor set duty
-   */
+/**
+ * Set left motor to a speed for an amount of time
+ * @param waitTime how long to move motor for, eg: 100, 200, 500, 1000, 2000
+ */
   //% blockId=bBoard_Motor_motorLeftTimed
   //% block="set left motor speed to$duty \\% for$waitTime (ms)"
   //% duty.min=-100 duty.max=100
   //% duty.shadow="speedPicker"
+  //% waitTime.shadow="timePicker"
   //% waitTime.defl=1000
   export function  motorLeftTimed( duty: number,waitTime:number): void {
       //motor_Driver, direction, duty
@@ -54,13 +56,15 @@ namespace bBoard_Motor {
       bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.setMotor, [motorDriver.left,0], null, 0)
   }
 
-    /**
-   * motor set duty
-   */
+/**
+ * Set right motor to a speed for an amount of time
+ * @param waitTime how long to move motor for, eg: 100, 200, 500, 1000, 2000
+ */
     //% blockId=bBoard_Motor_motorRightTimed
   //% block="set right motor speed to$duty \\% for$waitTime (ms)"
   //% duty.min=-100 duty.max=100
   //% duty.shadow="speedPicker"
+  //% waitTime.shadow="timePicker"
     //% waitTime.defl=1000
   export function  motorRightTimed( duty: number,waitTime:number): void {
     //motor_Driver, direction, duty
