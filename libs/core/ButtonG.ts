@@ -1,4 +1,4 @@
-//-------------------------Click Board ButtonG -----------------------------------
+//------------------------- Click Board ButtonG -----------------------------------
 //% weight=700 color=#F4B820 icon=""
 //% advanced=true
 //% labelLineWidth=1003
