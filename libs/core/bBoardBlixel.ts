@@ -1,7 +1,7 @@
 /**
- * Well known colors for a BLixel strip
+ * Well known colours for a BLixel strip
  */
-enum BLiXelColors {
+enum BLiXelcolours {
     //% block=red
     Red = 0xFF0000,
     //% block=orange
@@ -25,19 +25,38 @@ enum BLiXelColors {
 }
 
 
-
+/**
+ * Well known colours for a BLixel strip
+ */
+enum BLiXelIndex {
+    //% block=1
+    one = 0,
+    //% block=2
+    two = 1,
+    //% block=3
+    three = 2,
+    //% block=4
+    four = 3,
+    //% block=5
+    five = 4
+  
+}
 
 
 /**
  * export functions to operate BLiXel strips.
  */
 //% weight=400 
-//% color=#9E4894 
+//% colour=#9E4894 
 //% icon="\uf110"
 //% labelLineWidth=1001
 //% advanced=true
 namespace BLiXel {
-
+    
+    let currentBLiXelBuffer = pins.createBuffer(5*3);
+    let currentColour:BLiXelcolours = null
+    let currentBrightness = 100
+    blixelsOff(); //Need to set all BLiXels to off whenever we start up to avoid reprogramming micro:bit but BLiXels still on on b.Board from old code
     /**
      * Different modes for RGB or RGB+W BLiXel strips
     */
@@ -51,7 +70,7 @@ namespace BLiXel {
     }
 
 
-     let pin = clickIOPin.PWM; //The BLiX protocol uses virtual pin PWM on click 0 for BLiXels
+     
     // let numBlixels = 5;
 
 
@@ -59,36 +78,75 @@ namespace BLiXel {
          * Displays a vertical bar graph based on the `value` and `high` value.
          * If `high` is 0, the chart gets adjusted automatically.
          * @param value current value to plot
-         * @param high maximum value, eg: 65535
+         * @param max maximum value, eg: 100
+         * @param min maximum value, eg: 0
          */
-        //% blockId=BLiXel_show_bar_graph block="show bar graph of $value|up to $high"
+        //% blockId=BLiXel_show_bar_graph block="show BLiXel bar graph of variable $value|with max value $max ||min value $min"
         //% weight=300
-        export function showBarGraph(value: number, high: number): void {
-            if (high <= 0) {
-                high = 0;
+        //% min.defl=0
+        //% expandableArgumentMode="toggle"
+        export function showBarGraph(value: number, max: number, min?:number): void {
+ 
+            //TODO: Make change on BLiX to allow minimum signed value
+            let dynamicRange = max - min
+            if(value < min)
+            {
+                value = min
             }
+            if (value>max)
+            {
+                value = max
+            }
+            let blixelsToLight = Math.round(MAX_BBOARD_BLIXELS*((value-min)/dynamicRange))
+            //let blixBuffer = pins.createBuffer(4);
+            //blixBuffer.setNumber(NumberFormat.UInt16LE, 0, max)
+            //blixBuffer.setNumber(NumberFormat.UInt16LE, 2, value)
+            if(!currentColour) //If a current colour has not been set
+            {
+                currentColour = BLiXelcolours.Purple
+                showColour(currentColour)
+            }
+            let red = (unpackR(currentColour)*currentBrightness)>>8;
+            let green = (unpackG(currentColour)*currentBrightness)>>8;
+            let blue = (unpackB(currentColour)*currentBrightness)>>8;
 
-            let blixBuffer = pins.createBuffer(4);
-            blixBuffer.setNumber(NumberFormat.UInt16LE, 0, high)
-            blixBuffer.setNumber(NumberFormat.UInt16LE, 2, value)
             
-            bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_BAR_GRAPH, null,blixBuffer,0)
+            for(let i =0;i<MAX_BBOARD_BLIXELS;i++)
+            {
+                if(i>=(blixelsToLight))
+                {
+                    currentBLiXelBuffer.fill(0,i*3)
+                    break;
+                }
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3,red)
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3+1,green)
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3+2,blue)
+            }
+            sendBLiXelBuffer(currentBLiXelBuffer)
+           // bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_BAR_GRAPH, null,blixBuffer,0)
             show();
 
             }
-
+           const MAX_BBOARD_BLIXELS = 5
          /**
-         * Shows all LEDs to a given color (range 0-255 for r, g, b).
-         * @param rgb RGB color of the LED
+         * Shows all LEDs to a given colour (range 0-255 for r, g, b).
+         * @param rgb RGB colour of the LED
          */
-        //% blockId="BLiXel_colour" block="show color $rgb=BLiXel_colors" blockGap=9
+        //% blockId="BLiXel_colour" block="set all BLiXels to $rgb=BLiXel_colours" blockGap=9
+        //% rgb.shadow="colorNumberPicker"
         //% weight=400 
         export function  showColour(rgb: number ) {
 
             let colourBuffer = pins.createBuffer(4);
             colourBuffer.setNumber(NumberFormat.UInt32LE, 0, rgb)
-            
-            bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_COLOUR, null,colourBuffer,0)
+            for(let i=0; i<MAX_BBOARD_BLIXELS;i++)
+            {
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3,(rgb&0xFF0000)>>16)
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3+1,(rgb&0xFF00)>>8)
+                currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,i*3+2,rgb&0xFF)
+            }
+            currentColour = rgb;
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_COLOUR, null,colourBuffer,0)
             show();
   
 
@@ -97,28 +155,40 @@ namespace BLiXel {
          * Turn off all BLiXels
          * 
          */
-        //% blockId="BLiXel_off" block="turn off BLiXels" blockGap=9
-        //% weight=350
+        //% blockId="BLiXel_off" block="turn off all BLiXels" blockGap=9
+        //% weight=10
         export function  blixelsOff() {
 
             let colourBuffer = pins.createBuffer(4);
             colourBuffer.setNumber(NumberFormat.UInt32LE, 0, 0)
-            
-            bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_COLOUR, null,colourBuffer,0)
+            currentBLiXelBuffer.fill(0)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_COLOUR, null,colourBuffer,0)
             show();
   
 
         }
 
+          /**
+     * Gets the index of a BLiXel
+     */
+    //% blockGap=9
+    //% blockId="BLiXel_Index" block="%index"
+    //% advanced=true
+      function blixel_index(index: BLiXelIndex): number {
+        return index;
+    }
+
+
          /**
-         * Set LED to a given color (range 0-255 for r, g, b).
+         * Set LED to a given colour (range 0-255 for r, g, b).
          * You need to call ``show`` to make the changes visible.
          * @param pixeloffset position of the BLiXel in the strip
-         * @param rgb RGB color of the LED
+         * @param rgb RGB colour of the LED
          */
-        //% blockId="BLiXel_set_pixel_colour" block="set pixel color at $pixeloffset|to $rgb=BLiXel_colors"
+        //% blockId="BLiXel_set_pixel_colour" block="set BLiXel $pixeloffset=BLiXel_Index|to $rgb=BLiXel_colours"
         //% blockGap=9
-        //% advanced=true
+        //% rgb.shadow="colorNumberPicker"
+        //% advanced=false
         //% weight=200 
         export function setPixelColour(pixeloffset: number, rgb: number): void {
 
@@ -129,9 +199,11 @@ namespace BLiXel {
             }
             BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0, rgb)
             BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixeloffset)
+            currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,pixeloffset*3,(rgb&0xFF0000)>>16)
+            currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,pixeloffset*3+1,(rgb&0xFF00)>>8)
+            currentBLiXelBuffer.setNumber(NumberFormat.UInt8LE,pixeloffset*3+2,rgb&0xFF)
 
-
-            bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null,BLiXelBuffer,0)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null,BLiXelBuffer,0)
             show();
         }
 
@@ -144,10 +216,10 @@ namespace BLiXel {
  //% blockId=bBoardBlixel_show
   //% block="show"
   //% advanced=true
-        export function  show() {
+         function  show() {
       
                 
-                bBoard_Control.sendData(parseInt(pin.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)
+                bBoard_Control.sendData(parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)
       
     
         }
@@ -158,31 +230,53 @@ namespace BLiXel {
          */
         //% blockId="BLiXel_clear" block="clear"
         //% advanced=true
-        export function clear(): void {
-            showColour(BLiXelColors.Black) 
+         function clear(): void {
+            currentBLiXelBuffer.fill(0)
+            showColour(BLiXelcolours.Black) 
         }
 
       
+    /**
+      * Get the BLiXel Index
+      * @param BLiXelIndex BLiXel pixel number (1 is leftmost, 5 is rightmost), eg: 1, 5
+      */
+    //% blockId=BLiXelPicker block="%BLiXelIndex"
+    //% blockHidden=true 
+    //% colorSecondary="#FFFFFF"
+    //% BLiXelIndex.fieldEditor="numberdropdown" BLiXelIndex.fieldOptions.decompileLiterals=true
+    //% BLiXelIndex.fieldOptions.data='[["1, 0], ["2", 1], ["3", 2], ["4", 3], ["5", 4]]'
+    export function __BLiXelPicker(BLiXelIndex: number): number {
+        return BLiXelIndex;
+    }
+
+
 
          /**
          * Set the brightness of the strip. This flag only applies to future operation.
-         * @param brightness a measure of LED brightness in 0-255. eg: 255
+         * @param brightness a measure of LED brightness in 0-100. eg: 50
          */
         //% blockId="BLiXel_set_brightness" block="set brightness $brightness" 
         //% advanced=false
+        //% brightness.min=0 brightness.max=100
         //% weight=200 
         export function setBrightness(brightness: number): void {
            
-            
-            bBoard_Control.BLiX(0,0,pin, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_BRIGHTNESS, [brightness],null,0)
-            
+            currentBrightness = Math.min(Math.max(Math.round(brightness *2.55),0),255)
+
+            sendBLiXelBuffer(currentBLiXelBuffer)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_BRIGHTNESS, [currentBrightness],null,0)
+            show()
 
         }
 
     
 
    
+        function sendBLiXelBuffer(blixelBuffer:Buffer)
+        {
 
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_WRITE_BUFFER_DATA, null,blixelBuffer,0)
+        }
         // /**
         //  * Shift LEDs forward and clear with zeros.
         //  * You need to call ``show`` to make the changes visible.
@@ -208,7 +302,7 @@ namespace BLiXel {
     
 
     /**
-    * Converts red, green, blue channels into a RGB color
+    * Converts red, green, blue channels into a RGB colour
     * @param red value of the red channel between 0 and 255. eg: 255
     * @param green value of the green channel between 0 and 255. eg: 255
     * @param blue value of the blue channel between 0 and 255. eg: 255
@@ -220,13 +314,13 @@ namespace BLiXel {
     }
 
      /**
-     * Gets the RGB value of a known color
+     * Gets the RGB value of a known colour
      */
     //% blockGap=9
-    //% blockId="BLiXel_colors" block="%color"
+    //% blockId="BLiXel_colours" block="%colour"
     //% advanced=true
-    export  function colors(color: BLiXelColors): number {
-        return color;
+    export  function colours(colour: BLiXelcolours): number {
+        return colour;
     }
     export function packRGB(a: number, b: number, c: number): number {
         return ((a & 0xFF) << 16) | ((b & 0xFF) << 8) | (c & 0xFF);
@@ -245,7 +339,7 @@ namespace BLiXel {
     }
 
      /**
-     * Converts a hue saturation luminosity value into a RGB color
+     * Converts a hue saturation luminosity value into a RGB colour
      * @param h hue from 0 to 360
      * @param s saturation from 0 to 99
      * @param l luminosity from 0 to 99
@@ -263,7 +357,7 @@ namespace BLiXel {
         let h1 = Math.idiv(h, 60); //[0,6]
         let h2 = Math.idiv((h - h1 * 60) * 256, 60); //[0,255]
         let temp = Math.abs((((h1 % 2) << 8) + h2) - 256);
-        let x = (c * (256 - (temp))) >> 8; //[0,255], second largest component of this color
+        let x = (c * (256 - (temp))) >> 8; //[0,255], second largest component of this colour
         let r$: number;
         let g$: number;
         let b$: number;
