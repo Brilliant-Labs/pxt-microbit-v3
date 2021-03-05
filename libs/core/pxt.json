@@ -89,7 +89,14 @@
         "IrThermo_3.ts",
         "IR_Distance_1080.ts",
         "IR_Distance_20150.ts",
-        "IR_Break_Beam.ts"       
+        "IR_Break_Beam.ts",
+        "neopixel.ts",
+        "ws2812b.ts",
+        "AirQuality3.ts",
+        "Weather.ts",
+        "NFC_Tag_2.ts",
+        "IrThermo_3.ts",
+        "Servo.ts"      
     ],
     "testFiles": [],
     "public": true,
