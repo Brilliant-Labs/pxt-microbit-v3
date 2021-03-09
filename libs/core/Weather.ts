@@ -194,7 +194,6 @@ namespace Weather {
         //     let var2 = (((((adc_T >> 4) - this.dig_T1) * ((adc_T >> 4) - this.dig_T1)) >> 12) * this.dig_T3) >> 14
         //     let t = var1 + var2
         //     this.T = Math.idiv((t * 5 + 128) >> 8, 100)
-
         //     var1 = (t >> 1) - 64000
         //     var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * this.dig_P6
         //     var2 = var2 + ((var1 * this.dig_P5) << 1)
@@ -209,7 +208,6 @@ namespace Weather {
         //     var1 = (this.dig_P9 * (((_p >> 3) * (_p >> 3)) >> 13)) >> 12
         //     var2 = (((_p >> 2)) * this.dig_P8) >> 13
         //     this.P = _p + ((var1 + var2 + this.dig_P7) >> 4)
-
         //     let adc_H = (this.getreg(this.ADC_H1) << 8) + this.getreg(this.ADC_H2)
         //     var1 = t - 76800
         //     var2 = (((adc_H << 14) - (this.dig_H4 << 20) - (this.dig_H5 * var1)) + 16384) >> 15
