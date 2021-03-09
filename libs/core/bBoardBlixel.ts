@@ -47,7 +47,7 @@ enum BLiXelIndex {
  * export functions to operate BLiXel strips.
  */
 //% weight=400 
-//% colour=#9E4894 
+//% color=#9E4894 
 //% icon="\uf110"
 //% labelLineWidth=1001
 //% advanced=true
@@ -56,7 +56,7 @@ namespace BLiXel {
     let currentBLiXelBuffer = pins.createBuffer(5*3);
     let currentColour:BLiXelcolours = null
     let currentBrightness = 100
-    blixelsOff(); //Need to set all BLiXels to off whenever we start up to avoid reprogramming micro:bit but BLiXels still on on b.Board from old code
+   blixelsOff(); //Need to set all BLiXels to off whenever we start up to avoid reprogramming micro:bit but BLiXels still on on b.Board from old code
     /**
      * Different modes for RGB or RGB+W BLiXel strips
     */
@@ -71,7 +71,7 @@ namespace BLiXel {
 
 
      
-    // let numBlixels = 5;
+//     // let numBlixels = 5;
 
 
          /**
@@ -173,8 +173,9 @@ namespace BLiXel {
      */
     //% blockGap=9
     //% blockId="BLiXel_Index" block="%index"
+    //% blockHidden=true 
     //% advanced=true
-      function blixel_index(index: BLiXelIndex): number {
+      export function blixel_index(index: BLiXelIndex): number {
         return index;
     }
 
@@ -185,7 +186,7 @@ namespace BLiXel {
          * @param pixeloffset position of the BLiXel in the strip
          * @param rgb RGB colour of the LED
          */
-        //% blockId="BLiXel_set_pixel_colour" block="set BLiXel $pixeloffset=BLiXel_Index|to $rgb=BLiXel_colours"
+        //% blockId="BLiXel_set_pixel_colour" block="set BLiXel $pixeloffset=BLiXel_Index to $rgb=BLiXel_colours"
         //% blockGap=9
         //% rgb.shadow="colorNumberPicker"
         //% advanced=false
@@ -216,7 +217,7 @@ namespace BLiXel {
  //% blockId=bBoardBlixel_show
   //% block="show"
   //% advanced=true
-         function  show() {
+        export function  show() {
       
                 
                 bBoard_Control.sendData(parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)
@@ -224,16 +225,16 @@ namespace BLiXel {
     
         }
 
-         /**
-         * Turn off all LEDs.
-         * 
-         */
-        //% blockId="BLiXel_clear" block="clear"
-        //% advanced=true
-         function clear(): void {
-            currentBLiXelBuffer.fill(0)
-            showColour(BLiXelcolours.Black) 
-        }
+//          /**
+//          * Turn off all LEDs.
+//          * 
+//          */
+//         //% blockId="BLiXel_clear" block="clear"
+//         //% advanced=true
+//          function clear(): void {
+//             currentBLiXelBuffer.fill(0)
+//             showColour(BLiXelcolours.Black) 
+//         }
 
       
     /**
@@ -287,15 +288,15 @@ namespace BLiXel {
          
         // }
 
-        // /**
-        //  * Rotate LEDs forward.
-        //  * You need to call ``show`` to make the changes visible.
-        //  * @param offset number of pixels to rotate forward, eg: 1
-        //  */
-        // //% blockId="BLiXel_rotate" block="rotate pixels by $offset" blockGap=9
-        // export function rotate(offset: number = 1): void {
+//         // /**
+//         //  * Rotate LEDs forward.
+//         //  * You need to call ``show`` to make the changes visible.
+//         //  * @param offset number of pixels to rotate forward, eg: 1
+//         //  */
+//         // //% blockId="BLiXel_rotate" block="rotate pixels by $offset" blockGap=9
+//         // export function rotate(offset: number = 1): void {
   
-        // }
+//         // }
 
  
      
