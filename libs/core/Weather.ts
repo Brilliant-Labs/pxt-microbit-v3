@@ -1,21 +1,15 @@
-//-------------------------Click Board Weather -----------------------------------
+//------------------------- Click Board Weather -----------------------------------
 //% weight=100 color=#33BEBB icon="\uf185" block="Weather"
 //% advanced=true
 //% labelLineWidth=1002
 namespace Weather {
-    enum Weather_I2C_Address {
-        //% block="0x76"
-        ADDR_0x76 = 0x76,
-        //% block="0x77"
-        ADDR_0x77 = 0x77
-    }
-    enum Weather_T {
+    export enum Weather_T {
         //% block="C"
         T_C = 0,
         //% block="F"
         T_F = 1
     }
-    enum Weather_P {
+    export enum Weather_P {
         //% block="Pa"
         Pa = 0,
         //% block="hPa"
@@ -33,12 +27,10 @@ namespace Weather {
         //% block=">="
         above = 1
     }
-    enum PowerSettings {
+    export enum PowerSettings {
         On = 1,
         Off = 0
     }
-
-
 
     /**
      * Sets Weather object.
@@ -52,43 +44,55 @@ namespace Weather {
     //% weight=110
     export function createWeather(boardID: BoardID, clickID: ClickID): Weather {
         let obj = new Weather(boardID, clickID);
-        obj.Power(PowerSettings.On);
         return obj
     }
 
     export class Weather {
-        Weather_I2C_Addr: number;
-        dig_T1: number;
-        dig_T2: number;
-        dig_T3: number;
-        dig_P1: number;
-        dig_P2: number;
-        dig_P3: number;
-        dig_P4: number;
-        dig_P5: number;
-        dig_P6: number;
-        dig_P7: number;
-        dig_P8: number;
-        dig_P9: number;
-        dig_H1: number;
-        dig_H2: number;
-        dig_H3: number;
-        a: number;
-        dig_H4: number;
-        dig_H5: number;
-        dig_H6: number;
-        T: number;
-        P: number;
-        H: number;
+        private readonly Weather_I2C_Addr = 0x76;
+        private dig_T1: number;
+        private dig_T2: number;
+        private dig_T3: number;
+        private dig_P1: number;
+        private dig_P2: number;
+        private dig_P3: number;
+        private dig_P4: number;
+        private dig_P5: number;
+        private dig_P6: number;
+        private dig_P7: number;
+        private dig_P8: number;
+        private dig_P9: number;
+        private dig_H1: number;
+        private dig_H2: number;
+        private dig_H3: number;
+        private a: number;
+        private dig_H4: number;
+        private dig_H5: number;
+        private dig_H6: number;
 
-        myBoardID: BoardID
-        myClickID: ClickID
+        private readonly ADC_ADDR = 0xF7
+
+        private T:number = 0
+        private P:number = 0
+        private H:number = 0
+
+        private myBoardID: BoardID
+        private myClickID: ClickID
+        private myI2CAddress: number
 
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID
             this.myClickID = clickID
+            this.weather_Initialize()
+        }
 
-            this.Weather_I2C_Addr = Weather_I2C_Address.ADDR_0x76;
+        weather_Initialize() {
+            this.myI2CAddress = this.Weather_I2C_Addr
+
+            //config
+            this.setreg(0xF2, 0x04)
+            this.setreg(0xF5, 0x0C)
+            this.setreg(0xF4, 0x2F)
+
             this.dig_T1 = this.getUInt16LE(0x88);
             this.dig_T2 = this.getInt16LE(0x8A);
             this.dig_T3 = this.getInt16LE(0x8C);
@@ -108,78 +112,113 @@ namespace Weather {
             this.dig_H4 = (this.getreg(0xE4) << 4) + (this.a % 16);
             this.dig_H5 = (this.getreg(0xE6) << 4) + (this.a >> 4);
             this.dig_H6 = this.getInt8LE(0xE7);
-            this.setreg(0xF2, 0x04)
-            this.setreg(0xF4, 0x2F)
-            this.setreg(0xF5, 0x0C)
-            this.T = 0
-            this.P = 0
-            this.H = 0
         }
-        setreg(reg: number, dat: number): void {
-            let tempBuf = pins.createBuffer(2)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 0, reg)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, dat)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
+
+        setreg(register: number, value: number): void {
+            let i2cBuffer = pins.createBuffer(2)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
         }
-//TODO: Solve get
+
         getreg(reg: number): number {
-//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-            //I2Cs.i2cWriteNumber(this.Weather_I2C_Addr, reg, clickBoardNum, NumberFormat.UInt8BE, false)
-//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8BE))
-//            return bufr.getNumber(NumberFormat.UInt8BE, 0);
-            return 0;
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, reg, NumberFormat.UInt8BE, true, this.myBoardID, this.myClickID);
+            // let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, pins.sizeOf(NumberFormat.UInt8BE), this.myBoardID, this.myClickID)
+            let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 1, this.myBoardID, this.myClickID)
+            return bufr.getNumber(NumberFormat.UInt8BE, 0);
         }
 
         getInt8LE(reg: number): number {
-//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt8LE))
-//            return bufr.getNumber(NumberFormat.UInt8LE, 0);
-            return 0;
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, reg, NumberFormat.UInt8BE, true, this.myBoardID, this.myClickID);
+            // let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, pins.sizeOf(NumberFormat.UInt8LE), this.myBoardID, this.myClickID)
+            let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 1, this.myBoardID, this.myClickID)
+            return bufr.getNumber(NumberFormat.UInt8LE, 0);
         }
 
         getUInt16LE(reg: number): number {
-//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.UInt16LE))
-//            return bufr.getNumber(NumberFormat.UInt16LE, 0);
-            return 0;
-        }   
-
-        getInt16LE(reg: number): number {
-//            this.i2cWriteNumber(this.Weather_I2C_Addr, reg, NumberFormat.UInt8BE, true);
-//            let bufr = this.I2CreadNoMem(this.Weather_I2C_Addr, pins.sizeOf(NumberFormat.Int16LE))
-//            return bufr.getNumber(NumberFormat.Int16LE, 0);
-            return 0;   
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, reg, NumberFormat.UInt8BE, true, this.myBoardID, this.myClickID);
+            // let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, pins.sizeOf(NumberFormat.UInt16LE), this.myBoardID, this.myClickID)
+            let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 2, this.myBoardID, this.myClickID)
+            return bufr.getNumber(NumberFormat.UInt16LE, 0);
         }
 
-        get(): void {
-            let adc_T = (this.getreg(0xFA) << 12) + (this.getreg(0xFB) << 4) + (this.getreg(0xFC) >> 4)
+        getInt16LE(reg: number): number {
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, reg, NumberFormat.UInt8BE, true, this.myBoardID, this.myClickID);
+            // let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, pins.sizeOf(NumberFormat.Int16LE), this.myBoardID, this.myClickID)
+            let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 2, this.myBoardID, this.myClickID)
+            return bufr.getNumber(NumberFormat.Int16LE, 0);
+        }
+
+        getData(): void {
+
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, this.ADC_ADDR, NumberFormat.UInt8BE, true, this.myBoardID, this.myClickID);
+            let bufr = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 8, this.myBoardID, this.myClickID)
+            let adc_P = (bufr.getUint8(0) << 12) + (bufr.getUint8(1) << 4) + (bufr.getUint8(2) >> 4)
+            let adc_T = (bufr.getUint8(3) << 12) + (bufr.getUint8(4) << 4) + (bufr.getUint8(5) >> 4)
+            let adc_H = (bufr.getUint8(6) << 8) + (bufr.getUint8(7))
+
             let var1 = (((adc_T >> 3) - (this.dig_T1 << 1)) * this.dig_T2) >> 11
             let var2 = (((((adc_T >> 4) - this.dig_T1) * ((adc_T >> 4) - this.dig_T1)) >> 12) * this.dig_T3) >> 14
-            let t = var1 + var2
-            this.T = Math.idiv((t * 5 + 128) >> 8, 100)
-            var1 = (t >> 1) - 64000
+            this.T = (var1 + var2) / 5120
+
+            var1 = (this.T >> 1) - 64000
             var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * this.dig_P6
             var2 = var2 + ((var1 * this.dig_P5) << 1)
             var2 = (var2 >> 2) + (this.dig_P4 << 16)
             var1 = (((this.dig_P3 * ((var1 >> 2) * (var1 >> 2)) >> 13) >> 3) + (((this.dig_P2) * var1) >> 1)) >> 18
             var1 = ((32768 + var1) * this.dig_P1) >> 15
             if (var1 == 0)
-                return; // avoid exception caused by division by zero
-            let adc_P = (this.getreg(0xF7) << 12) + (this.getreg(0xF8) << 4) + (this.getreg(0xF9) >> 4)
-            let _p = ((1048576 - adc_P) - (var2 >> 12)) * 3125
-            _p = Math.idiv(_p, var1) * 2;
-            var1 = (this.dig_P9 * (((_p >> 3) * (_p >> 3)) >> 13)) >> 12
-            var2 = (((_p >> 2)) * this.dig_P8) >> 13
-            this.P = _p + ((var1 + var2 + this.dig_P7) >> 4)
-            let adc_H = (this.getreg(0xFD) << 8) + this.getreg(0xFE)
-            var1 = t - 76800
-            var2 = (((adc_H << 14) - (this.dig_H4 << 20) - (this.dig_H5 * var1)) + 16384) >> 15
-            var1 = var2 * (((((((var1 * this.dig_H6) >> 10) * (((var1 * this.dig_H3) >> 11) + 32768)) >> 10) + 2097152) * this.dig_H2 + 8192) >> 14)
-            var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * this.dig_H1) >> 4)
-            if (var2 < 0) var2 = 0
-            if (var2 > 419430400) var2 = 419430400
-            this.H = (var2 >> 12) >> 10
+                this.P = 0; // avoid exception caused by division by zero
+            else {
+                let var_P = ((1048576 - adc_P) - (var2 >> 12)) * 3125
+                var_P = Math.idiv(var_P, var1) * 2;
+                var1 = (this.dig_P9 * (((var_P >> 3) * (var_P >> 3)) >> 13)) >> 12
+                var2 = (((var_P >> 2)) * this.dig_P8) >> 13
+                this.P = var_P + ((var1 + var2 + this.dig_P7) >> 4)
+            }
+
+            let var_H = (this.T - 76800)
+            var_H = (adc_H - ((this.dig_H4) * 64 + (this.dig_H5) / 16384 * var_H)) * ((this.dig_H2) / 65536 * (1 + (this.dig_H6) / 67108864 * var_H * (1 + (this.dig_H3) / 67108864 * var_H)));
+            var_H = var_H * (1 - (this.dig_H1) * var_H / 524288);
+            if (var_H > 100.0)
+                var_H = 100.0;
+            else if (var_H < 0.0)
+                var_H = 0.0;
+            this.H = var_H
         }
+
+        // get(): void {
+        //     //TODO: Read T,P and H
+        //     let adc_T = (this.getreg(this.ADC_T1) << 12) + (this.getreg(this.ADC_T2) << 4) + (this.getreg(this.ADC_T3) >> 4)
+        //     let var1 = (((adc_T >> 3) - (this.dig_T1 << 1)) * this.dig_T2) >> 11
+        //     let var2 = (((((adc_T >> 4) - this.dig_T1) * ((adc_T >> 4) - this.dig_T1)) >> 12) * this.dig_T3) >> 14
+        //     let t = var1 + var2
+        //     this.T = Math.idiv((t * 5 + 128) >> 8, 100)
+
+        //     var1 = (t >> 1) - 64000
+        //     var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * this.dig_P6
+        //     var2 = var2 + ((var1 * this.dig_P5) << 1)
+        //     var2 = (var2 >> 2) + (this.dig_P4 << 16)
+        //     var1 = (((this.dig_P3 * ((var1 >> 2) * (var1 >> 2)) >> 13) >> 3) + (((this.dig_P2) * var1) >> 1)) >> 18
+        //     var1 = ((32768 + var1) * this.dig_P1) >> 15
+        //     if (var1 == 0)
+        //         return; // avoid exception caused by division by zero
+        //     let adc_P = (this.getreg(this.ADC_P1) << 12) + (this.getreg(this.ADC_P2) << 4) + (this.getreg(this.ADC_P3) >> 4)
+        //     let _p = ((1048576 - adc_P) - (var2 >> 12)) * 3125
+        //     _p = Math.idiv(_p, var1) * 2;
+        //     var1 = (this.dig_P9 * (((_p >> 3) * (_p >> 3)) >> 13)) >> 12
+        //     var2 = (((_p >> 2)) * this.dig_P8) >> 13
+        //     this.P = _p + ((var1 + var2 + this.dig_P7) >> 4)
+
+        //     let adc_H = (this.getreg(this.ADC_H1) << 8) + this.getreg(this.ADC_H2)
+        //     var1 = t - 76800
+        //     var2 = (((adc_H << 14) - (this.dig_H4 << 20) - (this.dig_H5 * var1)) + 16384) >> 15
+        //     var1 = var2 * (((((((var1 * this.dig_H6) >> 10) * (((var1 * this.dig_H3) >> 11) + 32768)) >> 10) + 2097152) * this.dig_H2 + 8192) >> 14)
+        //     var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * this.dig_H1) >> 4)
+        //     if (var2 < 0) var2 = 0
+        //     if (var2 > 419430400) var2 = 419430400
+        //     this.H = (var2 >> 12) >> 10
+        // }
 
         /**
          * get humidity
@@ -191,30 +230,8 @@ namespace Weather {
         //% this.shadow=variables_get
         //% this.defl="Weather"
         humidity(): number {
-            this.get();
-            return this.H;
-        }
-
-        HumidityBelowAbove(u: below_above, dat: number): boolean {
-            //this.get();
-            //control.inBackground(function () {
-            //    while (true) {
-            let retval = false
-            this.get()
-            if (u == below_above.below) {
-                if (this.H < dat) {
-                    retval = true
-                }
-            }
-            if (u == below_above.above) {
-                if (this.H > dat) {
-                    retval = true
-                }
-            }
-            //basic.pause(1000)
-            // }
-            return retval
-            // })
+            this.getData();
+            return Math.roundWithPrecision(this.H, 2);
         }
 
         /**
@@ -227,36 +244,36 @@ namespace Weather {
         //% this.shadow=variables_get
         //% this.defl="Weather"
         pressure(u: Weather_P): number {
-            this.get();
-            if (u == Weather_P.Pa) return this.P;
+            this.getData();
+            if (u == Weather_P.Pa) return Math.roundWithPrecision(this.P, 2);
             else if (u == Weather_P.hPa) return Math.idiv(this.P, 100)
-            else if (u == Weather_P.mmHg) return this.P * 0.00750062
-            else if (u == Weather_P.psi) return this.P * 0.000145038
+            else if (u == Weather_P.mmHg) return Math.roundWithPrecision(this.P * 0.00750062, 2)
+            else if (u == Weather_P.psi) return Math.roundWithPrecision(this.P * 0.000145038, 2)
             else return Math.idiv(this.P, 1000)
         }
 
-        PressureBelowAbove(u: below_above, dat: number): boolean {
-            //control.inBackground(function () {
-            //while (true) {
-            let retval = false
-            this.get()
-            if (u == below_above.below) {
-                if (this.P < dat) {
-                    //body()
-                    retval = true
-                }
-            }
-            if (u == below_above.above) {
-                if (this.P > dat) {
-                    //body()
-                    retval = true
-                }
-            }
-            //basic.pause(1000)
-            return retval
-            //}
-            //})
-        }
+        // PressureBelowAbove(u: below_above, dat: number): boolean {
+        //     //control.inBackground(function () {
+        //     //while (true) {
+        //     let retval = false
+        //     this.get()
+        //     if (u == below_above.below) {
+        //         if (this.P < dat) {
+        //             //body()
+        //             retval = true
+        //         }
+        //     }
+        //     if (u == below_above.above) {
+        //         if (this.P > dat) {
+        //             //body()
+        //             retval = true
+        //         }
+        //     }
+        //     //basic.pause(1000)
+        //     return retval
+        //     //}
+        //     //})
+        // }
 
         /**
          * get temperature
@@ -268,44 +285,9 @@ namespace Weather {
         //% this.shadow=variables_get
         //% this.defl="Weather"
         temperature(u: Weather_T): number {
-            this.get();
-            if (u == Weather_T.T_C) return this.T;
-            else return this.T * 9.0 / 5.0 + 32.0;
-        }
-
-        TemperatureBelowAbove(u: below_above, dat: number, TempUnits: Weather_T): boolean {
-            //control.inBackground(function () {
-            //    while (true) {
-            let retval = false
-            this.get()
-            let temp = TempUnits == Weather_T.T_C ? this.T : (32 + Math.idiv(this.T * 9, 5))
-            if (u == below_above.below) {
-                if (temp < dat) {
-                    retval = true
-                }
-            }
-            if (u == below_above.above) {
-                if (temp > dat) {
-                    retval = true
-                }
-            }
-            //basic.pause(1000)
-            //}
-            //})
-            return retval
-        }
-
-        /**
-         * set I2C address
-         */
-        //% blockId="Weather_SET_ADDRESS" block="$this set address $addr"
-        //% weight=20 blockGap=8
-        //% blockNamespace=Weather
-        //% this.shadow=variables_get
-        //% this.defl="Weather"
-        //% advanced=true
-        Address(addr: Weather_I2C_Address) {
-            this.Weather_I2C_Addr = addr
+            this.getData();
+            if (u == Weather_T.T_C) return Math.roundWithPrecision(this.T, 2);
+            else return Math.roundWithPrecision(this.T * 9.0 / 5.0 + 32.0, 2);
         }
 
         /**
@@ -332,10 +314,10 @@ namespace Weather {
         //% this.shadow=variables_get
         //% this.defl="Weather"
         Dewpoint(u: Weather_T): number {
-            this.get();
+            this.getData();
             let dewPoint = this.T - Math.idiv(100 - this.H, 5)
             dewPoint = u = Weather_T.T_C ? dewPoint : dewPoint * 9.0 / 5.0 + 32.0;
-            return dewPoint
+            return Math.roundWithPrecision(dewPoint, 2)
         }
     }
 }  
