@@ -86,15 +86,15 @@
         "uv3.ts",
         "Proximity_2.ts",
         "IR_Sense3.ts",
-        "IR_Distance_1080.ts",
-        "IR_Distance_20150.ts",
+        "IR_Distance_GP2Y0A.ts",
         "IR_Break_Beam.ts",
         "Servo.ts",
         "neopixel.ts",
         "ws2812b.ts",
         "AirQuality3.ts",
         "IrThermo_3.ts",
-        "Weather.ts"
+        "Weather.ts",
+        "LCD_Mini.ts"
     ],
     "testFiles": [],
     "public": true,
