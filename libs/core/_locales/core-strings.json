@@ -187,7 +187,7 @@
   "IR_Distance.createIR_Distance|block": "$boardID $clickID",
   "IR_Distance_GP2Y0A.IR_Distance_GP2Y0A.getDistance|block": "$this get distance",
   "IR_Distance_GP2Y0A.IR_Distance_GP2Y0A.getValue|block": "$this get value",
-  "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A|block": "$portID",
+  "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A|block": "$portID range $sensorType",
   "IR_Distance_GP2Y0A|block": "IR_Distance_GP2Y0A",
   "IR_Distance|block": "IR_Distance",
   "IR_Sense_3.IR_Sense.isHumanDetected|block": "$this human detected?",
