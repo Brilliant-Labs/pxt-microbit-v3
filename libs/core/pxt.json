@@ -94,7 +94,10 @@
         "AirQuality3.ts",
         "IrThermo_3.ts",
         "Weather.ts",
-        "LCD_Mini.ts"
+        "LCD_Mini.ts",
+        "heartrate.ts",
+        "sendBuffer.asm",
+        "setBufferMode.asm"
     ],
     "testFiles": [],
     "public": true,
