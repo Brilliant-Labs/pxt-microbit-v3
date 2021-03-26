@@ -16,6 +16,7 @@ namespace NFC_Tag_2 {
         four = 4
     }
 
+    
     /**
      * Sets NFC_Tag_2 Click object.
      * @param boardID the boardID
@@ -41,8 +42,9 @@ namespace NFC_Tag_2 {
         private readonly SRAM_START_REG = 0xF8
         private readonly SRAM_END_REG = 0xFB // just the first 8 bytes
 
-        private myBoardID: number
-        private myClickID: number
+        private myBoardID: BoardID
+        private myClickID: ClickID
+        private myI2CAddress: number
 
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
@@ -50,6 +52,7 @@ namespace NFC_Tag_2 {
         }
 
         initialize() {
+            this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             let arrayTest = this.readNT3H2111(16, 0) //Need to read the first page of the tag memory
             arrayTest[0] = this.DEFAULT_I2C_ADDRESS << 1 //Set the very first byte (the i2c address). The chip always returns 0x04 (manufacturer ID) and not the I2C address (0x55)
             arrayTest[12] = 225 //The last 4 bytes are part of the container and need to be set
@@ -150,7 +153,7 @@ namespace NFC_Tag_2 {
             }
             //TODO Add Address
             //            this.i2cWriteBuffer(this.DEFAULT_I2C_ADDRESS, i2cBuffer);
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress, i2cBuffer, this.myBoardID, this.myClickID)
         }
 
         //%blockId=NT3H2111_write
@@ -166,14 +169,12 @@ namespace NFC_Tag_2 {
             for (let i = 0; i < values.length; i++) {
                 i2cBuffer.setNumber(NumberFormat.UInt8LE, i + 1, values[i])
             }
-            //TODO:        this.i2cWriteBuffer(this.DEFAULT_I2C_ADDRESS, i2cBuffer);
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress, i2cBuffer, this.myBoardID, this.myClickID);
         }
 
         findI2C() {
             for (let i = 0; i < 128; i++) {
-                //                this.i2cWriteNumber(i, 0, NumberFormat.UInt8LE, false)
-                //                bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+                bBoard_Control.i2cWriteNumber(i, 0, NumberFormat.UInt8LE, false, this.myBoardID, this.myClickID)
             }
         }
 
@@ -185,9 +186,8 @@ namespace NFC_Tag_2 {
         //% this.shadow=variables_get
         //% this.defl="NFC_Tag"
         readNT3H2111(numBytes: number, register: number): number[] {
-            //TODO:            this.i2cWriteNumber(this.DEFAULT_I2C_ADDRESS, register, NumberFormat.UInt8LE, true)
-            //TODO:            let i2cBuffer = this.I2CreadNoMem(this.DEFAULT_I2C_ADDRESS, numBytes);
-            let i2cBuffer = pins.createBuffer(numBytes)
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress, register, NumberFormat.UInt8LE, true, this.myBoardID, this.myClickID)
+            let i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress, numBytes, this.myBoardID, this.myClickID);
             let dataArray: number[] = []; //Create an array to hold our read values
             for (let i = 0; i < numBytes; i++) {
                 dataArray[i] = i2cBuffer.getUint8(i); //Extract byte i from the buffer and store it in position i of our array
