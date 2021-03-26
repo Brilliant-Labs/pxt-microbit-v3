@@ -151,8 +151,6 @@ namespace NFC_Tag_2 {
                 }
                 i2cBuffer.setNumber(NumberFormat.UInt8LE, i + 1, byte)
             }
-            //TODO Add Address
-            //            this.i2cWriteBuffer(this.DEFAULT_I2C_ADDRESS, i2cBuffer);
             bBoard_Control.i2cWriteBuffer(this.myI2CAddress, i2cBuffer, this.myBoardID, this.myClickID)
         }
 
