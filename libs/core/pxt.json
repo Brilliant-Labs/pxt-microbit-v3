@@ -98,7 +98,8 @@
         "heartrate.ts",
         "sendBuffer.asm",
         "setBufferMode.asm",
-        "Touchpad.ts"
+        "Touchpad.ts",
+        "NFC_Tag_2.ts"
     ],
     "testFiles": [],
     "public": true,
