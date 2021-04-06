@@ -10,12 +10,12 @@ MakeCode's course for learning Computer Science with the micro:bit. This is a 14
 [{
   "name": "Intro to CS Online",
   "description": "Online edition of the Intro to Computer Science course",
-  "url":"/courses/csintro",
+  "url":"/docs/courses/csintro.html",
   "imageUrl": "/static/courses/csintro.jpg"
 }, {
   "name": "Intro to CS Classroom",
   "description": "Educator edition of the Intro to Computer Science course for the classroom, including complete downloadable materials",
-  "url":"/courses/csintro-educator",
+  "url":"/docs/courses/csintro-educator/html",
   "imageUrl": "/static/courses/csintro-educator.jpg"
 }]
 ```
@@ -28,7 +28,7 @@ Courses contributed by educators to teach computing, science, and technology in 
 [{
   "name": "Science Experiments",
   "description": "Science experiment lessons with measurements and data analysis activities",
-  "url":"/courses/ucp-science",
+  "url":"/docs/courses/ucp-science.html",
   "imageUrl": "/static/courses/ucp-science.jpg"
 }, {
   "name": "Learn All About micro:bit",
@@ -66,7 +66,7 @@ Tutorials, lessons, and mini-courses about programming and computing.
 }, {
   "name": "Logic Lab",
   "description": "Learn the basics of logic and conditional expressions.",
-  "url":"/courses/logic-lab",
+  "url":"/docs/courses/logic-lab.html",
   "imageUrl":"/static/courses/logic-lab.png"
 }]
 ```
@@ -79,7 +79,7 @@ Fun project courses - make and experiment while learning about science and progr
 [{
   "name": "Blocks to JavaScript",
   "description": "Learn to code using JavaScript",
-  "url": "/courses/blocks-to-javascript",
+  "url": "/docs/courses/blocks-to-javascript/html",
   "imageUrl": "/static/courses/blocks-to-javascript.png"
 }, {
   "name": "SparkFun Inventor's Kit",
