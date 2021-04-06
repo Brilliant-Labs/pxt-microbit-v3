@@ -96,8 +96,7 @@
         "Weather.ts",
         "LCD_Mini.ts",
         "sendBuffer.asm",
-        "setBufferMode.asm",
-        "Touchpad.ts"
+        "setBufferMode.asm"
     ],
     "testFiles": [],
     "public": true,
