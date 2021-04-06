@@ -95,12 +95,9 @@
         "IrThermo_3.ts",
         "Weather.ts",
         "LCD_Mini.ts",
-        "heartrate.ts",
         "sendBuffer.asm",
         "setBufferMode.asm",
-        "Touchpad.ts",
-        "NFC_Tag_2.ts",
-        "Touchpad_3.ts"
+        "Touchpad.ts"
     ],
     "testFiles": [],
     "public": true,
