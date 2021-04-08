@@ -27,7 +27,7 @@ The local server lets you to run the editor and serve the documentation from you
    Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
    (change `rename` by `mv` for Mac/Linux shells).
 ```
-git clone https://github.com/brilliant-labs/pxt-microbit-v3
+git clone https://github.com/hlopezbl/pxt-microbit-v3
 rename pxt-microbit-v3 pxt
 cd pxt-microbit
 git switch --track origin/code-canary_BL_stable3.0 
@@ -55,7 +55,7 @@ This is the typical setup used by the MakeCode team to work on the microbit.
    Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
    (change `rename` by `mv` for Mac/Linux shells).
 ```
-git clone https://github.com/brilliant-labs/pxt-v3
+git clone https://github.com/hlopezbl/pxt-v3
 rename pxt-v3 pxt
 cd pxt
 ```
@@ -68,7 +68,7 @@ cd ..
 ```
 5. Clone the pxt-common-packages repository
 ```
-git clone https://github.com/brilliant-labs/pxt-common-packages-v3
+git clone https://github.com/hlopezbl/pxt-common-packages-v3
 rename pxt-common-packages-v3 pxt-common-packages
 cd pxt-common-packages
 git switch --track origin/code-canary_BL_stable7.0 
@@ -77,12 +77,20 @@ cd ..
 ```
 6. Clone this repository.
 ```
-git clone https://github.com/brilliant-labs/bboard-tutorials-v3
+git clone https://github.com/hlopezbl/bboard-tutorials-v3
 rename bboard-tutorials-v3 bboard-tutorials
 
-git clone https://github.com/brilliant-labs/pxt-microbit-v3
+git clone https://github.com/hlopezbl/bboard-tutorials-cybersecurity-v3
+rename bboard-tutorials-cybersecurity-v3 bboard-tutorials-cybersecurity
+
+git clone https://github.com/hlopezbl/NFC_Tag_2
+git clone https://github.com/hlopezbl/ <click repo>
+
+git clone https://github.com/hlopezbl/pxt-microbit-v3
 rename pxt-microbit-v3 pxt-microbit
+
 cd pxt-microbit
+
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
@@ -106,7 +114,15 @@ pxt link ../pxt-common-packages
 
 cd docs/static/mb/projects/
 ln -s ../../../../../bboard-tutorials/
+ln -s ../../../../../bboard-tutorials-cybersecurity/
 cd ../../../../
+
+
+cd libs/core/click
+ln -s ../../../../NFC_Tag_2
+cd ../../../../
+
+
 ```
 Note the above command assumes the folder structure of   
 ```
