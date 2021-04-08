@@ -28,7 +28,7 @@ The local server lets you to run the editor and serve the documentation from you
    (change `rename` by `mv` for Mac/Linux shells).
 ```
 git clone https://github.com/hlopezbl/pxt-microbit-v3
-rename pxt-microbit-v3 pxt
+rename pxt-microbit-v3 pxt-microbit
 cd pxt-microbit
 git switch --track origin/code-canary_BL_stable3.0 
 ```
@@ -144,10 +144,16 @@ To install local htt server (add `sudo` for Mac/Linux shells):
 ```
 npm install -g http-server
 ```
+
 Any time you create a new staticpkg start the htt server using:
 ```
 pxt staticpkg
 http-server -c-1 built/packaged
+```
+
+Alternative could run using
+```
+pxt serve
 ```
 
 ### Cleaning
