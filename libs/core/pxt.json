@@ -96,7 +96,8 @@
         "Weather.ts",
         "LCD_Mini.ts",
         "sendBuffer.asm",
-        "setBufferMode.asm"
+        "setBufferMode.asm",
+        "NFC_Tag_2.ts"
     ],
     "testFiles": [],
     "public": true,
