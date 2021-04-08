@@ -33,6 +33,7 @@
   * [LCD MINI](docs/static/mb/projects/bboard-tutorials/lcd-mini/lcd-mini)
   * [NFC](docs/static/mb/projects/bboard-tutorials/nfc/nfc)
   * [WiFi BLE](docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-ble)
+* [b.Board Cyber Security](/projects/bboard-cybersec)
 * [Live Coding](/live-coding)
   * [Live Coding](https://mixer.com/MakeCode)
   * [Red Light Green Light](https://youtu.be/Cm22diu8CFA)
