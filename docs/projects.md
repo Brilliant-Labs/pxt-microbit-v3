@@ -33,6 +33,10 @@
         "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/touchpad/touchpadgif.gif"
     },
     {
+        "name": "b.Board Cyber Security",
+        "url": "/projects/bboard-cybersec"
+    },
+    {
         "name": "Live Coding",
         "url": "/live-coding",
         "imageUrl": "/static/live-coding/live.png"
@@ -117,6 +121,7 @@
 [ ](/projects/bboard2),
 [  ](/projects/bboard3),
 [   ](/projects/bboard4),
+[b.Board Cyber Security](/projects/bboard-cybersec),
 [Live Coding](/live-coding),
 [Games](/projects/games),
 [Radio Games](/projects/radio-games),
