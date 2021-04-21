@@ -8,21 +8,21 @@ Learn to use Clickboards with your @boardname@.
 
 ```codecard
 [{
-  "name": "Cyber Security 1",
-  "url":"docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_1/cyberSec_1",
-  "description": "Cyber Security 1",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_1/ir-distance-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/cybersec_1/cyberSec_1",
+  "name": "Activity 1",
+  "url":"docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md",
+  "description": "Activity 1",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_1/connect-microbit.gif",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/Activity_1.gif",
   "cardType": "side",
   "label": "Clickboards",
   "labelClass": "green ribbon med"
 }, 
 {
-  "name": "Cyber Security 2",
-  "url":"docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_2/cyberSec_2",
-  "description": "Cyber Security 2",
+  "name": "Activity 2",
+  "url":"docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_2/README.nd",
+  "description": "Activity 2",
   "imageUrl":"docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_2/tripwire.gif",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_2/IRpic.png",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_2/Activity_2.png",
   "cardType": "side",
   "label": "",
   "labelClass": ""
