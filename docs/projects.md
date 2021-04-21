@@ -34,7 +34,9 @@
     },
     {
         "name": "b.Board Cyber Security",
-        "url": "/projects/bboard-cybersec"
+        "url": "/projects/bboard-cybersec",
+        "imageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_1/connect-microbit.gif",
+        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/Activity_1.gif"
     },
     {
         "name": "Live Coding",

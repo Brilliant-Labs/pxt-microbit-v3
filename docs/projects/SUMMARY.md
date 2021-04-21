@@ -34,6 +34,8 @@
   * [NFC](docs/static/mb/projects/bboard-tutorials/nfc/nfc)
   * [WiFi BLE](docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-ble)
 * [b.Board Cyber Security](/projects/bboard-cybersec)
+  * [Activity 1](docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md)
+  * [Activity 2](docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_2/README.nd)
 * [Live Coding](/live-coding)
   * [Live Coding](https://mixer.com/MakeCode)
   * [Red Light Green Light](https://youtu.be/Cm22diu8CFA)
