@@ -9,7 +9,7 @@ Learn to use Clickboards with your @boardname@.
 ```codecard
 [{
   "name": "Neopixels + Button_G",
-  "url":"docs/static/mb/projects/bboard-tutorials/button-g",
+  "url":"docs/static/mb/projects/bboard-tutorials/button-g/button-g",
   "description": "Light up neopixels with the Button G Clickboard",
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/button-g/button_g.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/button-g/cover.gif",
