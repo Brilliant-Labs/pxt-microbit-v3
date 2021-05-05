@@ -50,6 +50,9 @@ Go to the **Running** section.
 This is the typical setup used by the MakeCode team to work on the microbit.
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
+    node v14.15.4 is prefered
+    npm v7.5.6 is prefered
+
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
    Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
@@ -105,10 +108,10 @@ npm install
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
-change `rmdir /Q /S` by `rm -rf` for Mac/Linux shells).
+change `rm -rf` by `rmdir /Q /S` for Mac/Linux shells).
 ```
-rmdir /Q /S node_modules/pxt-core/
-rmdir /Q /S node_modules/pxt-common-packages/
+rm -rf node_modules/pxt-core/
+rm -rf node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
 
