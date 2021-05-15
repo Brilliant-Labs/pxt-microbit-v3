@@ -28,11 +28,11 @@ Learn to use Clickboards with your @boardname@.
   "labelClass": ""
 },
 {
-  "name": "ISS + WiFi_BLE",
-  "url":"docs/static/mb/projects/bboard-tutorials/iss-wifi-ble/iss-wifi-ble",
-  "description": "Live ISS notifications with b.Board",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/iss-wifi-ble/wifi-ble-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/iss-wifi-ble/ISS_GIF.gif",
+  "name": "RELAY",
+  "url":"docs/static/mb/projects/bboard-tutorials/relay/relay",
+  "description": "Learn to use the Relay Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/relay/relay-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/relay/relay-gif.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""

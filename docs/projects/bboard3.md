@@ -9,16 +9,6 @@ Learn to use Clickboards with your @boardname@.
 ```codecard
 [
 {
-  "name": "STEPPER 5",
-  "url":"docs/static/mb/projects/bboard-tutorials/stepper-5/stepper-5",
-  "description": "Learn to use the Stepper 5 Clickboard",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/stepper-5/stepper-5-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/stepper-5/steppergif.gif",
-  "cardType": "side",
-  "label": "Clickboards",
-  "labelClass": "green ribbon med"
-},
-{
   "name": "SERVO",
   "url":"docs/static/mb/projects/bboard-tutorials/servo/servo",
   "description": "Learn to use the Servo Clickboard",
@@ -39,22 +29,32 @@ Learn to use Clickboards with your @boardname@.
   "labelClass": ""
 },
 {
-  "name": "MOTOR 3 Click",
-  "url":"docs/static/mb/projects/bboard-tutorials/motor-click-3/motor-click-3",
-  "description": "Learn to use the Motor Click 3 Clickboard",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/motor-click-3/motor-3-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/motor-click-3/fangif.gif",
+  "name": "IR THERMO 3",
+  "url":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3",
+  "description": "Learn to use the IR Sense 3 Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/ir-thermo-3/boilingGIF.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+},
+{
+  "name": "LCD MINI",
+  "url":"docs/static/mb/projects/bboard-tutorials/lcd-mini/lcd-mini",
+  "description": "Learn to use the LCD Mini Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/lcd-mini/lcd-mini-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/lcd-mini/lcdgif.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""
 },
 
 {
-  "name": "IR THERMO 3",
-  "url":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3",
-  "description": "Learn to use the IR Sense 3 Clickboard",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/ir-thermo-3/boilingGIF.gif",
+  "name": "NFC",
+  "url":"docs/static/mb/projects/bboard-tutorials/nfc/nfc",
+  "description": "Learn to use the NFC Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/nfc/nfc-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/nfc/nfc-gif.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""

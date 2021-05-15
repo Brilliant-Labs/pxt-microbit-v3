@@ -23,20 +23,20 @@
     {
         "name": "  ",
         "url": "/projects/bboard3",
-        "imageUrl": "docs/static/mb/projects/bboard-tutorials/stepper-5/stepper-5-click.jpg",
-        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/stepper-5/steppergif.gif"
+        "imageUrl": "docs/static/mb/projects/bboard-tutorials/servo/servo-click.jpg",
+        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/servo/servogif.gif"
     },
     {
         "name": "   ",
         "url": "/projects/bboard4",
-        "imageUrl": "docs/static/mb/projects/bboard-tutorials/touchpad/touchpad-click.jpg",
-        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/touchpad/touchpadgif.gif"
+        "imageUrl": "docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-ble-click.jpg",
+        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-click-gif.gif"
     },
     {
         "name": "b.Board Cyber Security",
         "url": "/projects/bboard-cybersec",
-        "imageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/cyberSec_1/connect-microbit.gif",
-        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/Activity_1.gif"
+        "imageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
+        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
     },
     {
         "name": "Live Coding",

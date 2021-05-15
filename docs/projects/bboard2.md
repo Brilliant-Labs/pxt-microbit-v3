@@ -29,17 +29,6 @@ Learn to use Clickboards with your @boardname@.
   "labelClass": ""
 },
 {
-  "name": "TEMP LOG 2",
-  "url":"docs/static/mb/projects/bboard-tutorials/temp-log-2/temp-log-2",
-  "description": "Learn to use the TEMP LOG 2 Clickboard",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/temp-log-2/temp-log-2-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/temp-log-2/hotdaygif.gif",
-  "cardType": "side",
-  "label": "",
-  "labelClass": ""
-},
-
-{
   "name": "LINE FOLLOWER",
   "url":"docs/static/mb/projects/bboard-tutorials/line-follower/line-follower",
   "description": "Learn to use the Line Follower Clickboard",
@@ -55,6 +44,17 @@ Learn to use Clickboards with your @boardname@.
   "description": "Learn to use the THERMO 6 Clickboard",
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/thermo-6/thermo-6-click.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/thermo-6/cold.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+},
+
+{
+  "name": "KEYLOCK",
+  "url":"docs/static/mb/projects/bboard-tutorials/keylock/keylock",
+  "description": "Learn to use the Keylock Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/keylock/keylock-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/keylock/keylock-gif.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""
