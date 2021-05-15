@@ -36,6 +36,7 @@ namespace Keylock {
 
         //% blockId=Keylock_getLockPosition
         //% block="$this Get lock position"
+        //% block.loc.fr="$this Obtenir la position de la serrure"
         //% weight=60 
         //% blockNamespace=Keylock 
         //% advanced=true
@@ -55,6 +56,7 @@ namespace Keylock {
 
         //% blockId=onKeylockPosition 
         //% block="$this on keylock $position" 
+        //% block.loc.fr="$this sur la serrure $position"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished

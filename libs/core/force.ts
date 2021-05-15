@@ -34,6 +34,7 @@ namespace Force {
          */
         //% blockId=force
         //% block="$this force"
+        //% block.loc.fr="$this force"
         //% help=Force/Force/forceclickstring
         //% advanced=false
         //% blockNamespace=Force

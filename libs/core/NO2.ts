@@ -16,6 +16,7 @@ namespace NO2 {
      * @param NO2 the NO2 Object
     */
     //% block=" $boardID $clickID with $sensitivity nA/ppm"
+    //% block.loc.fr=" $boardID $clickID avec $sensitivity nA/ppm"
     //% blockSetVariable="NO2"
     //% sensitivity.defl="-40"
     //% weight=110
@@ -69,8 +70,9 @@ namespace NO2 {
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
         }
 
-        //%blockId=NO2_ReadConcentration
-        //%block="Get $this NO2 concentration reading in ppm(parts per million)"
+        //% blockId=NO2_ReadConcentration
+        //% block="Get $this NO2 concentration reading in ppm(parts per million)"
+        //% block.loc.fr="Obtenir $this concentration NO2 en ppm (parties par million)"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=NO2

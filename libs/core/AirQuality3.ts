@@ -194,6 +194,7 @@ namespace Air_Quality_3 {
 
         //%blockId=CCS811Calibration
         //%block="Calibrate $this sensor to temperature $cTemp $degrees and humidity $fHumid"
+        //%block.loc.fr="Calibrer $this capteur à la température $cTemp $degrees et humidité $fHumid"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Air_Quality_3
@@ -217,6 +218,7 @@ namespace Air_Quality_3 {
 
         //%blockId=CCS811AirQuality
         //%block="Read $this $valueToRetrieve value"
+        //%block.loc.fr="Lire $this $valueToRetrieve valeur"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Air_Quality_3
@@ -246,6 +248,7 @@ namespace Air_Quality_3 {
 
         //%blockId=CCS811_write
         //%block="Write $this array $values to CCS811 register$register"
+        //%block.loc.fr="Écrire $this tableau $values à CCS811 inscrire$register"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Air_Quality_3
@@ -265,6 +268,7 @@ namespace Air_Quality_3 {
 
         //%blockId=CCS811_read
         //%block="$this Read $numBytes bytes from register$register"
+        //%block.loc.fr="$this Lire $numBytes bytes du registre$register"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Air_Quality_3

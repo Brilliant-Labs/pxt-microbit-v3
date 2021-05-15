@@ -221,7 +221,9 @@ namespace Weather {
         /**
          * get humidity
          */
-        //% blockId="Weather_GET_Humidity" block="$this humidity"
+        //% blockId="Weather_GET_Humidity" 
+        //% block="$this humidity"
+        //% block.loc.fr="$this humidité"
         //% weight=80 blockGap=8
         //% group="Humidity"
         //% blockNamespace=Weather
@@ -235,7 +237,9 @@ namespace Weather {
         /**
         * get pressure
         */
-        //% blockId="Weather_GET_Pressure" block="$this pressure $u"
+        //% blockId="Weather_GET_Pressure" 
+        //% block="$this pressure $u"
+        //% block.loc.fr="$this pression $u"
         //% weight=80 blockGap=8
         //% group="Pressure"
         //% blockNamespace=Weather
@@ -276,7 +280,9 @@ namespace Weather {
         /**
          * get temperature
          */
-        //% blockId="Weather_GET_Temperature" block="$this temperature $u"
+        //% blockId="Weather_GET_Temperature" 
+        //% block="$this temperature $u"
+        //% block.loc.fr="$this température $u"
         //% weight=80 blockGap=8
         //% group="Temperature"
         //% blockNamespace=Weather
@@ -291,7 +297,9 @@ namespace Weather {
         /**
          * power on
          */
-        //% blockId="Weather_POWER_ON" block="$this Power $power"
+        //% blockId="Weather_POWER_ON" 
+        //% block="$this Power $power"
+        //% block.loc.fr="$this Courant $power"
         //% weight=22 blockGap=8
         //% group="Power"
         //% advanced=true
@@ -306,6 +314,7 @@ namespace Weather {
          * Calculate Dewpoint
          */
         //% block="$this Dewpoint $u""
+        //% block.loc.fr="$this Point de rosée $u"
         //% weight=60 blockGap=8
         //% group="Dewpoint"
         //% blockNamespace=Weather

@@ -49,6 +49,7 @@ bBoard_Control.BLiX(BoardID.zero,BUILT_IN_PERIPHERAL,0,moduleIDs.MUSIC_module_id
   
   //% blockId=bBoardSound_Set_Tempo
   //% block="set frequencies tempo to (bpm)%BPM"
+  //% block.loc.fr="régler le tempo des fréquences sur (bpm)%BPM"
   //% BPM.defl="60"
   //% advanced=false
   export function setFrequenciesBPM(BPM: number) {
@@ -72,6 +73,7 @@ bBoard_Control.BLiX(BoardID.zero,BUILT_IN_PERIPHERAL,0,moduleIDs.MUSIC_module_id
 
   //% blockId=Play_Frequencies
   //% block="play frequencies $frequencies Hz"
+  //% block.loc.fr="jouer les fréquences $frequencies Hz"
   //% frequencies.defl=100,200,300
   //% advanced=false
   export function playFrequency(frequencies: number[]) {

@@ -38,6 +38,7 @@ namespace Relay {
 
         //% blockId=Relay_relayOnOff
         //% block="$this turn $onOff relay $relayNum"
+        //% block.loc.fr="$this éteindre $onOff relai $relayNum"
         //% advanced=false
         //% blockNamespace=Relay
         //% this.shadow=variables_get

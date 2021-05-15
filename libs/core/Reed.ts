@@ -34,6 +34,7 @@ namespace Reed {
 
         //% blockId=Reed_getSwitch
         //% block="$this is magnet detected"
+        //% block.loc.fr="$this aimant détecté"
         //% advanced=true
         //% blockNamespace=Reed
         //% this.shadow=variables_get
@@ -44,6 +45,7 @@ namespace Reed {
 
         //% blockId=onMagnetDetected 
         //% block="$this on magnet detected" 
+        //% block.loc.fr="$this quand aimant détecté"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished
