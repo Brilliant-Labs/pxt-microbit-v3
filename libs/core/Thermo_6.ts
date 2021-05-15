@@ -83,6 +83,7 @@ namespace Thermo_6 {
 
         //% blockId=Thermo6_getTempC
         //% block="$this Temperature in $units"
+        //% block.loc.fr="$this Obtenir la température en $units"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Thermo_6
@@ -96,6 +97,7 @@ namespace Thermo_6 {
 
         //% blockId=MAX31875_write
         //% block="$this Write $value to register $register"
+        //% block.loc.fr="$this Écrire $value à enregistrer $register"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Thermo_6
@@ -111,6 +113,7 @@ namespace Thermo_6 {
 
         //% blockId=MAX31875_read
         //% block="$this Read from register$register"
+        //% block.loc.fr="$this Lire l’enregistrement $register"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Thermo_6

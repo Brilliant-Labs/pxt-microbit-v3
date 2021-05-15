@@ -47,8 +47,9 @@ namespace IR_Sense_3 {
             this.writeAK9754([0x20, 0xff, 0xfc, 0xa9, 0xf8, 0x80, 0xfa, 0xf0, 0x81, 0x0c, 0x80, 0xf2, 0xff]) //Initialize the Config register
         }
 
-        //%blockId=AK9754_write
-        //%block="$this Write array $values to AK9754 register $register ?"
+        //% blockId=AK9754_write
+        //% block="$this Write array $values to AK9754 register $register ?"
+        //% block.loc.fr="$this Écrire liste $values à AK9754 enregistrer $register ?"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=IR_Sense_3
@@ -64,6 +65,7 @@ namespace IR_Sense_3 {
 
         //% blockId=onHumanDetected 
         //% block="$this on human detected" 
+        //% block.loc.fr="$this quand humain détecté"
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished
         //% this.defl="IR_Sense_3"
@@ -80,8 +82,9 @@ namespace IR_Sense_3 {
             }
         }
 
-        //%blockId=IR_Sense_3_isHumandDetected
-        //%block="$this human detected?"
+        //% blockId=IR_Sense_3_isHumandDetected
+        //% block="$this human detected?"
+        //% block.loc.fr="$this humain détecté?"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=IR_Sense_3
@@ -101,8 +104,9 @@ namespace IR_Sense_3 {
             return false
         }
 
-        //%blockId=AK9754_read
-        //%block="$this Read from register$register ?"
+        //% blockId=AK9754_read
+        //% block="$this Read from register$register ?"
+        //% block.loc.fr="$this Lire l’enregistrement$register ?"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=IR_Sense_3

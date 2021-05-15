@@ -41,7 +41,9 @@ let ​micInitialized = false;
     }
 ​
     //% blockId=onBLMicThresh 
-    //% block="on $soundLevel sound" blockAllowMultiple=0
+    //% block="on $soundLevel sound" 
+    //% block.loc.fr="allumé $soundLevel sound"
+    //% blockAllowMultiple=0
     //% afterOnStart=true                                       //This block will only execute after the onStart block is finished
     //% this.defl="bBoardMic"
     //% parts="bBoardMic"
@@ -62,6 +64,7 @@ let ​micInitialized = false;
 
     //% blockId=Mic_Enable
     //% block="microphone $enable"
+    //% block.loc.fr="microphone $enable"
     //% advanced=true
     export function micEnable(enable: bBoard_Mic.micState) {
         let data = [enable]
@@ -73,6 +76,7 @@ let ​micInitialized = false;
 ​
     //% blockId=Mic_baseline
     //% block="update microphone baseline"
+    //% block.loc.fr="mise à jour de la référence microphone"
     //% advanced=true
     export function micBaseline() {
         bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.AN, moduleIDs.MIC_module_id, functionID.setBaseline, [], null, 0)
@@ -80,6 +84,7 @@ let ​micInitialized = false;
 ​
     //% blockId=Mic_Sound_Level
     //% block="get sound level"
+    //% block.loc.fr="obtenir le niveau de bruit"
     //% advanced=false
     export function micSoundLevel(): number {
         micInit();
@@ -90,6 +95,7 @@ let ​micInitialized = false;
 ​
     //% blockId=Mic_Threshold_Flag
     //% block="has threshold been reached?"
+    //% block.loc.fr="le seuil a t-il été atteint?"
     //% advanced=true
     export function micThresholdFlag(): boolean {
        
@@ -101,6 +107,7 @@ let ​micInitialized = false;
 
     //% blockId=Mic_Set_Threshold
     //% block="set mic threshold level to %threshold"
+    //% block.loc.fr="définir le seuil du micro sur %threshold"
     //% threshold.defl=50
     //% advanced=true
     export function setThresholdLevel(threshold: number) {
@@ -117,6 +124,8 @@ let ​micInitialized = false;
 ​
     //% blockId=Clear_Threshold_Flag
     //% block="clear threshold flag"
+    //% block.loc.fr="effacer le seuil"
+    
     //% advanced=true
     export function clearThresholdFlag() {
         bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.AN, moduleIDs.MIC_module_id, functionID.clearThresholdFlag, [], null, 0)

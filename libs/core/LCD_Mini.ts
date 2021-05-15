@@ -208,6 +208,7 @@ namespace LCD_Mini {
          * @param lineNum the lineNum
          */
         //% block="$this Write a $LCDstring to line $lineNum"
+        //% block.loc.fr="$this Écrire $LCDstring sur la ligne $lineNum"
         //% blockId=LCDWriteString
         //% blockNamespace=LCD_Mini
         //% this.shadow=variables_get
@@ -227,6 +228,7 @@ namespace LCD_Mini {
 
         //% blockId=LCD_Clear
         //% block="Clear $this LCD"
+        //% block.loc.fr="Effacer l'écran $this LCD"
         //% weight=80
         //% blockGap=7
         //% blockNamespace=LCD_Mini

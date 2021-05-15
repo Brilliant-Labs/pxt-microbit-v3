@@ -37,6 +37,7 @@ namespace Motion {
 
         //% blockId=Motion_Enabled
         //% block="$this $enable motion"
+        //% block.loc.fr="$this $enable mouvement"
         //% advanced=true
         //% blockNamespace=Motion
         //% this.shadow=variables_get
@@ -48,6 +49,7 @@ namespace Motion {
 
         //% blockId=Motion_isDetected
         //% block="$this Has motion been detected?"
+        //% block.loc.fr="$this Est-ce que du mouvement a été détecté?",
         //% advanced=false
         //% blockGap=7
         //% advanced=true
@@ -63,6 +65,7 @@ namespace Motion {
 
         //% blockId=onMotionDetected 
         //% block="$this on motion detected" 
+        //% block.loc.fr="$this quand mouvement détecté"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished

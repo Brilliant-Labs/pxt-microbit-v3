@@ -33,6 +33,7 @@ namespace IR_Break_Beam {
 
         //% blockId=onIRBreakBeam 
         //% block="$this on $digitalPin $state" 
+        //% block.loc.fr="$this à $digitalPin $state"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished
