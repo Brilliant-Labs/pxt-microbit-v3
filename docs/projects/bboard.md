@@ -16,16 +16,6 @@ Learn to use Clickboards with your @boardname@.
   "cardType": "side",
   "label": "Clickboards",
   "labelClass": "green ribbon med"
-}, 
-{
-  "name": "Servo + Hallowe'en Fun!",
-  "url":"docs/static/mb/projects/bboard-tutorials/servo_halloween/servo_tutorial",
-  "description": "Use the b.Board's onboard servo rail!",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/servo_halloween/servo_hookup.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/servo_halloween/main_animation.gif",
-  "cardType": "side",
-  "label": "",
-  "labelClass": ""
 },
 {
   "name": "RELAY",
@@ -43,6 +33,16 @@ Learn to use Clickboards with your @boardname@.
   "description": "Learn to use the IR Distance Clickboard",
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/ir-distance/ir-distance-click.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/ir-distance/magicianGif.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+},
+{
+  "name": "IR THERMO 3",
+  "url":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3",
+  "description": "Learn to use the IR Sense 3 Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/ir-thermo-3/ir-thermo-3-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/ir-thermo-3/boilingGIF.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""
