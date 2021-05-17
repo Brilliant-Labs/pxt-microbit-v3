@@ -20,8 +20,10 @@ namespace DC_Motor3 {
 
     export enum MotorDirection {
         //% block="Forward"
+        //% block.loc.fr="Avant"
         Forward,
         //% block="Reverse"
+        //% block.loc.fr="En arrière"
         Reverse
     }
 
@@ -61,8 +63,11 @@ namespace DC_Motor3 {
 
         //% blockId=Motor_speedDirection
         //% block="$this set speed to %speed with direction%direction"
+        //% block.loc.fr="$this réglez la vitesse à %speed avec direction%direction"
         //% Speed.min=0 Speed.max=100
         //% advanced=false
+        //% this.shadow=variables_get
+        //% this.defl="DCMotor3"
         //% speed.min=0 speed.max=100
         motorSpeedDirection(speed: number, direction: MotorDirection): void {
             this.motorRotation(direction);
