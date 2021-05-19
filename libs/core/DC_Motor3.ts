@@ -48,6 +48,7 @@ namespace DC_Motor3 {
 
         initialize() {
             this.motorRotation(MotorDirection.Forward)
+            bBoard_Control.writePin(1, SLP, this.myBoardID, this.myClickID);
         }
 
         //------------------------Motor Click---------------------------------
@@ -58,7 +59,7 @@ namespace DC_Motor3 {
             if (Speed < 0) {
                 Speed = 0;
             }
-            bBoard_Control.PWMFrequency(clickPWMPin.PWM, Speed, this.myBoardID, this.myClickID);
+            bBoard_Control.setDuty(clickPWMPin.PWM, Speed, this.myBoardID, this.myClickID);
         }
 
         //% blockId=Motor_speedDirection
