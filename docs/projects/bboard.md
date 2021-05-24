@@ -48,6 +48,16 @@ Learn to use Clickboards with your @boardname@.
   "labelClass": ""
 },
 {
+  "name": "REED SENSOR",
+  "url":"docs/static/mb/projects/bboard-tutorials/reed-sensor/reed-sensor",
+  "description": "Learn to use the Reed Sensor Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/reed-sensor/reed-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/reed-sensor/reedswitchgif.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+},
+{
   "name": "IR SENSE 3 Click",
   "url":"docs/static/mb/projects/bboard-tutorials/ir-sense-3/ir-sense-3",
   "description": "Learn to use the IR Sense 3 Clickboard",

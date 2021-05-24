@@ -15,18 +15,8 @@ Learn to use Clickboards with your @boardname@.
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/servo/servo-click.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/servo/servogif.gif",
   "cardType": "side",
-  "label": "",
-  "labelClass": ""
-},
-{
-  "name": "REED SENSOR",
-  "url":"docs/static/mb/projects/bboard-tutorials/reed-sensor/reed-sensor",
-  "description": "Learn to use the Reed Sensor Clickboard",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials/reed-sensor/reed-click.jpg",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/reed-sensor/reedswitchgif.gif",
-  "cardType": "side",
-  "label": "",
-  "labelClass": ""
+  "label": "Clickboards",
+  "labelClass": "green ribbon med"
 },
 {
   "name": "IR THERMO 3",
@@ -48,7 +38,6 @@ Learn to use Clickboards with your @boardname@.
   "label": "",
   "labelClass": ""
 },
-
 {
   "name": "NFC",
   "url":"docs/static/mb/projects/bboard-tutorials/nfc/nfc",
@@ -58,7 +47,17 @@ Learn to use Clickboards with your @boardname@.
   "cardType": "side",
   "label": "",
   "labelClass": ""
-}
+},
+  {
+  "name": "WEATHER Click",
+  "url":"docs/static/mb/projects/bboard-tutorials/weather/weather",
+  "description": "Learn to use the Weather 3 Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/weather/weather-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/weather/weather-click.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+  }
 
 ]
 ```
