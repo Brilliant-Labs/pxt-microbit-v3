@@ -325,7 +325,7 @@ namespace bBoard_WiFi {
     // -------------- 3. Cloud ----------------
     //% blockId=subscribeBLMQTT
     //% block="| BL MQTT subscribe to project key $topic"
-    //% block="| BL MQTT s'abonner à la clé du projet $topic",
+    //% block.loc.fr="| BL MQTT s'abonner à la clé du projet $topic",
     //% group="MQTT"
     //% subcategory="Brilliant Labs Cloud"
     //% weight=199   
