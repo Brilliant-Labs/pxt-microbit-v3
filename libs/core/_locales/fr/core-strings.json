@@ -560,7 +560,7 @@
   "bBoard_Motor.motorLeftDuty|block": "églez la vitesse du moteur gauche à$duty \\%",
   "bBoard_Motor.motorLeftTimed|block": "réglez la vitesse du moteur gauche à$duty \\% for$waitTime (ms)",
   "bBoard_Motor.motorRightDuty|block": "réglez la vitesse du moteur droit à$duty \\%",
-  "bBoard_Motor.motorRightTimed|block": "réglez la vitesse du moteur droit ràduty \\% for$waitTime (ms)",
+  "bBoard_Motor.motorRightTimed|block": "réglez la vitesse du moteur droit à$duty \\% for$waitTime (ms)",
   "bBoard_Motor.motorTimed|block": "réglez la vitesse des deux moteurs sur$duty \\% for$waitTime (ms)",
   "bBoard_Motor|block": "bBoard_Moteur",
   "bBoard_Sound.playFrequency|block": "jouer les fréquences $frequencies Hz",
