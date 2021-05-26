@@ -69,7 +69,7 @@ namespace bBoard_Motor {
      */
     //% blockId=bBoard_Motor_motorRightTimed
     //% block="set right motor speed to$duty \\% for$waitTime (ms)"
-    //% block.loc.fr="réglez la vitesse du moteur droit ràduty \\% for$waitTime (ms)"
+    //% block.loc.fr="réglez la vitesse du moteur droit xxx à$duty \\% for$waitTime (ms)"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
