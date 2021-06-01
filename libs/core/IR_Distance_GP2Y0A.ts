@@ -85,7 +85,7 @@ namespace IR_Distance_GP2Y0A {
 
         //% blockId=IRDistance1080_getValue
         //% block="$this get value"
-        //% block="$this obtenir la valeur"
+        //% block.loc.fr="$this obtenir la valeur"
         //% advanced=true
         //% blockNamespace=IR_Distance_GP2Y0A
         //% this.shadow=variables_get
