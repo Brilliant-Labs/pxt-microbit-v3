@@ -359,6 +359,7 @@
   "bBoard_Control.spiCS": "Set the SPI Chip Select Pin",
   "bBoard_Control.spiFrequency": "Set the SPI frequency",
   "bBoard_Control.spiFrequency|param|frequency": "the clock frequency, eg: 1000000",
+  "bBoard_Motor.motorDuty": "motor set duty",
   "bBoard_Motor.motorEnable": "Allows you to disable and enable the motor driver on the b.Board",
   "bBoard_Motor.motorLeftDuty": "motor set duty",
   "bBoard_Motor.motorLeftTimed": "Set left motor to a speed for an amount of time",
