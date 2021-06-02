@@ -204,6 +204,10 @@
   "String@type": "Combine, split, and search text strings.",
   "StringMap": "A dictionary from string key to string values",
 
+  "Temp_Log_2.createTemp_Log_2": "Sets Temp_Log_2 Click object.",
+  "Temp_Log_2.createTemp_Log_2|param|boardID": "the boardID",
+  "Temp_Log_2.createTemp_Log_2|param|clickID": "the ClickID",
+
   "bBoard": "Custom clickBoard",
   "bBoard.UARTFrequency": "Set the UART frequency",
   "bBoard.UARTFrequency|param|frequency": "the clock frequency, eg: 115200",
