@@ -473,6 +473,11 @@
   "String.substr|block": "substring of %this=text|from %start|of length %length",
   "String|block": "String",
 
+  "Temp_Log_2.Temp_Log_2.readTemperatureC|block": "$this Obtenir la température en Celcius",
+  "Temp_Log_2.Temp_Log_2.readTemperatureF|block": "$this Obtenir la température en Fahrenheit",
+  "Temp_Log_2.createTemp_Log_2|block": " $boardID $clickID",
+  "Temp_Log_2|block": "Temp_Log_2",
+
   "Thermo_6.TempUnits.C|block": "C",
   "Thermo_6.TempUnits.F|block": "F",
   "Thermo_6.Thermo_6.getTemp|block": "$this Obtenir la température en $units",
