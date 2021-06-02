@@ -518,7 +518,7 @@ function BLMQTTEvent(feedName:string,a:(data:number)=>void)
 {
 
 let feedData = getBLMQTTMessage(feedName)
-if(feedData)
+if(feedData != null)
 {
 
     a(feedData)
