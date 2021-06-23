@@ -456,7 +456,7 @@
   "Rotation.Roll|block": "roll",
 
   "Servo.Servo.readPCA9685|block": "$this lire l’enregistrement%register",
-  "Servo.Servo.setServoAngle|block": "$this définir servo %n to %angle",
+  "Servo.Servo.setServoAngle|block": "$this définir servo numéro %n à %angle degrés",
   "Servo.createServo|block": " $boardID $clickID",
   "Servo|block": "Servo",
 
@@ -562,7 +562,7 @@
   "bBoard_Mic.onMicThresh|block": "allumé $soundLevel sound",
   "bBoard_Mic.setThresholdLevel|block": "définir le seuil du micro sur %threshold",
   "bBoard_Motor.motorEnable|block": "pilote de moteur %enable",
-  "bBoard_Motor.motorLeftDuty|block": "églez la vitesse du moteur gauche à$duty \\%",
+  "bBoard_Motor.motorLeftDuty|block": "réglez la vitesse du moteur gauche à$duty \\%",
   "bBoard_Motor.motorLeftTimed|block": "réglez la vitesse du moteur gauche à$duty \\% for$waitTime (ms)",
   "bBoard_Motor.motorRightDuty|block": "réglez la vitesse du moteur droit à$duty \\%",
   "bBoard_Motor.motorRightTimed|block": "réglez la vitesse du moteur droit à$duty \\% for$waitTime (ms)",

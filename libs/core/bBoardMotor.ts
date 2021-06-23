@@ -118,7 +118,7 @@ namespace bBoard_Motor {
      * motor set duty
      */
     //% block="set left motor speed to$duty \\%"
-    //% block.loc.fr="églez la vitesse du moteur gauche à$duty \\%"
+    //% block.loc.fr="réglez la vitesse du moteur gauche à$duty \\%"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% advanced=false

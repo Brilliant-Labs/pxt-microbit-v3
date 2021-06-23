@@ -1,8 +1,45 @@
 //------------------------- Click Board Servo -----------------------------------
-//% weight=100 color=#FF2F92 icon=""
+//% weight=100 
+//% color=#FF2F92 
+//% icon=""
 //% advanced=true
 //% labelLineWidth=1005
 namespace Servo {
+
+    export enum servoNUM {
+        //% block="servo 1"
+        Servo_1 = 1,
+        //% block="servo 2"
+        Servo_2 = 2,
+        //% block="servo 3"
+        Servo_3 = 3,
+        //% block="servo 4"
+        Servo_4 = 4,
+        //% block="servo 5"
+        Servo_5 = 5,
+        //% block="servo 6"
+        Servo_6 = 6,
+        //% block="servo 7"
+        Servo_7 = 7,
+        //% block="servo 8"
+        Servo_8 = 8,
+        //% block="servo 9"
+        Servo_9 = 9,
+        //% block="servo 10"
+        Servo_10 = 10,
+        //% block="servo 11"
+        Servo_11 = 11,
+        //% block="servo 12"
+        Servo_12 = 12,
+        //% block="servo 13"
+        Servo_13 = 13,
+        //% block="servo 14"
+        Servo_14 = 14,
+        //% block="servo 15"
+        Servo_15 = 15,
+        //% block="servo 16"
+        Servo_16 = 16
+    }
 
     /**
      * Sets Servo Click object.
@@ -74,16 +111,20 @@ namespace Servo {
         }
 
         //% blockId=Servo_Angle
-        //% block="$this set servo %n to %angle"
-        //% block.loc.fr="$this définir servo %n to %angle"
+        //% block="$this set servo number %n to %angle degrees"
+        //% block.loc.fr="$this définir servo numéro %n à %angle degrés"
+        //% angle.shadow="protractorPicker"
+        //% angle.defl=90
         //% blockGap=7
+        //% servoNumber.fieldEditor="gridpicker"
+        //% servoNumber.fieldOptions.width=220
+        //% servoNumber.fieldOptions.columns=4
         //% advanced=false
         //% this.shadow=variables_get
         //% this.defl="Servo"
-        //% servoNumber.min=1 servoNumber.max=16
         //% servoNumber.defl=1
-        setServoAngle(servoNumber: number, angle: number) {
-            servoNumber = Math.clamp(1, 16, servoNumber)
+        setServoAngle(servoNumber: servoNUM, angle: number) {
+            // servoNumber = Math.clamp(1, 16, servoNumber)
             let angleMin = 0
             let angleMax = 180
             let pulseMin = 1000
@@ -96,14 +137,18 @@ namespace Servo {
 
         //% blockId=Servo_AngleAdjusted
         //% temp_block="$this set servo %n to %angle with pulse range min %pulseMin and max %pulseMax"
+        //% angle.shadow="protractorPicker"
+        //% angle.defl=90
         //% blockGap=7
+        //% servoNumber.fieldEditor="gridpicker"
+        //% servoNumber.fieldOptions.width=220
+        //% servoNumber.fieldOptions.columns=4
         //% advanced=true
         //% this.shadow=variables_get
         //% this.defl="Servo"
-        //% servoNumber.min=1 servoNumber.max=16
         //% servoNumber.defl=1
         // TODO: Enable this func
-        setServoAngleAdjusted(servoNumber: number, angle: number, pulseMin: number, pulseMax: number) {
+        setServoAngleAdjusted(servoNumber: servoNUM, angle: number, pulseMin: number, pulseMax: number) {
             let angleMin = 0
             let angleMax = 180
             let angleRange = (angleMax - angleMin)
