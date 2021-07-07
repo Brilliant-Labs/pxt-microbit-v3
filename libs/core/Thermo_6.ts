@@ -70,8 +70,12 @@ namespace Thermo_6 {
         private myClickID: number
 
         constructor(boardID: BoardID, clickID: ClickID) {
-            this.myBoardID = boardID
+            this.myBoardID = boardID;
             this.myClickID = clickID;
+            this.thermo_6_initialize();
+        }
+
+        thermo_6_initialize() {
             this.writeMAX31875(this.CONFIG_REG, this.CONFIG_VAL) 
         }
 
