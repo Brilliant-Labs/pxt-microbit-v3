@@ -97,7 +97,7 @@
         "LCD_Mini.ts",
         "sendBuffer.asm",
         "setBufferMode.asm",
-        "NFC_Tag_2.ts"
+        "./click/NFC_Tag_2/NFC_Tag_2.ts"
     ],
     "testFiles": [],
     "public": true,
