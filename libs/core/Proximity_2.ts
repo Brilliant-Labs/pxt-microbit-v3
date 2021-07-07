@@ -20,7 +20,7 @@ namespace Proximity_2 {
     }
 
     export class Proximity_2 {
-        private readonly DEFAULT_I2C_ADDRESS = 0b1001010
+        private readonly DEFAULT_I2C_ADDRESS = 0x94
         private readonly INTERRUPT_STATUS = 0x00
         private readonly MAIN_CONFIGURATION = 0x01
         private readonly RECEIVE_CONFIGURATION = 0x02
@@ -56,6 +56,15 @@ namespace Proximity_2 {
             this.Write_proximity_2_Register(this.TRANSMIT_CONFIGURATION, 0b00001111);
         }
 
+        // Write byte 'byte' to register 'reg'
+        Write_proximity_2_Register(register: number, value: number) {
+            let i2cBuffer = pins.createBuffer(3)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, register)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, value)
+            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+        }
+
         //%blockId=proximity_2_ReadProximity
         //%block="$this proximity"
         //% blockGap=7
@@ -81,19 +90,11 @@ namespace Proximity_2 {
             return val * 0x03125; //Assumption that ALSPGA == 0. 0.03125 Lux per LSB
         }
 
-        // Write byte 'byte' to register 'reg'
-        Write_proximity_2_Register(register: number, value: number) {
-            let i2cBuffer = pins.createBuffer(2)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
-        }
-
         // Read a byte from register 'reg'
         Read_proximity_2_Register(register: number): number {
             let tempBuf = pins.createBuffer(2);
             tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
+            tempBuf.setNumber(NumberFormat.UInt8LE, 1, register)
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
 
             let i2cBuffer = pins.createBuffer(1);
