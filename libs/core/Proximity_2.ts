@@ -37,8 +37,8 @@ namespace Proximity_2 {
         private readonly DIGITAL_GAIN_TRIM_GREEN = 0x0F
         private readonly DIGITAL_GAIN_TRIM_INFRARED = 0x10
 ​
-        private myBoardID: number
-        private myClickID: number
+        private myBoardID: BoardID
+        private myClickID: ClickID
         private myI2CAddress:number
 ​
         constructor(boardID: BoardID, clickID: ClickID) {
