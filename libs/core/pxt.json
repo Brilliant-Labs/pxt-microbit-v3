@@ -87,7 +87,8 @@
         "Proximity_2.ts",
         "IR_Sense3.ts",
         "IrThermo_3.ts",
-        "IR_Distance_1080.ts"      
+        "IR_Distance_1080.ts",
+        "IR_Distance_20150.ts"      
     ],
     "testFiles": [],
     "public": true,
