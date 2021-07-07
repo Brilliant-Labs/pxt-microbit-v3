@@ -65,6 +65,7 @@ namespace Thermo_6 {
         //
         //Set PEC to off, 12 bit resolution and 8 samples/second
         private readonly CONFIG_VAL = 0x0066
+        private myI2CAddress:number
 
         private myBoardID: number
         private myClickID: number
@@ -76,6 +77,7 @@ namespace Thermo_6 {
         }
 
         thermo_6_initialize() {
+            this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             this.writeMAX31875(this.CONFIG_REG, this.CONFIG_VAL) 
         }
 
@@ -100,12 +102,11 @@ namespace Thermo_6 {
         //% this.shadow=variables_get
         //% this.defl="Thermo_6"
         writeMAX31875(register: number, value: number) {
-            let i2cBuffer = pins.createBuffer(4)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, register)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, value >> 8)
-            i2cBuffer.setNumber(NumberFormat.UInt8LE, 3, value & 0xFF)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
+            let i2cBuffer = pins.createBuffer(3)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value >> 8)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, value & 0xFF)
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
         }
 
         //% blockId=MAX31875_read
@@ -116,14 +117,9 @@ namespace Thermo_6 {
         //% this.shadow=variables_get
         //% this.defl="Thermo_6"
         readMAX31875(register: number): number {
-            let tempBuf = pins.createBuffer(3)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
-
             let i2cBuffer = pins.createBuffer(2);
-            i2cBuffer = bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_READ_NO_MEM_id, [this.DEFAULT_I2C_ADDRESS, 2], null, 2)
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,2,this.myBoardID,this.myClickID);           
             let sReturn = Math.roundWithPrecision(i2cBuffer.getNumber(NumberFormat.Int16BE, 0), 1)
             return sReturn
         }
