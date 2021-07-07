@@ -8,7 +8,7 @@
   * [Love Meter](/projects/love-meter)
   * [Micro Chat](/projects/micro-chat)
 * [b.Board Tutorials](/projects/bboard)
-  * [Neopixels + Button_G](docs/static/mb/projects/bboard-tutorials/button-g)
+  * [Neopixels + Button_G](docs/static/mb/projects/bboard-tutorials/button-g/button-g)
   * [Servo + Hallowe'en Fun!](docs/static/mb/projects/bboard-tutorials/servo_halloween/servo_tutorial)
   * [ISS + WiFi_BLE](docs/static/mb/projects/bboard-tutorials/iss-wifi-ble/iss-wifi-ble)
   * [IR Distance Click](docs/static/mb/projects/bboard-tutorials/ir-distance/ir-distance)
