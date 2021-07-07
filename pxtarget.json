@@ -1,5 +1,5 @@
 {
-    "id": "microbit",
+    "id": "bBoard",
     "nickname": "bBoard",
     "name": "code.brilliantlab.ca",
     "title": "Brilliant Labs bBoard for micro:bit with MakeCode",
@@ -36,8 +36,8 @@
         "driveName": "MICROBIT",
         "hexMimeType": "application/x-microbit-hex",
         "openocdScript": "source [find interface/cmsis-dap.cfg]; source [find target/nrf51.cfg]",
-        "flashUsableEnd": 300000,
-        "flashEnd": 300000,
+        "flashUsableEnd": 242688,
+        "flashEnd": 242688,
         "flashCodeAlign": 1024,
         "floatingPoint": true,
         "taggedInts": true,
