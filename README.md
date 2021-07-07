@@ -67,6 +67,7 @@ npm run build
 cd ..
 ```
 5. Clone the pxt-common-packages repository
+   (change `mv` by `rename` for Windows shells).
 ```
 git clone https://github.com/Brilliant-Labs/pxt-common-packages-v3
 mv pxt-common-packages-v3 pxt-common-packages
@@ -76,6 +77,7 @@ npm install
 cd ..
 ```
 6. Clone this repository.
+   (change `mv` by `rename` for Windows shells).
 ```
 git clone https://github.com/Brilliant-Labs/bboard-tutorials-v3
 mv bboard-tutorials-v3 bboard-tutorials
@@ -105,10 +107,10 @@ npm install
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
-change `rmdir /Q /S` by `rm -rf` for Mac/Linux shells).
+change `rm -rf` by `rmdir /Q /S` for Windows shells).
 ```
-rmdir /Q /S node_modules/pxt-core/
-rmdir /Q /S node_modules/pxt-common-packages/
+rm -rf /Q /S node_modules/pxt-core/
+rm -rf /Q /S node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
 
