@@ -1,4 +1,3 @@
-
 //-------------------------Click Board NO2 -----------------------------------
 //% weight=100 color=#33BEBB icon=""
 //% labelLineWidth=1002
@@ -32,8 +31,10 @@ namespace NO2 {
 
         private readonly DEFAULT_I2C_ADDRESS = 0x48
         private readonly Vadc_3 = 3.3 / 4096
+
         private myBoardID: number
         private myClickID: number
+        private myI2CAddress:number
         private sensitivity: number
 
         constructor(boardID: BoardID, clickID: ClickID, sensitivity: number) {
@@ -44,6 +45,7 @@ namespace NO2 {
         }
 
         NO2_Initialize() {
+            this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             bBoard_Control.clearPin(clickIOPin.RST, this.myBoardID, this.myClickID) // enable device
 
             //this.isInitialized[this.myBoardIDT] = 1;
@@ -107,13 +109,10 @@ namespace NO2 {
 
         // Read a byte from register 'reg'
         Read_NO2_Register(register: number): number {
-            let tempBuf = pins.createBuffer(2);
-            tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
-
-            return bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_READ_NO_MEM_id, [this.DEFAULT_I2C_ADDRESS, 2], null, 2).getUint8(0)
+            let i2cBuffer = pins.createBuffer(2);
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,1,this.myBoardID,this.myClickID);           
+            return i2cBuffer.getUint8(0)
         }
 
         no2_readADC(): number {
