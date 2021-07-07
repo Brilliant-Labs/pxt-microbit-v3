@@ -398,7 +398,6 @@ namespace bBoard_Control {
         let eventMask = 0;
         let currentClickMask = 0;
         let currentEventMask = 0;
-        let clickAddressID = 1;
         let clickID = 0;
         let boardID = 0;
 
@@ -423,17 +422,18 @@ namespace bBoard_Control {
                             currentClickMask = (clickMask & (0x0001 << clickIndex));
                             if (currentClickMask) {
                                 clickMask = clickMask & ~(0x0001 << clickIndex)
-                                boardID = Math.idiv(clickAddressID,3)
-                                clickID = clickAddressID%3
+                                boardID = Math.idiv(clickIndex,3)
+                                clickID = clickIndex%3
 
                                 eventMask = getInterruptSource(boardID, clickID)
-           
+                        
                                 for (let eventIndex = 0; eventIndex < 64; eventIndex++) {
                                     if (eventMask == 0) {
                                         break;
                                     }
                                     if ((eventMask & (0x0001 << eventIndex))) {
-                                       
+                                   
+
                                         eventMask = eventMask & ~(0x0001 << eventIndex)
                                         currentEventMask = 0x0001 << eventIndex
                                
