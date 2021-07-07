@@ -95,11 +95,11 @@ namespace Temp_Log_2 {
             this.writeTMP116(this.TMP116_REG_HIGH_LIMIT, (limit / 0.0078125))
         }
 
-        writeLowLimit(limit: number, boardID: BoardID) {
+        writeLowLimit(limit: number) {
             this.writeTMP116(this.TMP116_REG_LOW_LIMIT, (limit / 0.0078125))
         }
 
-        readDeviceId(boardID: BoardID): number {
+        readDeviceId(): number {
             return (this.readTMP116(this.TMP116_REG_DEVICE_ID))
         }
     }
