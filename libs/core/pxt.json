@@ -97,7 +97,8 @@
         "LCD_Mini.ts",
         "heartrate.ts",
         "sendBuffer.asm",
-        "setBufferMode.asm"
+        "setBufferMode.asm",
+        "Touchpad.ts"
     ],
     "testFiles": [],
     "public": true,
