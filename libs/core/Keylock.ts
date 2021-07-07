@@ -65,12 +65,5 @@ namespace Keylock {
             bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, parseInt(position.toString()), bBoardEventsMask.CN_HIGH) //Tell the BLiX which pin you want to monitor for high or low
             control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID,this.myClickID,bBoardEvents.CN_HIGH),position, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
         }
-
-        motionEvent(position: Keylock.KeyPosition, a: () => void) //A Change notification interrupt has occured, but that could mean any pin on the PORT our interrupt is monitoring
-        {
-        
-                a() //Call the code that the user provided in the onButtonState block
-            
-        }
     }
 }
