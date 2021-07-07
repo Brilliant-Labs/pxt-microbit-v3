@@ -73,9 +73,5 @@ namespace Keylock {
                 a() //Call the code that the user provided in the onButtonState block
             }
         }
-
-
-
-
     }
 }
