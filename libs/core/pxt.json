@@ -75,7 +75,9 @@
         "Motion.ts",
         "Keylock.ts",
         "Reed.ts",
-        "Water_Detect.ts"
+        "Water_Detect.ts",
+        "Thermo_6.ts",
+        "CO_2.ts"
     ],
     "testFiles": [],
     "public": true,
