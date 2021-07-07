@@ -258,10 +258,9 @@ let STATUS_INTERRUPT_ENABLE_CN_LOW_SET = 0x0F//Set which pin(s) can trigger a CN
 let STATUS_INTERRUPT_ENABLE_CN_LOW_CLR = 0x10 //Clear which pin(s) can trigger a CN Low Interrupt event
 
 // PWM Function Ids
-let PWM_VAL_id = 1
-let PWM_PR_id = 2
-let PWM_channel_id
-let PWM_dutyCycle
+let PWM_Duty_id = 1
+let PWM_Period_id = 2
+
 
 //BLiXel Function IDs
 
@@ -600,11 +599,6 @@ namespace bBoard_Control {
     let STATUS_INTERRUPT_ENABLE_CN_LOW_SET = 0x0F//Set which pin(s) can trigger a CN Low Interrupt event
     let STATUS_INTERRUPT_ENABLE_CN_LOW_CLR = 0x10 //Clear which pin(s) can trigger a CN Low Interrupt event
 
-    // PWM Function Ids
-    let PWM_VAL_id = 1
-    let PWM_PR_id = 2
-    let PWM_channel_id
-    let PWM_dutyCycle
 
     //BLiXel Function IDs
 
@@ -698,7 +692,7 @@ namespace bBoard_Control {
 
 
     //%blockId=set_Duty
-    //%block="set duty cycle on pin $clickPin to $duty on $boardID $clickID""
+    //%block="$this set duty cycle on pin $clickPin to $duty"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% duty.min=0 duty.max=100 
@@ -713,7 +707,7 @@ namespace bBoard_Control {
         duty = duty / 100;
         dutyCycle = duty * 1000; //the BLiX chip expects a value of 0-1000
 
-        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_VAL_id,[dutyCycle & 0x00FF, (dutyCycle & 0xFF00) >> 8],null, 0)
+        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_Duty_id,[dutyCycle & 0x00FF, (dutyCycle & 0xFF00) >> 8],null, 0)
 
 
 
@@ -724,7 +718,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=PWM_frequency
-    //%block="set PWM frequency on pin $clickPin to $PWMfreq on $boardID $clickID""
+    //%block="$this set PWM frequency on pin $clickPin to $PWMfreq"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -734,7 +728,7 @@ namespace bBoard_Control {
     //% group="PWM"
     export function PWMFrequency(clickPin: clickPWMPin, PWMfreq: number, boardID: BoardID, clickID: ClickID) {
 
-        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_PR_id, [PWMfreq & 0x00FF, (PWMfreq & 0xFF00) >> 8],null, 0)
+        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_Period_id, [PWMfreq & 0x00FF, (PWMfreq & 0xFF00) >> 8],null, 0)
 
 
 
@@ -776,7 +770,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=is_UART_Data_Avail
-    //%block="is UART data available on $boardID $clickID""
+    //%block="$this is UART data available?"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -802,7 +796,7 @@ namespace bBoard_Control {
     * @param baud the baud rate, eg: 115200
     */
     //% weight=4 advanced=false
-    //% blockId=bBoard_UART_frequency block="set UART baud to $baud on $boardID $clickID""
+    //% blockId=bBoard_UART_frequency block="$this set UART baud to $baud"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% baud.delf=115200
@@ -822,7 +816,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=send_UART_Buffer
-    //%block="send buffer $buff on $boardID $clickID""
+    //%block="$this send buffer $buff"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -843,7 +837,7 @@ namespace bBoard_Control {
 
 
     //%blockId=get_UART_Byte
-    //%block="read string on $boardID $clickID""
+    //%block="$this read string"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -866,7 +860,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=send_UART_String
-    //%block="send string $UARTString on board%boardID click%clickID"
+    //%block="send string $UARTString to board%boardID click%clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -908,7 +902,7 @@ namespace bBoard_Control {
 
 
     //%blockId=set_IO_direction
-    //%block="set pin $clickPin to $direction on $boardID $clickID""
+    //%block="$this set pin $clickPin to $direction"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -929,7 +923,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=Open_Drain_set
-    //%block="$ODC_Enable open drain on $clickPin on $boardID $clickID""
+    //%block="$this $ODC_Enable open drain on $clickPin"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -949,7 +943,7 @@ namespace bBoard_Control {
 
 
     //%blockId=GPIO_pull_set
-    //%block="set pin $clickPin to $pullDirection on $boardID $clickID""
+    //%block="$this set pin $clickPin to $pullDirection"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -970,7 +964,7 @@ namespace bBoard_Control {
 
 
     //%blockId=digital_Read_Pin
-    //%block="digital read pin $clickPin on $boardID $clickID""
+    //%block="$this digital read pin $clickPin"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -989,7 +983,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=write_pin
-    //%block="write pin $clickPin to $value on $boardID $clickID""
+    //%block="$this write pin $clickPin to $value"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1038,7 +1032,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=Analog_Read
-    //%block="analog read pin %clickPin on $boardID $clickID""
+    //%block="$this analog read pin %clickPin"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1072,7 +1066,7 @@ namespace bBoard_Control {
 
 
     //%blockId=getFirmwareVersion
-    //%block="Get firmware version on $boardID $clickID""
+    //%block="Get firmware version of $boardID at slot $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1130,7 +1124,7 @@ namespace bBoard_Control {
 
 
     //%blockId=getInterruptSource
-    //%block="Get Interrupt source on $boardID $clickID""
+    //%block="Get Interrupt source on $boardID at slot $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1172,7 +1166,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write
-    //%block="spi write $value on $boardID $clickID""
+    //%block="$this spi write $value"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1192,7 +1186,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write_array
-    //%block="spi write array $arrayValues on $boardID $clickID""
+    //%block="$this spi write array $arrayValues"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1215,7 +1209,7 @@ namespace bBoard_Control {
     * @param frequency the clock frequency, eg: 1000000
     */
     //% help=pins/spi-frequency weight=4 advanced=true
-    //% blockId=bBoard_spi_frequency block="spi set frequency $frequency on $boardID $clickID""
+    //% blockId=bBoard_spi_frequency block="$this spi set frequency $frequency"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% defl="SPISettings"
@@ -1237,7 +1231,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Write_buffer
-    //%block="spi write buffer $bufferValues on $boardID $clickID""
+    //%block="$this spi write buffer $bufferValues"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1257,7 +1251,7 @@ namespace bBoard_Control {
     }
 
     //%blockId=spi_Mode_Select
-    //%block="spi set mode to $mode on $boardID $clickID""
+    //%block="$this spi set mode to $mode"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1302,7 +1296,7 @@ namespace bBoard_Control {
 
 
     //%blockId=spi_Read
-    //%block="spi read $numBytes bytes on $boardID $clickID""
+    //%block="$this spi read $numBytes bytes"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1326,7 +1320,7 @@ namespace bBoard_Control {
     * Set the SPI Chip Select Pin
     */
     //% weight=4 advanced=true
-    //% blockId=bBoard_spi_CS block="spi assign CS Pin to pin $clickPin on $boardID $clickID""
+    //% blockId=bBoard_spi_CS block="$this spi assign CS Pin to pin $clickPin"
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
     //% defl="SPISettings"
@@ -1364,7 +1358,7 @@ namespace bBoard_Control {
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
     //% blockNamespace=bBoard_Control
-    //% block="i2c read $numBytes bytes at i2c address $address on $boardID $clickID"" weight=6
+    //% block="$this i2c read $numBytes bytes at i2c address $address" weight=6
 
     //% shadow=variables_get
     //% defl="I2CSettings"
@@ -1391,7 +1385,7 @@ namespace bBoard_Control {
     //%blockId=i2c_Read
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
-    //% block="i2c read $numBytes bytes |at memory address $memAddress |at i2c address $address on $boardID $clickID"" weight=6
+    //% block="$this i2c read $numBytes bytes |at memory address $memAddress |at i2c address $address" weight=6
     //% advanced=true
     //% blockNamespace=bBoard_Control
     //% shadow=variables_get
@@ -1421,7 +1415,7 @@ namespace bBoard_Control {
      * Write one number to a 7-bit I2C address.
      */
     //% blockId=i2c_write_number
-    //% block="i2c write number $value|to i2c address $address|of format $format | repeated $repeated on $boardID $clickID" weight=6
+    //% block="i2c $this write number $value|to i2c address $address|of format $format | repeated $repeated" weight=6
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1484,7 +1478,7 @@ namespace bBoard_Control {
         BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 5, (clickPin & 0xFF00) >> 8)
 
         pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
-  
+       
 
         if (dataA||dataB) {
             
@@ -1497,10 +1491,12 @@ namespace bBoard_Control {
             BLiXCommandBuff = Buffer.concat([BLiXCommandBuff, dataB])
         }
         if (returnBytes > 0) {
+            control.waitMicros(500)
             pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_TX_BUFFER, false);
+            control.waitMicros(500)
         }
         pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, BLiXCommandBuff, false)
-
+        //control.waitMicros(500)
         pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
         if (returnBytes > 0) {
             if(moduleID==moduleIDs.I2C_module_id)
