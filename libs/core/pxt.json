@@ -88,7 +88,8 @@
         "Line_Follower.ts",        
         "Temp_Log_2.ts",
         "Weather.ts",
-        "Relay.ts"        
+        "Relay.ts",
+        "IR_Distance.ts"        
     ],
     "testFiles": [],
     "public": true,
