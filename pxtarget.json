@@ -462,7 +462,7 @@
                 "path": "/static/mb/device/usb-windows-sendto.jpg"
             }
         ],
-        "hideHomeDetailsVideo": true,
+        "hideHomeDetailsVideo": false,
         "invertedMenu": true,
         "coloredToolbox": true,
         "monacoToolbox": true,
