@@ -28,7 +28,7 @@ namespace Water_Detect {
 
         //% blockId=Water_Detect_isWater
         //% block="$this Is water detected"
-        //% advanced=false
+        //% advanced=true
         //% blockNamespace=Water_Detect
         //% this.shadow=variables_get
         //% this.defl="Water_Detect"
@@ -45,7 +45,7 @@ namespace Water_Detect {
         //% this.shadow=variables_get
         //% this.defl="Water_Detect"
         onWaterDectect(a: () => void): void {
-            bBoard_Control.eventInit(bBoardEvents.CN_HIGH, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
+            bBoard_Control.eventInit(bBoardEventsMask.CN_HIGH, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
             bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.INT, bBoardEventsMask.CN_HIGH) //Tell the BLiX which pin you want to monitor for high or low
             control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_HIGH), clickIOPin.INT, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
         }
