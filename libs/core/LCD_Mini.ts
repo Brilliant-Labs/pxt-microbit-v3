@@ -1,7 +1,7 @@
 //-------------------------Click Board Blocks Begin -----------------------------------
 //% weight=100 color=#D400D4 icon=""
 //% advanced=true
-//% labelLineWidth=1005
+//% labelLineWidth=1006
 namespace LCD_Mini {
     enum lineNumber {
         //% block="1"
