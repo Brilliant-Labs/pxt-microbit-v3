@@ -220,8 +220,9 @@ namespace IrThermo_3 {
         //Read all calibration values and calculate the temperature of the thing we are looking at
         //Depending on mode, initiates a measurement
         //If in sleep or step mode, clears the new_data bit, sets the SOC bit
-        //%blockId=IRThermo_getObjectTemp
-        //%block="$this surface temperature in $units"
+        //% blockId=IRThermo_getObjectTemp
+        //% block="$this surface temperature in $units"
+        //% block.loc.fr="$this obtenir la température de la surface en $units"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=IrThermo_3

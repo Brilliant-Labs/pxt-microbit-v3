@@ -28,6 +28,7 @@ namespace bBoard_Motor {
      * Allows you to disable and enable the motor driver on the b.Board
      */
     //% block="motor driver %enable"
+    //% block.loc.fr="pilote de moteur %enable"
     //% weight=100
     //% advanced=true
     export function motorEnable(enable: motorState): void {
@@ -43,6 +44,7 @@ namespace bBoard_Motor {
      */
     //% blockId=bBoard_Motor_motorLeftTimed
     //% block="set left motor speed to$duty \\% for$waitTime (ms)"
+    //% block.loc.fr="réglez la vitesse du moteur gauche à$duty \\% for$waitTime (ms)"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
@@ -67,6 +69,7 @@ namespace bBoard_Motor {
      */
     //% blockId=bBoard_Motor_motorRightTimed
     //% block="set right motor speed to$duty \\% for$waitTime (ms)"
+    //% block.loc.fr="réglez la vitesse du moteur droit ràduty \\% for$waitTime (ms)"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
@@ -91,6 +94,7 @@ namespace bBoard_Motor {
      */
     //% blockId=bBoard_Motor_motorTimed
     //% block="set both motors speed to$duty \\% for$waitTime (ms)"
+    //% block.loc.fr="réglez la vitesse des deux moteurs sur$duty \\% for$waitTime (ms)"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
@@ -114,6 +118,7 @@ namespace bBoard_Motor {
      * motor set duty
      */
     //% block="set left motor speed to$duty \\%"
+    //% block.loc.fr="églez la vitesse du moteur gauche à$duty \\%"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% advanced=true
@@ -129,6 +134,7 @@ namespace bBoard_Motor {
    * motor set duty
    */
     //% block="set right motor speed to$duty \\%"
+    //% block.loc.fr="réglez la vitesse du moteur droit à$duty \\%"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
     //% advanced=true

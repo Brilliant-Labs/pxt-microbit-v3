@@ -37,6 +37,7 @@ namespace ButtonG {
 
         //% blockId=ButtonG_SetLight
         //% block="$this Turn button light $onOff"
+        //% block.loc.fr="$this Définir la lumière du bouton $onOff"
         //% advanced=false
         //% blockNamespace=ButtonG
         //% this.shadow=variables_get
@@ -47,6 +48,7 @@ namespace ButtonG {
 
         //% blockId=ButtonG_SetLight_PWM
         //% block="$this Set button light to $brightness brightness"
+        //% block.loc.fr="$this Définir la lumière du bouton à $brightness de luminosité"
         //% advanced=false
         //% brightness.min=0 brightness.max=100
         //% brightness.defl=50
@@ -61,6 +63,7 @@ namespace ButtonG {
 
         //% blockId=ButtonG_getSwitch
         //% block="$this Read button state"
+        //% block.loc.fr="$this Lire l'état du bouton"
         //% advanced=true
         //% blockNamespace=ButtonG
         //% this.shadow=variables_get
@@ -71,6 +74,7 @@ namespace ButtonG {
 
         //% blockId=onButtonG 
         //% block="$this on button $state" 
+        //% block.loc.fr="$this sur le bouton $state"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished

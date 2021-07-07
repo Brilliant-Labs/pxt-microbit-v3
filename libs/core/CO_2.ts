@@ -15,6 +15,7 @@ namespace CO_2 {
      * @param CO the CO Object
     */
     //% block=" $boardID $clickID with $sensitivity nA/ppm"
+    // block.loc.fr=" $boardID $clickID avec $sensitivity nA/ppm"
     //% blockSetVariable="CO"
     //% sensitivity.defl="4.75"
     //% weight=110
@@ -66,6 +67,7 @@ namespace CO_2 {
 
         //% blockId=CO_ReadConcentration
         //% block="Get $this CO concentration reading in ppm (parts per million)"
+        //% block.loc.fr="Obtenir $this la concentration de CO en ppm (parties par million)"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=CO_2

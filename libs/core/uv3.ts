@@ -46,8 +46,9 @@ namespace UV_3 {
             this.writeVEML6070(this.myI2CAddress, this.controlReg) //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
         }
 
-        //%blockId=VEML6070_write
-        //%block="$this Write $value to VEML6070 control register"
+        //% blockId=VEML6070_write
+        //% block="$this Write $value to VEML6070 control register"
+        //% block.loc.fr="$this Écrire $value à VEML6070 registre de contrôle"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=UV_3
@@ -60,8 +61,9 @@ namespace UV_3 {
             bBoard_Control.i2cWriteNumber(register, value, NumberFormat.UInt8LE, false, this.myBoardID, this.myClickID)   
         }
 
-        //%blockId=VEML6070_UVSteps
-        //%block="$this UV Intensity"
+        //% blockId=VEML6070_UVSteps
+        //% block="$this UV Intensity"
+        //% block.loc.fr="$this Intensité UV"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=UV_3
@@ -73,8 +75,9 @@ namespace UV_3 {
             return ((MSB << 8) | LSB)
         }
 
-        //%blockId=VEML6070_enable
-        //%block="$this Turn off device"
+        //% blockId=VEML6070_enable
+        //% block="$this Turn off device"
+        //% block.loc.fr="$this Éteindre l’appareil"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=UV_3
@@ -85,8 +88,9 @@ namespace UV_3 {
             this.writeVEML6070(this.myI2CAddress, this.controlReg);
         }
 
-        //%blockId=VEML6070_disable
-        //%block="$this Turn on device"
+        //% blockId=VEML6070_disable
+        //% block="$this Turn on device"
+        //% block.loc.fr="$this Allumer l'appareil"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=UV_3
@@ -97,8 +101,9 @@ namespace UV_3 {
             this.writeVEML6070(this.myI2CAddress, this.controlReg);
         }
 
-        //%blockId=VEML6070_read
-        //%block="$this Read from slave address $slaveAddress"
+        //% blockId=VEML6070_read
+        //% block="$this Read from slave address $slaveAddress"
+        //% block.loc.fr="$this Lire de l’adresse $slaveAddress"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=UV_3
