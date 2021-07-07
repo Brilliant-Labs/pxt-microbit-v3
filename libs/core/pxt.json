@@ -85,7 +85,8 @@
         "NFC_Tag_2.ts",        
         "Proximity_2.ts",
         "uv3.ts",
-        "Line_Follower.ts"        
+        "Line_Follower.ts",        
+        "Temp_Log_2.ts"        
     ],
     "testFiles": [],
     "public": true,
