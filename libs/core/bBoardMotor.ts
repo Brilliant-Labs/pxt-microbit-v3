@@ -49,7 +49,7 @@ namespace bBoard_Motor {
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
     //% waitTime.defl=1000
-    //% weight=102
+    //% weight=112
     export function motorLeftTimed(duty: number, waitTime: number): void {
         //motor_Driver, direction, duty
 
@@ -74,7 +74,7 @@ namespace bBoard_Motor {
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
     //% waitTime.defl=1000
-    //% weight=101
+    //% weight=111
     export function motorRightTimed(duty: number, waitTime: number): void {
         //motor_Driver, direction, duty
 
@@ -99,7 +99,7 @@ namespace bBoard_Motor {
     //% duty.shadow="speedPicker"
     //% waitTime.shadow="timePicker"
     //% waitTime.defl=1000
-    //% weight=100
+    //% weight=110
     export function motorTimed(duty: number, waitTime: number): void {
         let data = [motorDriver.right, duty >= 0 ? motorDirection.forward : motorDirection.backward, Math.abs(duty)]
         bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.setMotor, data, null, 0)
@@ -121,7 +121,8 @@ namespace bBoard_Motor {
     //% block.loc.fr="églez la vitesse du moteur gauche à$duty \\%"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
-    //% advanced=true
+    //% advanced=false
+    //% weight=102
     export function motorLeftDuty(duty: number): void {
         //motor_Driver, direction, duty
 
@@ -137,7 +138,8 @@ namespace bBoard_Motor {
     //% block.loc.fr="réglez la vitesse du moteur droit à$duty \\%"
     //% duty.min=-100 duty.max=100
     //% duty.shadow="speedPicker"
-    //% advanced=true
+    //% advanced=false
+    //% weight=101
     export function motorRightDuty(duty: number): void {
         //motor_Driver, direction, duty
 
@@ -145,5 +147,25 @@ namespace bBoard_Motor {
         bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.setMotor, data, null, 0)
 
     }
+
+    /**
+   * motor set duty
+   */
+    //% block="set both motors speed to$duty \\%"
+    //% block.loc.fr="réglez la vitesse des deux moteurs à$duty \\%"
+    //% duty.min=-100 duty.max=100
+    //% duty.shadow="speedPicker"
+    //% advanced=false
+    //% weight=100
+    export function motorDuty(duty: number): void {
+        //motor_Driver, direction, duty
+
+        let data = [motorDriver.right, duty >= 0 ? motorDirection.forward : motorDirection.backward, Math.abs(duty)]
+        bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.setMotor, data, null, 0)
+        data = [motorDriver.left, duty >= 0 ? motorDirection.forward : motorDirection.backward, Math.abs(duty)]
+        bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.PWM, moduleIDs.MOTOR_module_id, functionID.setMotor, data, null, 0)
+
+    }
+
 
 }
