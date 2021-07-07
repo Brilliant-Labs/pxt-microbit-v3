@@ -86,7 +86,8 @@
         "Proximity_2.ts",
         "uv3.ts",
         "Line_Follower.ts",        
-        "Temp_Log_2.ts"        
+        "Temp_Log_2.ts",
+        "Weather.ts"        
     ],
     "testFiles": [],
     "public": true,
