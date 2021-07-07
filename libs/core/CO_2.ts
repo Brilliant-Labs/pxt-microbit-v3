@@ -46,9 +46,13 @@ namespace CO_2 {
         CO_Initialize() {
             this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             bBoard_Control.clearPin(clickIOPin.RST, this.myBoardID, this.myClickID) // enable device
+            control.waitMicros(10000)
             this.Write_CO_Register(this.LOCK, 0x00) //In write mode 
+         
             this.Write_CO_Register(this.MODECN, 0x03) //FET Short Disabled, 3 lead amperometric
+          
             this.Write_CO_Register(this.TIACN, 0x1F) //350K RGain, 100 ohm load
+           
             this.Write_CO_Register(this.REFCN, 0xC0)  //External Ref 10% -0mV Offset 67%Vref
         }
 
@@ -70,30 +74,31 @@ namespace CO_2 {
         CO_Read_Concentration(): number {
             let Vref = 2.048 * .67 //Voltage Reference 
             let ADCMax = 4096   //Max ADC value 
-            let ADCRef = 3.3000 //ADC reference voltage
+            let BLiXVRef = 3.3000 //ADC reference voltage
+            let BLiXADCRes = BLiXVRef/ADCMax  //Volts per bit (resolution)
             let Vout = 0.0 //Output voltage
-            let Rgain = 350000.0 //350K ohms
+            let Rgain = 350000.0 //350KOhm Rtia means a gain of 350000 (refer to page 17 of datasheet)
 
             //**************
             //TODO:  change to event!!!!!
             while (!this.Read_CO_Register(this.STATUS)) {
             }
 
-            let adcVal = this.CO_readADC()
-            Vout = (ADCRef * adcVal) / ADCMax
-            let numerator = Vref - Vout
-            let denominator = Rgain
-            let sensorCurrent = numerator / denominator
-            let COppm = sensorCurrent / this.sensitivity
+            let adcVal = bBoard_Control.analogRead(clickADCPin.AN,this.myBoardID,this.myClickID)
+            Vout = adcVal*BLiXADCRes //Voltage output
+            
+            
+            let sensorCurrent = (Vref - Vout) / Rgain //Convert voltage output back to current before the TIA
+            let COppm = sensorCurrent / this.sensitivity //sensor current divided by sensitivity == ppm
             //let CO_voltage=sumval*this.Vadc_3; //Voltage for the force click board
             return COppm
         }
 
         // Read a byte from register 'reg'
         Read_CO_Register(register: number): number {
-            let i2cBuffer = pins.createBuffer(2);
+            let i2cBuffer = pins.createBuffer(1);
             bBoard_Control.i2cWriteNumber(this.myI2CAddress, register, NumberFormat.Int8LE, true, this.myBoardID, this.myClickID)
-            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 2, this.myBoardID, this.myClickID);
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 1, this.myBoardID, this.myClickID);
             return i2cBuffer.getUint8(0)
         }
 
