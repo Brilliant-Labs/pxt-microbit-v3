@@ -49,16 +49,17 @@ namespace NFC_Tag_2 {
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
             this.myClickID = clickID;
+            this.initialize()
         }
 
         initialize() {
             this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
             let arrayTest = this.readNT3H2111(16, 0) //Need to read the first page of the tag memory
             arrayTest[0] = this.DEFAULT_I2C_ADDRESS << 1 //Set the very first byte (the i2c address). The chip always returns 0x04 (manufacturer ID) and not the I2C address (0x55)
-            arrayTest[12] = 225 //The last 4 bytes are part of the container and need to be set
-            arrayTest[13] = 16
-            arrayTest[14] = 109
-            arrayTest[15] = 0
+            arrayTest[12] = 0xE1 //The last 4 bytes are part of the container and need to be set
+            arrayTest[13] = 0x10
+            arrayTest[14] = 0x6D
+            arrayTest[15] = 0x00
             this.writeNT3H2111(arrayTest, 0)//Now write this back to the first block of memory
         }
 
