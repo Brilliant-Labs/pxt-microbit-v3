@@ -99,7 +99,8 @@
         "sendBuffer.asm",
         "setBufferMode.asm",
         "Touchpad.ts",
-        "NFC_Tag_2.ts"
+        "NFC_Tag_2.ts",
+        "Touchpad_3.ts"
     ],
     "testFiles": [],
     "public": true,
