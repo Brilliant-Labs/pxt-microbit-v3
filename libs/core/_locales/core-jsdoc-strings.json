@@ -148,6 +148,8 @@
   "IR_Distance.createIR_Distance|param|boardID": "the boardID",
   "IR_Distance.createIR_Distance|param|clickID": "the ClickID",
   "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A": "Sets IR_Distance_GP2Y0A object.",
+  "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A|param|portID": "the portID",
+  "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A|param|sensorType": "the sensorType",
   "IR_Sense_3.createIR_Sense": "Sets Thermo Click object.",
   "IR_Sense_3.createIR_Sense|param|boardID": "the boardID",
   "IR_Sense_3.createIR_Sense|param|clickID": "the ClickID",
