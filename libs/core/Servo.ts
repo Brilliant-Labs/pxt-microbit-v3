@@ -1,5 +1,5 @@
 //------------------------- Click Board Servo -----------------------------------
-//% weight=100 color=#EF697B icon=""
+//% weight=100 color=#FF2F92 icon=""
 //% advanced=true
 //% labelLineWidth=1005
 namespace Servo {
