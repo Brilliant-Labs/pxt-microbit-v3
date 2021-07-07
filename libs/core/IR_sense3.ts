@@ -42,9 +42,10 @@ namespace IR_Sense_3 {
         }
 
         IR_initialize() {
-            //setTMP116Addr(deviceAddr,boardID)
-            this.writeAK9754([0x20, 0xff, 0xfc, 0xa9, 0xf8, 0x80, 0xfa, 0xf0, 0x81, 0x0c, 0x80, 0xf2, 0xff]) //Initialize the Config register
+            this.writeAK9754([this.DEFAULT_I2C_ADDRESS, 0x20, 0xff, 0xfc, 0xa9, 0xf8, 0x80, 0xfa, 0xf0, 0x81, 0x0c, 0x80, 0xf2, 0xff]) //Initialize the Config register
         }
+
+        //TODO: Fix Register selection
 
         //%blockId=AK9754_write
         //%block="$this Write array $values to AK9754 register $register ?"
@@ -61,14 +62,18 @@ namespace IR_Sense_3 {
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0);
         }
 
-        //% blockId=onHumanDetected block="$this on human detected" blockAllowMultiple=0
+        //TODO: Clear Interruption
+
+        //% blockId=onHumanDetected 
+        //% block="$this on human detected" 
+        //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished
         //% this.defl="IR_Sense_3"
         //% advanced=false
         onHumanDetected(a: () => void): void {
-            //let eventHandler = new bBoard_Control.EventHandler(this.myBoardID, this.myClickID, bBoardEvents.CN_LOW, [this.clickAddress, clickIOPin.INT, bBoardEvents.CN_LOW], <any>bBoard_Control.pinEventCheck(this.clickAddress, clickIOPin.INT, bBoardEvents.CN_LOW), <any>a, null);
-            //bBoard_Control.pinEventSet(this.clickAddress, clickIOPin.INT, bBoardEvents.CN_LOW)
-            //bBoard_Control.addEvent(eventHandler)
+            bBoard_Control.eventInit(bBoardEventsMask.CN_LOW, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
+            bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.INT, bBoardEventsMask.CN_LOW) //Tell the BLiX which pin you want to monitor for high or low
+            control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_LOW), clickIOPin.INT, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
         }
 
         //%blockId=IR_Sense_3_isHumandDetected
@@ -104,9 +109,7 @@ namespace IR_Sense_3 {
             tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
             tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
             tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
-
-            return bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_READ_NO_MEM_id, [this.DEFAULT_I2C_ADDRESS, 1], null, 1).getUint8(0)
+            return bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0).getUint8(0)
         }
     }
 }
