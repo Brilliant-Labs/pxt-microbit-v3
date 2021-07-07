@@ -87,7 +87,8 @@
         "uv3.ts",
         "Line_Follower.ts",        
         "Temp_Log_2.ts",
-        "Weather.ts"        
+        "Weather.ts",
+        "Relay.ts"        
     ],
     "testFiles": [],
     "public": true,
