@@ -34,7 +34,14 @@ namespace Relay {
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
             this.myClickID = clickID;
+            this.Initialize()
         }
+
+        Initialize() {
+            bBoard_Control.writePin(onOff.Off, clickIOPin.PWM, this.myBoardID, this.myClickID)
+            bBoard_Control.writePin(onOff.Off, clickIOPin.CS, this.myBoardID, this.myClickID)
+        }
+
 
         //% blockId=Relay_relayOnOff
         //% block="$this turn $onOff relay $relayNum"
