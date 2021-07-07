@@ -3,7 +3,7 @@
 //% advanced=true
 //% labelLineWidth=1006
 namespace LCD_Mini {
-    enum lineNumber {
+    export enum lineNumber {
         //% block="1"
         one = 0,
         //% block="2"
