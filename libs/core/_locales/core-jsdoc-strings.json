@@ -361,6 +361,8 @@
   "bBoard_Motor.motorRightDuty": "motor set duty",
   "bBoard_Motor.motorRightTimed": "Set right motor to a speed for an amount of time",
   "bBoard_Motor.motorRightTimed|param|waitTime": "how long to move motor for, eg: 100, 200, 500, 1000, 2000",
+  "bBoard_Motor.motorTimed": "Set motor to a speed for an amount of time",
+  "bBoard_Motor.motorTimed|param|waitTime": "how long to move motor for, eg: 100, 200, 500, 1000, 2000",
   "bBoard_WiFi": "Custom blocks",
   "bBoard_WiFi.WifiConnect": "Initializes WiFi_BLE capabilities",
   "basic": "Provides access to basic micro:bit functionality.",
