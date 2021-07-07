@@ -48,13 +48,22 @@ Learn to use Clickboards with your @boardname@.
   "label": "",
   "labelClass": ""
 },
-
 {
   "name": "KEYLOCK",
   "url":"docs/static/mb/projects/bboard-tutorials/keylock/keylock",
   "description": "Learn to use the Keylock Clickboard",
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/keylock/keylock-click.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/keylock/keylock-gif.gif",
+  "cardType": "side",
+  "label": "",
+  "labelClass": ""
+},
+{
+  "name": "UV 3",
+  "url":"docs/static/mb/projects/bboard-tutorials/uv3/uv3",
+  "description": "Learn to use the UV 3 Clickboard",
+  "imageUrl":"docs/static/mb/projects/bboard-tutorials/uv3/uv3-click.jpg",
+  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/uv3/cold.gif",
   "cardType": "side",
   "label": "",
   "labelClass": ""
