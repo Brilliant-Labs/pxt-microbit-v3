@@ -37,7 +37,7 @@ namespace Motion {
 
         //% blockId=Motion_Enabled
         //% block="$this $enable motion"
-        //% advanced=false
+        //% advanced=true
         //% blockNamespace=Motion
         //% this.shadow=variables_get
         //% this.defl="Motion"
@@ -49,7 +49,7 @@ namespace Motion {
         //% block="$this Has motion been detected?"
         //% advanced=false
         //% blockGap=7
-        //% advanced=false
+        //% advanced=true
         //% blockNamespace=Motion
         //% this.shadow=variables_get
         //% this.defl="Motion"
@@ -71,14 +71,7 @@ namespace Motion {
         onMotionDetected(a: () => void): void {
             bBoard_Control.eventInit(bBoardEventsMask.CN_HIGH, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
             bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.INT, bBoardEventsMask.CN_HIGH) //Tell the BLiX which pin you want to monitor for high or low
-            control.onEvent( bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_HIGH),clickIOPin.INT, () => this.motionEvent(a)); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
-        }
-
-        motionEvent(a: () => void) //A Change notification interrupt has occured, but that could mean any pin on the PORT our interrupt is monitoring
-        {
-
-                a() //Call the code that the user provided in the onButtonState block
-            
+            control.onEvent( bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, bBoardEvents.CN_HIGH),clickIOPin.INT, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
         }
     }
 }
