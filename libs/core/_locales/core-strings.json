@@ -515,7 +515,7 @@
   "bBoard_WiFi.connectBLMQTT|block": "|BL MQTT connect",
   "bBoard_WiFi.onBLMQTT|block": " on BL Cloud MQTT message received $receivedData from feed $feedName",
   "bBoard_WiFi.publishBLMQTT|block": "BL MQTT publish$data to feed$feedName and project key $topic",
-  "bBoard_WiFi.subscribeBLMQTT|block": "| BL MQTT s'abonner à la clé du projet $topic",
+  "bBoard_WiFi.subscribeBLMQTT|block": "| BL MQTT subscribe to project key $topic",
   "bBoard_WiFi|block": "bBoard_WiFi",
   "basic.clearScreen|block": "clear screen",
   "basic.forever|block": "forever",
