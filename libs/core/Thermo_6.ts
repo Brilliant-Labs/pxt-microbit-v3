@@ -1,4 +1,4 @@
-//-------------------------Click Board Thermo -----------------------------------
+//-------------------------Click Board Thermo_6 -----------------------------------
 //% weight=906 color=#33BEBB icon=""
 //% advanced=true
 //% labelLineWidth=1002
@@ -16,19 +16,19 @@ namespace Thermo_6 {
     }
 
     /**
-     * Sets Thermo Click object.
+     * Sets Thermo_6 Click object.
      * @param boardID the boardID
      * @param clickID the ClickID
-     * @param Thermo the Thermo Object
+     * @param Thermo_6 the Thermo_6 Object
     */
     //% block=" $boardID $clickID"
     //% blockSetVariable="Thermo_6"
     //% weight=110
-    export function createThermo(boardID: BoardID, clickID: ClickID): Thermo {
-        return new Thermo(boardID, clickID);
+    export function createThermo_6(boardID: BoardID, clickID: ClickID): Thermo_6 {
+        return new Thermo_6 (boardID, clickID);
     }
 
-    export class Thermo {
+    export class Thermo_6 {
         //Address Definitions
         private readonly DEFAULT_I2C_ADDRESS = 0x48
         private readonly TEMP_REG = 0x00
