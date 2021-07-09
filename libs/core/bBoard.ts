@@ -826,8 +826,27 @@ namespace bBoard_Control {
     //% group="UART"
 
     export function UARTSendBuffer(buff: Buffer, boardID: BoardID, clickID: ClickID) {
+        let remainingBytes = buff.length
+        let messageLength = 0
+        let messageIndex = 0;
+       let buffSlice:Buffer
+        while (remainingBytes) {
+                messageLength = Math.min(remainingBytes + 6, 128);
+        
+            
+            
+               buffSlice = buff.slice(messageIndex*128 ,messageLength)
+               BLiX(boardID, clickID, 0, UART_module_id, UART_WRITE_TX_DATA,null, buffSlice, 0)
+               remainingBytes = remainingBytes - messageLength + 6;
+               messageIndex++;
+            }
 
-        BLiX(boardID, clickID, 0, UART_module_id, UART_WRITE_TX_DATA,null, buff, 0)
+         
+        
+        
+
+
+        
 
 
     }
@@ -870,29 +889,7 @@ namespace bBoard_Control {
     //% group="UART"
 
     export function UARTSendString(UARTString: string, boardID: BoardID, clickID: ClickID) {
-        let remainingBytes = UARTString.length
-        let clickBoardNum = boardID * 3 + clickID
-        while (remainingBytes) {
-            let messageLength = Math.min(remainingBytes + 6, 128);
-            let UARTBuf = pins.createBuffer(messageLength);
-
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 3, 5)
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 4, 0)
-            UARTBuf.setNumber(NumberFormat.UInt8LE, 5, 0)
-
-            for (let i = 4; i < messageLength; i++) {
-                UARTBuf.setNumber(NumberFormat.UInt8LE, i, UARTString.charCodeAt(UARTString.length - remainingBytes + i - 6));
-            }
-
-            // Send a message to the UART TX Line to ask for data
-            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
-            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, UARTBuf, false)
-            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
-            remainingBytes = remainingBytes - messageLength + 6;
-        }
+        UARTSendBuffer(control.createBufferFromUTF8(UARTString),boardID,clickID)
 
     }
 
@@ -1114,7 +1111,7 @@ namespace bBoard_Control {
 
 
         interruptMask = MASKBuffer.getUint8(0) | MASKBuffer.getUint8(1) << 8 | MASKBuffer.getUint8(2) << 16 | MASKBuffer.getUint8(3) << 24
-
+        control.waitMicros(500)
 
 
 
@@ -1152,7 +1149,7 @@ namespace bBoard_Control {
         let MASKBuffer = pins.i2cReadBuffer(BBOARD_I2C_ADDRESS, 8, false)
 
         interruptMask = MASKBuffer.getUint8(0) | MASKBuffer.getUint8(1) << 8 | MASKBuffer.getUint8(2) << 16 | MASKBuffer.getUint8(3) << 24 | MASKBuffer.getUint8(4) << 32 | MASKBuffer.getUint8(5) << 40 | MASKBuffer.getUint8(6) << 48 | MASKBuffer.getUint8(7) << 56
-
+        control.waitMicros(500)
 
 
 
@@ -1496,7 +1493,7 @@ namespace bBoard_Control {
             control.waitMicros(500)
         }
         pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, BLiXCommandBuff, false)
-        //control.waitMicros(500)
+        control.waitMicros(500)
         pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
         if (returnBytes > 0) {
             if(moduleID==moduleIDs.I2C_module_id)
@@ -1510,7 +1507,9 @@ namespace bBoard_Control {
             return pins.i2cReadBuffer(BBOARD_I2C_ADDRESS, returnBytes, false)
 
         }
-
+   
+             control.waitMicros( 5000 + 100*(BLiXCommandBuff.length+1) )
+        
         return null
 
     }
