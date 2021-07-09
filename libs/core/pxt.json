@@ -85,7 +85,9 @@
         "Line_Follower.ts",
         "uv3.ts",
         "Proximity_2.ts",
-        "IR_Sense3.ts"        
+        "IR_Sense3.ts",
+        "IrThermo_3.ts",
+        "IR_Distance_1080.ts"      
     ],
     "testFiles": [],
     "public": true,
