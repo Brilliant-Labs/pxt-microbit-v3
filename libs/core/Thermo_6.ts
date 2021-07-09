@@ -1,4 +1,4 @@
-//-------------------------Click Board Motion -----------------------------------
+//-------------------------Click Board Thermo -----------------------------------
 //% weight=906 color=#33BEBB icon=""
 //% advanced=true
 //% labelLineWidth=1002
@@ -10,7 +10,7 @@ namespace Thermo_6 {
         F = 1
     }
     //% Repeat Start
-    export enum I2C_RepearStart {
+    export enum I2C_RepeatStart {
         True = 1,
         False = 0
     }
@@ -72,7 +72,7 @@ namespace Thermo_6 {
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID
             this.myClickID = clickID;
-            this.writeMAX31875(this.CONFIG_VAL, this.CONFIG_REG) 
+            this.writeMAX31875(this.CONFIG_REG, this.CONFIG_VAL) 
         }
 
         //% blockId=Thermo6_getTempC
@@ -95,7 +95,7 @@ namespace Thermo_6 {
         //% blockNamespace=Thermo_6
         //% this.shadow=variables_get
         //% this.defl="Thermo_6"
-        writeMAX31875(value: number, register: number) {
+        writeMAX31875(register: number, value: number) {
             let i2cBuffer = pins.createBuffer(3)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value >> 8)
@@ -103,8 +103,8 @@ namespace Thermo_6 {
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0)
         }
 
-        //%blockId=MAX31875_read
-        //%block="$this Read from register$register"
+        //% blockId=MAX31875_read
+        //% block="$this Read from register$register"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Thermo_6
@@ -113,7 +113,7 @@ namespace Thermo_6 {
         readMAX31875(register: number): number {
             let tempBuf = pins.createBuffer(3)
             tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepearStart.True)
+            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
             tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
             bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0)
 
