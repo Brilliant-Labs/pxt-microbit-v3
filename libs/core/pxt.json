@@ -97,6 +97,7 @@
         "IrThermo_3.ts",
         "Weather.ts",
         "LCD_Mini.ts",
+        "Temp_Log_2.ts",
         "sendBuffer.asm",
         "setBufferMode.asm",
         "./click/NFC_Tag_2/NFC_Tag_2.ts"
