@@ -60,6 +60,7 @@ namespace Proximity_2 {
         // Write byte 'byte' to register 'reg'
         Write_proximity_2_Register(register: number, value: number) {
             let i2cBuffer = pins.createBuffer(2)
+
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
             bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
@@ -93,8 +94,12 @@ namespace Proximity_2 {
         // Read a byte from register 'reg'
         Read_proximity_2_Register(register: number): number {
             let i2cBuffer = pins.createBuffer(2);
-            bBoard_Control.i2cWriteNumber(this.myI2CAddress, register, NumberFormat.Int8LE, true, this.myBoardID, this.myClickID)
-            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress, 1, this.myBoardID, this.myClickID);
+
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+           
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,1,this.myBoardID,this.myClickID);
+           
+           
             return i2cBuffer.getUint8(0)
         }
 ​
