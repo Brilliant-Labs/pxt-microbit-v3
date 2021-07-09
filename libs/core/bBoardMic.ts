@@ -48,8 +48,9 @@ let ​micInitialized = false;
     //% advanced=false
     export function onMicThresh(soundLevel: soundLevel, a: () => void): void { //Pass user blocks as a callback function "a". 
         micInit();
-        bBoard_Control.eventInit(bBoardEvents.MIC_THRESHOLD, BoardID.zero, BUILT_IN_PERIPHERAL); 
-        control.onEvent(bBoard_Control.BLiX_INT_EVENT, bBoard_Control.getEventValue(BoardID.zero,BUILT_IN_PERIPHERAL,bBoardEvents.MIC_THRESHOLD), () => BLMICEvent(a) )
+        bBoard_Control.eventInit(bBoardEventsMask.MIC_THRESHOLD, BoardID.zero, BUILT_IN_PERIPHERAL); 
+        control.onEvent(bBoard_Control.getbBoardEventBusSource(BoardID.zero,BUILT_IN_PERIPHERAL,bBoardEvents.MIC_THRESHOLD),0, () => BLMICEvent(a) )
+        clearThresholdFlag()
     }
 ​
     function BLMICEvent(a:()=>void)
@@ -64,7 +65,7 @@ let ​micInitialized = false;
     //% advanced=true
     export function micEnable(enable: bBoard_Mic.micState) {
         let data = [enable]
-        ​setThresholdLevel(currentMicThreshold);
+        setThresholdLevel(currentMicThreshold);
         bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.AN, moduleIDs.MIC_module_id, functionID.enable, data, null, 0)
         micBaseline();
      
@@ -83,7 +84,7 @@ let ​micInitialized = false;
     export function micSoundLevel(): number {
         micInit();
         let soundLevel: number
-        soundLevel = bBoard_Control.readData16(clickIOPin.AN, moduleIDs.MIC_module_id, functionID.getRMS, [], BoardID.zero, BUILT_IN_PERIPHERAL)
+        soundLevel = bBoard_Control.readData16(clickIOPin.AN, moduleIDs.MIC_module_id, functionID.getRMS, null, BoardID.zero, BUILT_IN_PERIPHERAL)
         return soundLevel
     }
 ​
@@ -118,6 +119,6 @@ let ​micInitialized = false;
     //% block="clear threshold flag"
     //% advanced=true
     export function clearThresholdFlag() {
-        bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.AN, moduleIDs.MIC_module_id, functionID.getThresholdFlag, [], null, 0)
+        bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, clickIOPin.AN, moduleIDs.MIC_module_id, functionID.clearThresholdFlag, [], null, 0)
     }
 }

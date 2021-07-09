@@ -407,9 +407,9 @@ namespace bBoard_WiFi {
     //% subcategory="Brilliant Labs Cloud"
     //% draggableParameters=variable
     export function onBLMQTT(feedName:string, a: (receivedData:number) => void): void { //Pass user blocks as a callback export function "a". 
-    bBoard_Control.eventInit(bBoardEvents.UARTRx,0,0) //set on BLiX
+    bBoard_Control.eventInit(bBoardEventsMask.UARTRx,0,0) //set on BLiX
 
-    control.onEvent(bBoard_Control.BLiX_INT_EVENT,bBoard_Control.getEventValue(BoardID.zero,BUILT_IN_PERIPHERAL,bBoardEvents.UARTRx),() => BLMQTTEvent(feedName,a)) //Set interrupt mb
+    control.onEvent(bBoard_Control.getbBoardEventBusSource(BoardID.zero,BUILT_IN_PERIPHERAL,bBoardEvents.UARTRx),0,() => BLMQTTEvent(feedName,a)) //Set interrupt mb
         
     
     }
@@ -478,10 +478,10 @@ namespace bBoard_WiFi {
                               
                         MQTTMessage = UARTRawData.slice(jsonStart, jsonEnd)
 
-                    
+                  
                         MQTTMessageObject.key = ParseJSONValue("\"key\":") //Extract the value 
                         MQTTMessageObject.cmd = ParseJSONValue("\"cmd\":") //Extract the value 
-                        MQTTMessageObject.feedName =ParseJSONValue("\"feed\":") //Extract the value 
+                        MQTTMessageObject.feedName =ParseJSONValue("\"name\":") //Extract the value 
                         MQTTMessageObject.value = ParseJSONValue("\"value\":") //Extract the value 
 
                         if(MQTTMessageObject.cmd  == "ADD_FEED_DATA") //We are only concerned with the case where an existing variable had a new value added to it (for now)
@@ -519,9 +519,11 @@ namespace bBoard_WiFi {
 
     function ParseJSONValue(key:string):string
     {
+       
         let startIndex = MQTTMessage.indexOf(key)+key.length; //Retrieve the start of the JSON key and then add the length of it to bring it to the end of the key
-         startIndex = MQTTMessage.indexOf("\"")+1 //Get the start of the value 
+         startIndex = MQTTMessage.indexOf("\"",startIndex)+1 //Get the start of the value 
         let endIndex = MQTTMessage.indexOf("\"",startIndex)-1; //Retrieve the end of the value by looking for the ' " ' and then subtracting 1 to get the last character of the key
+      
         return MQTTMessage.substr(startIndex, endIndex-startIndex+1 ) //Extract the value 
     }
 
@@ -535,7 +537,7 @@ namespace bBoard_WiFi {
             lastPing = input.runningTime();
             let MQTTPingPacket = pins.createBuffer(2);
             MQTTPingPacket.setNumber(NumberFormat.UInt8LE, 0, 0xC0); //Subscribe Control Packet header
-            MQTTPingPacket.setNumber(NumberFormat.UInt8LE, 0, 0x00); //Remaining Length = 0 
+            MQTTPingPacket.setNumber(NumberFormat.UInt8LE, 1, 0x00); //Remaining Length = 0 
 
             BLMQTTPacketSend(MQTTPingPacket)
 
