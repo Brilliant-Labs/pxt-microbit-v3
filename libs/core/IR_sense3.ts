@@ -34,18 +34,18 @@ namespace IR_Sense_3 {
 
         private myBoardID: number
         private myClickID: number
+        private myI2CAddress:number
 
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID
             this.myClickID = clickID
-            this.IR_initialize()
+            this.IR_Initialize()
         }
 
-        IR_initialize() {
-            this.writeAK9754([this.DEFAULT_I2C_ADDRESS, 0x20, 0xff, 0xfc, 0xa9, 0xf8, 0x80, 0xfa, 0xf0, 0x81, 0x0c, 0x80, 0xf2, 0xff]) //Initialize the Config register
+        IR_Initialize() {
+            this.myI2CAddress = this.DEFAULT_I2C_ADDRESS
+            this.writeAK9754([0x20, 0xff, 0xfc, 0xa9, 0xf8, 0x80, 0xfa, 0xf0, 0x81, 0x0c, 0x80, 0xf2, 0xff]) //Initialize the Config register
         }
-
-        //TODO: Fix Register selection
 
         //%blockId=AK9754_write
         //%block="$this Write array $values to AK9754 register $register ?"
@@ -59,7 +59,7 @@ namespace IR_Sense_3 {
             for (let i = 0; i < values.length; i++) {
                 i2cBuffer.setNumber(NumberFormat.UInt8LE, i, values[i])
             }
-            bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, i2cBuffer, 0);
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
         }
 
         //TODO: Clear Interruption
@@ -105,11 +105,10 @@ namespace IR_Sense_3 {
         //% this.shadow=variables_get
         //% this.defl="IR_Sense_3"
         readAK9754(register: number): number {
-            let tempBuf = pins.createBuffer(3)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 0, this.DEFAULT_I2C_ADDRESS)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 1, I2C_RepeatStart.True)
-            tempBuf.setNumber(NumberFormat.UInt8LE, 2, register)
-            return bBoard_Control.BLiX(this.myBoardID, this.myClickID, 0, I2C_module_id, I2C_WRITE_id, null, tempBuf, 0).getUint8(0)
+            let i2cBuffer = pins.createBuffer(2);
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,1,this.myBoardID,this.myClickID);           
+            return i2cBuffer.getUint8(0)
         }
     }
 }
