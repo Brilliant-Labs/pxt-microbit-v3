@@ -10,9 +10,7 @@ namespace IrThermo_3 {
         SENSOR_INTERNAL_ERROR,
         SENSOR_GENERIC_ERROR,
         SENSOR_TIMEOUT_ERROR
-        //...
     }
-
     export enum TempUnits {
         //% block="C"
         C = 0,
@@ -101,8 +99,10 @@ namespace IrThermo_3 {
         private readonly I2C_SPEED_FAST = 400000
 
         private readonly MAX_WAIT = 750; //Number of ms to wait before giving up. Some sensor actions take 512ms.
-        private boardIDGlobalT: number
-        private clickIDNumGlobal: number
+
+        private myBoardID: BoardID
+        private myClickID: ClickID
+        private myI2CAddress:number
 
         /*
         TODO:
@@ -125,7 +125,6 @@ namespace IrThermo_3 {
         private Ka: number;
         private Ha: number;
         private Hb: number;
-
         private TOdut: number; //Assume 25C for first iteration
         private TO0: number; //object temp from previous calculation
         private TA0: number; //ambient temp from previous calculation
@@ -133,7 +132,6 @@ namespace IrThermo_3 {
 
         //The default I2C address for the MLX90632 on the SparkX breakout is =0x3B. =0x3A is also possible.
         private MLX90632_DEFAULT_ADDRESS: number;
-
         private returnError: number
 
         constructor(boardID: BoardID, clickID: ClickID) {
@@ -156,157 +154,16 @@ namespace IrThermo_3 {
             this.TA0 = 25.0; //ambient temp from previous calculation
             this.sensorTemp; //Internal temp of the MLX sensor
             this.MLX90632_DEFAULT_ADDRESS = 0x3A
-        }
 
-        get P_Rval() {
-            return this.P_R;
-        }
-
-        get P_Gval() {
-            return this.P_G;
-        }
-
-        get P_Tval() {
-            return this.P_T;
-        }
-
-        get P_Oval() {
-            return this.P_O;
-        }
-
-        get Eaval() {
-            return this.Ea;
-        }
-
-        get Ebval() {
-            return this.Eb;
-        }
-
-        get Faval() {
-            return this.Fa;
-        }
-
-        get Fbval() {
-            return this.Fb;
-        }
-
-        get Gaval() {
-            return this.Ga;
-        }
-
-        get Gbval() {
-            return this.Gb;
-        }
-
-        get Kaval() {
-            return this.Ka;
-        }
-
-        get Haval() {
-            return this.Ha;
-        }
-
-        get Hbval() {
-            return this.Hb;
-        }
-
-        get TOdutval() {
-            return this.TOdut;
-        }
-
-        get TO0val() {
-            return this.TO0;
-        }
-
-        get TA0val() {
-            return this.TA0;
-        }
-
-        get sensorTempval() {
-            return this.sensorTemp;
-        }
-
-        get MLX90632_DEFAULT_ADDRESSval() {
-            return this.MLX90632_DEFAULT_ADDRESS;
-        }
-
-        set P_Rval(value) {
-            this.P_R = value;
-        }
-
-        set P_Gval(value) {
-            this.P_G = value;
-        }
-
-        set P_Tval(value) {
-            this.P_T = value;
-        }
-
-        set P_Oval(value) {
-            this.P_O = value;
-        }
-
-        set Eaval(value) {
-            this.Ea = value;
-        }
-
-        set Ebval(value) {
-            this.Eb = value;
-        }
-
-        set Faval(value) {
-            this.Fa = value;
-        }
-
-        set Fbval(value) {
-            this.Fb = value;
-        }
-
-        set Gaval(value) {
-            this.Ga = value;
-        }
-
-        set Gbval(value) {
-            this.Gb = value;
-        }
-
-        set Kaval(value) {
-            this.Ka = value;
-        }
-
-        set Haval(value) {
-            this.Ha = value;
-        }
-
-        set Hbval(value) {
-            this.Hb = value;
-        }
-
-        set TOdutval(value) {
-            this.TOdut = value;
-        }
-
-        set TO0val(value) {
-            this.TO0 = value;
-        }
-
-        set TA0val(value) {
-            this.TA0 = value;
-        }
-
-        set sensorTempval(value) {
-            this.sensorTemp = value;
-        }
-
-        set MLX90632_DEFAULT_ADDRESSval(value) {
-            this.MLX90632_DEFAULT_ADDRESS = value;
+            this.myBoardID = boardID;
+            this.myClickID = clickID;
+            this.irThermo_3_Initialize()
         }
 
         //This begins the communication with the device
         //Returns a status error if anything went wrong
-        begin() {
-
-            let deviceAddress = this.MLX90632_DEFAULT_ADDRESS; //Get the I2C address from user
+        irThermo_3_Initialize() {
+            this.myI2CAddress = this.MLX90632_DEFAULT_ADDRESS; //Get the I2C address from user
 
             //We require caller to begin their I2C port, with the speed of their choice
             //external to the library
@@ -315,9 +172,7 @@ namespace IrThermo_3 {
             //need to be for different platforms
 
             //Check communication with IC
-
             let thisAddress = this.readRegister16(this.EE_I2C_ADDRESS);
-
 
             //Wait for eeprom_busy to clear
             let counter = 0;
@@ -325,12 +180,9 @@ namespace IrThermo_3 {
                 control.waitMicros(1);
                 counter++;
                 if (counter == this.MAX_WAIT) {
-
                     this.returnError = status.SENSOR_TIMEOUT_ERROR;
-
                 }
             }
-
             this.setMode(this.MODE_SLEEP); //Before reading EEPROM sensor needs to stop taking readings
 
             //Load all the static calibration factors
@@ -342,10 +194,8 @@ namespace IrThermo_3 {
             this.P_G = tempValue32 * Math.pow(2, -20);
             tempValue32 = this.readRegister32(this.EE_P_T);
             this.P_T = tempValue32 * Math.pow(2, -44);
-
             tempValue32 = this.readRegister32(this.EE_P_O);
             this.P_O = tempValue32 * Math.pow(2, -8);
-
             tempValue32 = this.readRegister32(this.EE_Ea);
             this.Ea = tempValue32 * Math.pow(2, -16);
             tempValue32 = this.readRegister32(this.EE_Eb);
@@ -356,20 +206,14 @@ namespace IrThermo_3 {
             this.Fb = tempValue32 * Math.pow(2, -36);
             tempValue32 = this.readRegister32(this.EE_Ga);
             this.Ga = tempValue32 * Math.pow(2, -36);
-
-
             tempValue16 = this.readRegister16(this.EE_Gb);
             this.Gb = tempValue16 * Math.pow(2, -10);
-
             tempValue16 = this.readRegister16(this.EE_Ka);
             this.Ka = tempValue16 * Math.pow(2, -10);
-
             tempValue16 = this.readRegister16(this.EE_Ha);
             this.Ha = tempValue16 * Math.pow(2, -14); //Ha!
-
             tempValue16 = this.readRegister16(this.EE_Hb);
             this.Hb = tempValue16 * Math.pow(2, -14);
-
             //Note, sensor is in sleep mode           
         }
 
@@ -405,13 +249,11 @@ namespace IrThermo_3 {
                     return (0.0); //Error
                 }
             }
-
             this.gatherSensorTemp();
             if (this.returnError != status.SENSOR_SUCCESS) {
                 basic.showString("F")
                 return (0.0); //Error
             }
-
             let lowerRAM = 0;
             let upperRAM = 0;
 
@@ -428,6 +270,7 @@ namespace IrThermo_3 {
                 lowerRAM = this.readRegister16(this.RAM_4);
                 upperRAM = this.readRegister16(this.RAM_5);
             }
+
             //If cycle_pos = 2
             //Calculate TA and TO based on RAM_7, RAM_8, RAM_6, RAM_9
             else if (cyclePosition == 2) {
@@ -435,7 +278,6 @@ namespace IrThermo_3 {
                 upperRAM = this.readRegister16(this.RAM_8);
             }
             else {
-
                 lowerRAM = this.readRegister16(this.RAM_4);
                 upperRAM = this.readRegister16(this.RAM_5);
             }
@@ -443,33 +285,23 @@ namespace IrThermo_3 {
             //Object temp requires 3 iterations
             for (let i = 0; i < 3; i++) {
                 let VRta = nineRAM + this.Gb * (sixRAM / 12.0);
-
                 let AMB = ((sixRAM / 12.0) / VRta) * 524288;
 
                 //let sensorTemp = P_O + ((AMB - P_R) / P_G )+ (P_T * Math.pow((AMB - P_R), 2));
-
                 let S = (lowerRAM + upperRAM) / 2.0;
                 let VRto = nineRAM + (this.Ka * (sixRAM / 12.0));
                 let Sto = ((S / 12.0) / VRto) * 524288;
-
                 let TAdut = ((AMB - this.Eb) / this.Ea) + 25.0;
-
                 let ambientTempK = TAdut + 273.15;
-
                 let bigFraction = Sto / (1 * this.Fa * this.Ha * (1 + (this.Ga * (this.TOdut - this.TO0)) + (this.Fb * (TAdut - this.TA0))));
-
                 let objectTemp = bigFraction + Math.pow(ambientTempK, 4);
                 objectTemp = Math.sqrt(Math.sqrt(Math.abs(objectTemp))); //Take 4th root
                 objectTemp = objectTemp - 273.15 - this.Hb;
-
                 this.TO0 = objectTemp;
-
             }
             let tempC = this.TO0;
             let tempF = tempC * 9.0 / 5.0 + 32.0;
-
             return units == TempUnits.C ? tempC : tempF
-
         }
 
         getSensorTemp(): number {
@@ -492,7 +324,6 @@ namespace IrThermo_3 {
                     return (0.0); //Error
                 }
             }
-
             return (this.gatherSensorTemp());
         }
 
@@ -554,7 +385,6 @@ namespace IrThermo_3 {
         getStatus() {
             this.returnError = status.SENSOR_SUCCESS; //By default, return success
             let deviceStatus = this.readRegister16(this.REG_STATUS);
-
             return (deviceStatus);
         }
 
@@ -603,8 +433,8 @@ namespace IrThermo_3 {
         readRegister16(addr: number): number {
             let i2cBuffer = pins.createBuffer(2);
             this.returnError = status.SENSOR_SUCCESS; //By default, return success
-            // super.i2cWriteNumber(this.MLX90632_DEFAULT_ADDRESS,addr,NumberFormat.Int16BE,true)
-            // i2cBuffer = super.I2CreadNoMem(this.MLX90632_DEFAULT_ADDRESS,2);
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,addr,NumberFormat.Int16BE,true,this.myBoardID,this.myClickID)
+            i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,2,this.myBoardID,this.myClickID);
             let msb = i2cBuffer.getUint8(0)
             let lsb = i2cBuffer.getUint8(1)
             return (msb << 8 | lsb)
@@ -628,7 +458,7 @@ namespace IrThermo_3 {
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, addr & 0xFF)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 2, val >> 8)
             i2cBuffer.setNumber(NumberFormat.UInt8LE, 3, val & 0xFF)
-            // super.i2cWriteBuffer(this.MLX90632_DEFAULT_ADDRESS,i2cBuffer);
+            bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID);
         }
 
         //Write a value to EEPROM
