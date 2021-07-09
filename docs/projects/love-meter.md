@@ -4,7 +4,7 @@
 
 Make a love meter, how sweet! The @boardname@ is feeling the love, then sometimes not so much!
 
-![Love meter banner message](/static/mb/projects/love-meter/love-meter.gif)
+![Love meter banner message](/docs/static/mb/projects/love-meter/love-meter.gif)
 
 ## Step 1
 

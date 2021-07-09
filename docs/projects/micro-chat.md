@@ -2,7 +2,7 @@
 
 ## Introduction @unplugged
 
-![Two @boardname@ connected via radio](/static/mb/projects/a9-radio.png)
+![Two @boardname@ connected via radio](/docs/static/mb/projects/a9-radio.png)
 
 Use the **radio** to send and receive messages with other @boardname@.
 
