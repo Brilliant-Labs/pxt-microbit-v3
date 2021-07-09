@@ -37,11 +37,13 @@ namespace UV_3 {
         constructor(boardID: BoardID, clickID: ClickID) {
             this.myBoardID = boardID;
             this.myClickID = clickID;
+            this.initialize()
         }
 
         initialize() {
+            this.myI2CAddress = this.VEML6070_ADDR_CMD
             this.controlReg = this.VEML6070_CMD_DEFAULT; //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
-            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT) //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
+            this.writeVEML6070(this.myI2CAddress, this.controlReg) //Int disabled, 1/2T (~ 60ms) and shutdown disabled. 
         }
 
         //%blockId=VEML6070_write
@@ -52,6 +54,9 @@ namespace UV_3 {
         //% this.shadow=variables_get
         //% this.defl="UV_3"
         writeVEML6070(register: number, value: number) {
+            let i2cBuffer = pins.createBuffer(2)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 0, register)
+            i2cBuffer.setNumber(NumberFormat.UInt8LE, 1, value)
             bBoard_Control.i2cWriteNumber(register, value, NumberFormat.UInt8LE, false, this.myBoardID, this.myClickID)   
         }
 
@@ -77,7 +82,7 @@ namespace UV_3 {
         //% this.defl="UV_3"
         enableShutdown() {
             this.controlReg = this.controlReg & 0xFE;
-            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT);
+            this.writeVEML6070(this.myI2CAddress, this.controlReg);
         }
 
         //%blockId=VEML6070_disable
@@ -89,7 +94,7 @@ namespace UV_3 {
         //% this.defl="UV_3"
         disableShutdown() {
             this.controlReg = this.controlReg | 0x01;
-            this.writeVEML6070(this.controlReg, this.VEML6070_CMD_DEFAULT);
+            this.writeVEML6070(this.myI2CAddress, this.controlReg);
         }
 
         //%blockId=VEML6070_read
@@ -101,7 +106,7 @@ namespace UV_3 {
         //% this.defl="UV_3"
         readVEML6070(register: number): number {
             let i2cBuffer = pins.createBuffer(2);
-            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,true,this.myBoardID,this.myClickID)
+            bBoard_Control.i2cWriteNumber(this.myI2CAddress,register,NumberFormat.Int8LE,false,this.myBoardID,this.myClickID)
             i2cBuffer = bBoard_Control.I2CreadNoMem(this.myI2CAddress,1,this.myBoardID,this.myClickID);           
             return i2cBuffer.getUint8(0)
         }
