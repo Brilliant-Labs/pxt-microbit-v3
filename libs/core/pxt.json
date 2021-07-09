@@ -93,7 +93,8 @@
         "neopixel.ts",
         "ws2812b.ts",
         "AirQuality3.ts",
-        "IrThermo_3.ts"
+        "IrThermo_3.ts",
+        "Weather.ts"
     ],
     "testFiles": [],
     "public": true,
