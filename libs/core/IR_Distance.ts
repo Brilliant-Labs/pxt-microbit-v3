@@ -40,11 +40,12 @@ namespace IR_Distance {
         //% this.defl="IR_Distance"
         //note:  this sensor not read under 5 cm distance
         getDistance(): number {
+            //TODO: solve Math.pow is not working
             let read = bBoard_Control.analogRead(clickADCPin.AN, this.myBoardID, this.myClickID)
             let x = Math.round(read)
             let y = Math.pow(x, 1.35)
             let z = Math.roundWithPrecision ((250000 / y), 1)
-            return y            
+            return z          
         }
 
         //% blockId=IRDistance_getValue
@@ -65,6 +66,7 @@ namespace IR_Distance {
         //% blockNamespace=IR_Distance
         //% this.shadow=variables_get
         //% this.defl="IR_Distance"
+        //TODO: test enable function
         enable(enable: IR_Distance.IR_enable) {
             bBoard_Control.writePin(enable, clickIOPin.RST, this.myBoardID, this.myClickID)
         }
