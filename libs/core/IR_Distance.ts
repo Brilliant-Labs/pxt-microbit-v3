@@ -34,6 +34,7 @@ namespace IR_Distance {
 
         //% blockId=IRDistance_getDistance
         //% block="$this get distance"
+        //% block.loc.fr="$this obtenir la distance"
         //% advanced=false
         //% blockNamespace=IR_Distance
         //% this.shadow=variables_get
@@ -51,6 +52,7 @@ namespace IR_Distance {
 
         //% blockId=IRDistance_getValue
         //% block="$this get value"
+        //% block.loc.fr="""$this obtenir la valeur"
         //% advanced=true
         //% blockNamespace=IR_Distance
         //% this.shadow=variables_get
@@ -63,6 +65,7 @@ namespace IR_Distance {
 
         //% blockId=IRDistance_Enable
         //% block="$this Turn $enable"
+        //% block.loc.fr="$this Tourne $enable"
         //% advanced=true
         //% blockNamespace=IR_Distance
         //% this.shadow=variables_get

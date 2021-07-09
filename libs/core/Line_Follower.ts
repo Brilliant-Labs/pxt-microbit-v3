@@ -46,8 +46,8 @@ namespace Line_Follower {
             this.myClickID = clickID;
         }
 
-        //%blockId=Line_Follower_lineDetection
-        //%block="$this $enumName"
+        //% blockId=Line_Follower_lineDetection
+        //% block="$this $enumName"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Line_Follower
@@ -57,8 +57,9 @@ namespace Line_Follower {
             return enumName;
         }
 
-        //%blockId=Line_Follower_getWhiteDirection
-        //%block="$this white line following correction"
+        //% blockId=Line_Follower_getWhiteDirection
+        //% block="$this white line following correction"
+        //% block.loc.fr="$this Correction requise pour suivre la ligne blanche"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Line_Follower
@@ -99,8 +100,9 @@ namespace Line_Follower {
             }
         }
 
-        //%blockId=Line_Follower_getBlackDirection
-        //%block="$this black line following correction"
+        //% blockId=Line_Follower_getBlackDirection
+        //% block="$this black line following correction"
+        //% block.loc.fr="$this Correction requise pour suivre la ligne noire"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Line_Follower
@@ -157,8 +159,9 @@ namespace Line_Follower {
             return bBoard_Control.digitalReadPin(clickIOPin.PWM, this.myBoardID, this.myClickID);
         }
 
-        //%blockId=Line_Follower_isReflected
-        //%block="$this Has light been reflected on $sensorNum"
+        //% blockId=Line_Follower_isReflected
+        //% block="$this Has light been reflected on $sensorNum"
+        //% block.loc.fr="$this Est-ce que de la lumière a reflété sur $sensorNum"
         //% blockGap=7
         //% advanced=true
         //% blockNamespace=Line_Follower

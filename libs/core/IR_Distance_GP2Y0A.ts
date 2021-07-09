@@ -20,6 +20,7 @@ namespace IR_Distance_GP2Y0A {
      * @param IR_Distance_GP2Y0A the IR_Distance_GP2Y0A Object
      */
     //% block="$portID range $sensorType"
+    //% block.loc.fr="$portID gamme $sensorType"
     //% advanced=false
     //% blockSetVariable="IR_Distance_GP2Y0A"
     //% weight=110
@@ -48,6 +49,7 @@ namespace IR_Distance_GP2Y0A {
 
         //% blockId=IRDistance1080_getDistance
         //% block="$this get distance"
+        //% block.loc.fr="$this obtenir la distance"
         //% advanced=false
         //% blockNamespace=IR_Distance_GP2Y0A
         //% this.shadow=variables_get
@@ -83,6 +85,7 @@ namespace IR_Distance_GP2Y0A {
 
         //% blockId=IRDistance1080_getValue
         //% block="$this get value"
+        //% block="$this obtenir la valeur"
         //% advanced=true
         //% blockNamespace=IR_Distance_GP2Y0A
         //% this.shadow=variables_get

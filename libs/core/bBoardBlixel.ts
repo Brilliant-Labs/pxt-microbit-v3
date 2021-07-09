@@ -3,6 +3,7 @@
  */
 enum BLiXelcolours {
     //% block=red
+    //% block.loc.fr=rouge
     Red = 0xFF0000,
     //% block=orange
     Orange = 0xFFA500,
@@ -81,7 +82,9 @@ namespace BLiXel {
          * @param max maximum value, eg: 100
          * @param min maximum value, eg: 0
          */
-        //% blockId=BLiXel_show_bar_graph block="show BLiXel bar graph of variable $value|with max value $max ||min value $min"
+        //% blockId=BLiXel_show_bar_graph 
+        //% block="show BLiXel bar graph of variable $value|with max value $max ||min value $min"
+        //% block.loc.fr="montrer BLiXel diagramme à barres de la variable $value|avec valeur max $max ||valeur min $min"
         //% weight=300
         //% min.defl=0
         //% expandableArgumentMode="toggle"
@@ -132,7 +135,9 @@ namespace BLiXel {
          * Shows all LEDs to a given colour (range 0-255 for r, g, b).
          * @param rgb RGB colour of the LED
          */
-        //% blockId="BLiXel_colour" block="set all BLiXels to $rgb=BLiXel_colours" blockGap=9
+        //% blockId="BLiXel_colour" 
+        //% block="set all BLiXels to $rgb=BLiXel_colours" blockGap=9
+        //% block.loc.fr="définir tous BLiXels à $rgb=BLiXel_colours"
         //% rgb.shadow="colorNumberPicker"
         //% weight=400 
         export function  showColour(rgb: number ) {
@@ -155,7 +160,10 @@ namespace BLiXel {
          * Turn off all BLiXels
          * 
          */
-        //% blockId="BLiXel_off" block="turn off all BLiXels" blockGap=9
+        //% blockId="BLiXel_off" 
+        //% block="turn off all BLiXels" 
+        //% block.loc.fr="fermer tous les BLiXels" 
+        //% blockGap=9
         //% weight=10
         export function  blixelsOff() {
 
@@ -172,7 +180,9 @@ namespace BLiXel {
      * Gets the index of a BLiXel
      */
     //% blockGap=9
-    //% blockId="BLiXel_Index" block="%index"
+    //% blockId="BLiXel_Index" 
+    //% block="%index"
+    //% block.loc.fr="%index"
     //% blockHidden=true 
     //% advanced=true
       export function blixel_index(index: BLiXelIndex): number {
@@ -186,7 +196,9 @@ namespace BLiXel {
          * @param pixeloffset position of the BLiXel in the strip
          * @param rgb RGB colour of the LED
          */
-        //% blockId="BLiXel_set_pixel_colour" block="set BLiXel $pixeloffset=BLiXel_Index to $rgb=BLiXel_colours"
+        //% blockId="BLiXel_set_pixel_colour" 
+        //% block="set BLiXel $pixeloffset=BLiXel_Index to $rgb=BLiXel_colours"
+        //% block.loc.fr="définir BLiXel $pixeloffset=BLiXel_Index to $rgb=BLiXel_colours"
         //% blockGap=9
         //% rgb.shadow="colorNumberPicker"
         //% advanced=false
@@ -216,6 +228,7 @@ namespace BLiXel {
     */  
  //% blockId=bBoardBlixel_show
   //% block="show"
+  //% block.loc.fr="montrer"
   //% advanced=true
         export function  show() {
       
@@ -256,7 +269,9 @@ namespace BLiXel {
          * Set the brightness of the strip. This flag only applies to future operation.
          * @param brightness a measure of LED brightness in 0-100. eg: 50
          */
-        //% blockId="BLiXel_set_brightness" block="set brightness $brightness" 
+        //% blockId="BLiXel_set_brightness" 
+        //% block="set brightness $brightness" 
+        //% block.loc.fr="définir la luminosité $brightness"
         //% advanced=false
         //% brightness.min=0 brightness.max=100
         //% weight=200 
@@ -308,7 +323,9 @@ namespace BLiXel {
     * @param green value of the green channel between 0 and 255. eg: 255
     * @param blue value of the blue channel between 0 and 255. eg: 255
     */
-    //% blockId="BLiXel_rgb" block="red %red|green %green|blue %blue"
+    //% blockId="BLiXel_rgb" 
+    //% block="red %red|green %green|blue %blue"
+    //% block.loc.fr="rouge %red|vert %green|bleu %blue"
     //% advanced=true
     export  function rgb(red: number, green: number, blue: number): number {
         return packRGB(red, green, blue);
@@ -318,7 +335,8 @@ namespace BLiXel {
      * Gets the RGB value of a known colour
      */
     //% blockGap=9
-    //% blockId="BLiXel_colours" block="%colour"
+    //% blockId="BLiXel_colours" 
+    //% block="%colour"
     //% advanced=true
     export  function colours(colour: BLiXelcolours): number {
         return colour;
@@ -345,7 +363,9 @@ namespace BLiXel {
      * @param s saturation from 0 to 99
      * @param l luminosity from 0 to 99
      */
-    //% blockId=BLiXelHSL block="hue %h|saturation %s|luminosity %l"
+    //% blockId=BLiXelHSL 
+    //% block="hue %h|saturation %s|luminosity %l"
+    //% block.loc.fr="nuance %h|saturation %s|luminosité %l"
     //% advanced=true
     export  function hsl(h: number, s: number, l: number): number {
         h = Math.round(h);

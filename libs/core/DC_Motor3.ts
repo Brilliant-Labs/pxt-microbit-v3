@@ -10,9 +10,7 @@ namespace DC_Motor3 {
      * @param clickID the ClickID
      * @param DCMotor3 the DCMotor3 Object
     */
-    //% block=" $boardID $clickID"
-    //% blockSetVariable="DCMotor3"
-    //% weight=110
+
 
     //Motor Click
     let IN1 = clickIOPin.AN
@@ -27,6 +25,9 @@ namespace DC_Motor3 {
         Reverse
     }
 
+    //% block=" $boardID $clickID"
+    //% blockSetVariable="DCMotor3"
+    //% weight=110
     export function createDCMotor3(boardID: BoardID, clickID: ClickID): DCMotor3 {
         return new DCMotor3(boardID, clickID);
     }
@@ -59,7 +60,7 @@ namespace DC_Motor3 {
         }
 
         //% blockId=Motor_speedDirection
-        //% block="Set speed to %speed with direction%direction on click%clickBoardNum"
+        //% block="$this set speed to %speed with direction%direction"
         //% Speed.min=0 Speed.max=100
         //% advanced=false
         //% speed.min=0 speed.max=100

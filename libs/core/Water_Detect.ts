@@ -28,6 +28,7 @@ namespace Water_Detect {
 
         //% blockId=Water_Detect_isWater
         //% block="$this Is water detected"
+        //% block.loc.fr="$this Est-ce que de l'eau a été détecté?"
         //% advanced=true
         //% blockNamespace=Water_Detect
         //% this.shadow=variables_get
@@ -38,6 +39,7 @@ namespace Water_Detect {
 
         //% blockId=onWater_Detect 
         //% block="$this on water detect" 
+        //% block.loc.fr="$this quand de l’eau est détectét"
         //% advanced=false
         //% blockAllowMultiple=0
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished

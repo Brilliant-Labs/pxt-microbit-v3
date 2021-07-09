@@ -65,8 +65,9 @@ namespace Proximity_2 {
             bBoard_Control.i2cWriteBuffer(this.myI2CAddress,i2cBuffer,this.myBoardID,this.myClickID)
         }
 ​
-        //%blockId=proximity_2_ReadProximity
-        //%block="$this proximity"
+        //% blockId=proximity_2_ReadProximity
+        //% block="$this proximity"
+        //% block.loc.fr="$this Obtenir la valeur de la proximité"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -79,8 +80,9 @@ namespace Proximity_2 {
             return val;
         }
 ​
-        //%blockId=proximity_2_ReadALS
-        //%block="$this illuminance(lux)"
+        //% blockId=proximity_2_ReadALS
+        //% block="$this illuminance(lux)"
+        //% block.loc.fr="$this Obtenir niveau de lumière ambiante(lux)"
         //% blockGap=7
         //% advanced=false
         //% blockNamespace=Proximity_2

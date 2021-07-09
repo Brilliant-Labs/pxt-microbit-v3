@@ -75,6 +75,7 @@ namespace Servo {
 
         //% blockId=Servo_Angle
         //% block="$this set servo %n to %angle"
+        //% block.loc.fr="$this définir servo %n to %angle"
         //% blockGap=7
         //% advanced=false
         //% this.shadow=variables_get
@@ -288,6 +289,7 @@ namespace Servo {
 
         //% blockId=PCA9685_read
         //% block="$this read from register%register"
+        //% block.loc.fr="$this lire l’enregistrement%register"
         //% blockGap=7
         //% advanced=true
         //% this.shadow=variables_get

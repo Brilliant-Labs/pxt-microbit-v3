@@ -213,6 +213,7 @@ namespace bBoard_WiFi {
     // -------------- 3. Cloud ----------------
     //% blockId=publishBLMQTT
     //% block="BL MQTT publish$data to feed$feedName and project key $topic"
+    //% block.loc.fr="BL MQTT publier$data sur fil$feedNom et clé du projet $topic"
     //% subcategory="Brilliant Labs Cloud"
     //% group="MQTT"
     //% weight=70   
@@ -255,6 +256,7 @@ namespace bBoard_WiFi {
     // -------------- 3. Cloud ----------------
     //% blockId=connectBLMQTT
     //% block="|BL MQTT connect"
+    //% block.loc.fr="|BL MQTT connecter"
     //% group="MQTT"
     //% subcategory="Brilliant Labs Cloud"
     //% weight=200   
@@ -323,6 +325,7 @@ namespace bBoard_WiFi {
     // -------------- 3. Cloud ----------------
     //% blockId=subscribeBLMQTT
     //% block="| BL MQTT subscribe to project key $topic"
+    //% block="| BL MQTT s'abonner à la clé du projet $topic",
     //% group="MQTT"
     //% subcategory="Brilliant Labs Cloud"
     //% weight=199   
@@ -400,7 +403,10 @@ namespace bBoard_WiFi {
  
 
     
-    //% blockId=onBLMQTT block=" on BL Cloud MQTT message received $receivedData from feed $feedName" blockAllowMultiple=1
+    //% blockId=onBLMQTT 
+    //% block=" on BL Cloud MQTT message received $receivedData from feed $feedName" 
+    //% block.loc.fr=" sur nuage BL MQTT message reçu $receivedData du fil $feedName"
+    //% blockAllowMultiple=1
     //% afterOnStart=true                               //This block will only execute after the onStart block is finished
     //% receivedData.shadow=variables_get
     //% group="MQTT"
@@ -561,6 +567,7 @@ namespace bBoard_WiFi {
      *  @param WiFi_BLE the WiFi_BLE Object
      */
     //% block="connect to ssid $ssid| with password $pwd"
+    //%block.loc.fr="connecter à ssid $ssid| avec mot de passe $pwd"
     //% weight=110
     //% group="Initialize and Connect"
     export function  WifiConnect(ssid: string, pwd: string): void {
