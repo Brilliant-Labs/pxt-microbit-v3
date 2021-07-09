@@ -1,5 +1,5 @@
 //------------------------- Device IR_Distance_20150 -----------------------------------
-//% weight=100 color=#33BEBB icon="↔"
+//% weight=100 color=#A8AA36 icon="↔"
 //% advanced=true
 //% labelLineWidth=1009
 namespace IR_Distance_20150 {
