@@ -1,4 +1,4 @@
-//-------------------------Click Board RI_Distance -----------------------------------
+//------------------------- Device IR_Distance_20150 -----------------------------------
 //% weight=100 color=#33BEBB icon="↔"
 //% advanced=true
 //% labelLineWidth=1009
