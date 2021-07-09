@@ -38,8 +38,25 @@ namespace IR_Distance {
         //% blockNamespace=IR_Distance
         //% this.shadow=variables_get
         //% this.defl="IR_Distance"
+        //note:  this sensor not read under 5 cm distance
         getDistance(): number {
-            return 2700 - bBoard_Control.analogRead(clickADCPin.AN, this.myBoardID, this.myClickID)
+            let read = bBoard_Control.analogRead(clickADCPin.AN, this.myBoardID, this.myClickID)
+            let x = Math.round(read)
+            let y = Math.pow(x, 1.35)
+            let z = Math.roundWithPrecision ((250000 / y), 1)
+            return y            
+        }
+
+        //% blockId=IRDistance_getValue
+        //% block="$this get value"
+        //% advanced=true
+        //% blockNamespace=IR_Distance
+        //% this.shadow=variables_get
+        //% this.defl="IR_Distance"
+        //note:  this sensor not read under 5 cm distance
+        getValue(): number {
+            let read = bBoard_Control.analogRead(clickADCPin.AN, this.myBoardID, this.myClickID);
+            return read
         }
 
         //% blockId=IRDistance_Enable
