@@ -73,7 +73,9 @@
         "bBoardBlixel.ts",
         "ButtonG.ts",
         "Motion.ts",
-        "Keylock.ts"
+        "Keylock.ts",
+        "Reed.ts",
+        "Water_Detect.ts"
     ],
     "testFiles": [],
     "public": true,
