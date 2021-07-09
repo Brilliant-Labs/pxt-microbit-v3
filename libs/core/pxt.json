@@ -81,7 +81,9 @@
         "NO2.ts",
         "force.ts",
         "IR_Sense3.ts",
-        "IRThermo_3.ts"
+        "IrThermo_3.ts",
+        "NFC_Tag_2.ts",        
+        "Proximity_2.ts"        
     ],
     "testFiles": [],
     "public": true,
