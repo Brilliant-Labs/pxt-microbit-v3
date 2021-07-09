@@ -272,6 +272,7 @@
   "Line_Follower.LineFollower.isReflected|block": "$this Has light been reflected on $sensorNum",
   "Line_Follower.createLineFollower|block": " $boardID $clickID",
   "Line_Follower|block": "Line_Follower",
+<<<<<<< HEAD
   "Load_Cell_4.Load_Cell_4.bridgeData|block": "$this Read bridge data",
   "Load_Cell_4.Load_Cell_4.readZSC31014Command|block": "$this Read from register$register",
   "Load_Cell_4.Load_Cell_4.setMode|block": "$this set mode to$mode",
@@ -288,6 +289,8 @@
   "Load_Cell_4.mode.command|block": "Command Mode",
   "Load_Cell_4.mode.normal|block": "Normal Mode",
   "Load_Cell_4|block": "Load_Cell_4",
+=======
+>>>>>>> 34a904cc6c0de45f83c811df4a3ea5fba2e8a925
   "Math.constrain|block": "constrain %value|between %low|and %high",
   "Math.map|block": "map %value|from low %fromLow|high %fromHigh|to low %toLow|high %toHigh",
   "Math.randomBoolean|block": "pick random true or false",
@@ -421,6 +424,7 @@
   "Rotation.Pitch|block": "pitch",
   "Rotation.Roll|block": "roll",
   "Servo.Servo.readPCA9685|block": "$this read from register%register",
+<<<<<<< HEAD
   "Servo.Servo.setServoAngle|block": "$this set servo number %n to %angle degrees",
   "Servo.createServo|block": " $boardID $clickID",
   "Servo.servoNUM.Servo_10|block": "servo 10",
@@ -439,6 +443,10 @@
   "Servo.servoNUM.Servo_7|block": "servo 7",
   "Servo.servoNUM.Servo_8|block": "servo 8",
   "Servo.servoNUM.Servo_9|block": "servo 9",
+=======
+  "Servo.Servo.setServoAngle|block": "$this set servo %n to %angle",
+  "Servo.createServo|block": " $boardID $clickID",
+>>>>>>> 34a904cc6c0de45f83c811df4a3ea5fba2e8a925
   "Servo|block": "Servo",
   "SoundExpression.playUntilDone|block": "play sound $this until done",
   "SoundExpression.play|block": "play sound $this",
@@ -776,9 +784,13 @@
   "{id:category}LCD_Mini": "LCD_Mini",
   "{id:category}Led": "Led",
   "{id:category}Light": "Light",
+<<<<<<< HEAD
   "{id:category}Loops": "Loops",
   "{id:category}Line_Follower": "Line_Follower",
   "{id:category}Load_Cell_4": "Load_Cell_4",
+=======
+  "{id:category}Line_Follower": "Line_Follower",
+>>>>>>> 34a904cc6c0de45f83c811df4a3ea5fba2e8a925
   "{id:category}Math": "Math",
   "{id:category}MicrobitPin": "MicrobitPin",
   "{id:category}Motion": "Motion",
