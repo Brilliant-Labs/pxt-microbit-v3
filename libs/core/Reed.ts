@@ -33,8 +33,8 @@ namespace Reed {
         }
 
         //% blockId=Reed_getSwitch
-        //% block="$this Read reed state"
-        //% advanced=false
+        //% block="$this is magnet detected"
+        //% advanced=true
         //% blockNamespace=Reed
         //% this.shadow=variables_get
         //% this.defl="Reed"
