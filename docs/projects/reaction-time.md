@@ -24,8 +24,8 @@ https://youtu.be/doHwknM7HbQ
 
 ## Activities
 
-* [Make](/projects/reaction-time/make)  
-* [Code](/projects/reaction-time/code)
+* [Make](/docs/projects/reaction-time/make)  
+* [Code](/docs/projects/reaction-time/code)
 
 ## ~button /projects/reaction-time/make
 
