@@ -28,9 +28,13 @@ The local server lets you to run the editor and serve the documentation from you
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
 2. Clone this repository.
+   Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
+   (change `mv` by `rename` for Windows shells).
 ```
-git clone https://github.com/microsoft/pxt-microbit
+git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
+mv pxt-microbit-v3 pxt-microbit
 cd pxt-microbit
+git switch --track origin/code_BL_4.0.9 
 ```
 3. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
@@ -48,32 +52,54 @@ Go to the **Running** section.
 This is the typical setup used by the MakeCode team to work on the microbit.
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
+    node v14.15.4 is prefered
+    npm v7.5.6 is prefered
+
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
+   Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
+   (change `mv` by `rename` for Windows shells).
 ```
-git clone https://github.com/microsoft/pxt
+git clone https://github.com/Brilliant-Labs/pxt-v3
+mv pxt-v3 pxt
 cd pxt
 ```
 4. Install the dependencies of pxt and build it
 ```
+git switch --track origin/code_BL_7.0.6
 npm install
 npm run build
 cd ..
 ```
 5. Clone the pxt-common-packages repository
 ```
-git clone https://github.com/microsoft/pxt-common-packages
+git clone https://github.com/Brilliant-Labs/pxt-common-packages-v3
+mv pxt-common-packages-v3 pxt-common-packages
 cd pxt-common-packages
+git switch --track origin/code_BL_9.0.1 
 npm install
 cd ..
 ```
 6. Clone this repository.
 ```
-git clone https://github.com/microsoft/pxt-microbit
+git clone https://github.com/Brilliant-Labs/bboard-tutorials-v3
+mv bboard-tutorials-v3 bboard-tutorials
+
+git clone https://github.com/Brilliant-Labs/bboard-tutorials-cybersecurity-v3
+mv bboard-tutorials-cybersecurity-v3 bboard-tutorials-cybersecurity
+
+git clone https://github.com/Brilliant-Labs/NFC_Tag_2
+git clone https://github.com/Brilliant-Labs/ <click repo>
+
+git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
+mv pxt-microbit-v3 pxt-microbit
+
 cd pxt-microbit
+
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
+git switch --track origin/code_BL_4.0.9 
 npm install -g pxt
 ```
 8. Install the pxt-microbit dependencies.
@@ -84,22 +110,50 @@ npm install
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
+change `rm -rf` by `rmdir /Q /S` for Mac/Linux shells).
 ```
+rm -rf node_modules/pxt-core/
+rm -rf node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
+
+cd docs/static/mb/projects/
+ln -s ../../../../../bboard-tutorials/
+ln -s ../../../../../bboard-tutorials-cybersecurity/
+cd ../../../../
+
+
+cd libs/core
+mkdir click
+cd click
+ln -s ../../../../NFC_Tag_2
+cd ../../../
+
+
 ```
 Note the above command assumes the folder structure of   
 ```
        makecode
           |
-  ----------------------------------
-  |       |                        |
- pxt      pxt-common-packages  pxt-microbit
+  -----------------------------------------------------
+  |       |                        |                  |
+ pxt      pxt-common-packages  pxt-microbit  bboard-tutorials. 
  ```
 
 ### Running
 
-Run this command from inside pxt-microbit to open a local web server
+To install local htt server (add `sudo` for Mac/Linux shells):
+```
+npm install -g http-server
+```
+
+Any time you create a new staticpkg start the htt server using:
+```
+pxt staticpkg
+http-server -c-1 built/packaged
+```
+
+Alternative could run using
 ```
 pxt serve
 ```
