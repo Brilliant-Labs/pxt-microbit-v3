@@ -361,7 +361,7 @@
         "organizationLogo": "./static/Microsoft_logo_rgb_W-white_D-square.png",
         "organizationWideLogo": "./static/Microsoft_logo_rgb_W-white_D.png",
         "homeScreenHero": {
-            "imageUrl": "/static/herogallery/hero-banner.png",
+            "imageUrl": "/docs/static/herogallery/hero-banner.png",
             "name": "Flashing Heart",
             "url": "/projects/flashing-heart",
             "description": "New? Start here!",
@@ -404,7 +404,7 @@
         "docMenu": [
             {
                 "name": "Support",
-                "path": "https://support.microbit.org/"
+                "path": "https://support.brilliantlabs.ca/"
             },
             {
                 "name": "Reference",
@@ -416,11 +416,11 @@
             },
             {
                 "name": "Buy",
-                "path": "https://microbit.org/resellers"
+                "path": "https://www.amazon.ca/b-Board-Starter-Kit-BBC-Micro/dp/B0924WN9LS/ref=sr_1_7?dchild=1&keywords=bboard&qid=1627699007&sr=8-7"
             }
         ],
         "hasReferenceDocs": true,
-        "usbDocs": "/device/usb",
+        "usbDocs": "/docs/device/usb/webusb.html",
         "usbHelp": [
             {
                 "name": "connection",
@@ -584,21 +584,21 @@
             "deviceIcon": "xicon microbit",
             "deviceSuccessIcon": "xicon microbit-check",
 
-            "downloadMenuHelpURL" : "/device/usb",
-            "downloadHelpURL" : "/device/usb",
-            "firmwareHelpURL": "/device/usb/webusb/troubleshoot",
-            "troubleshootWebUSBHelpURL": "/device/usb/webusb/troubleshoot",
-            "incompatibleHardwareHelpURL": "/device/v2",
+            "downloadMenuHelpURL" : "/docs/device/usb/webusb.html",
+            "downloadHelpURL" : "/docs/device/usb/webusb.html",
+            "firmwareHelpURL": "/docs/device/usb/webusb/troubleshoot",
+            "troubleshootWebUSBHelpURL": "/docs/device/usb/webusb/troubleshoot",
+            "incompatibleHardwareHelpURL": "/docs/device/v2",
 
-            "dragFileImage": "/static/download/transfer.png",
-            "connectDeviceImage": "/static/download/connect.png",
-            "selectDeviceImage": "/static/download/pair.png",
-            "connectionSuccessImage": "/static/download/connected.png",
-            "checkFirmwareVersionImage": "/static/download/firmware.png",
-            "checkUSBCableImage": "/static/download/connect.png",
-            "incompatibleHardwareImage": "/static/download/incompatible.png"
+            "dragFileImage": "/docs/static/download/transfer.png",
+            "connectDeviceImage": "/docs/static/download/connect.png",
+            "selectDeviceImage": "/docs/static/download/pair.png",
+            "connectionSuccessImage": "/docs/static/download/connected.png",
+            "checkFirmwareVersionImage": "/docs/static/download/firmware.png",
+            "checkUSBCableImage": "/docs/static/download/connect.png",
+            "incompatibleHardwareImage": "/docs/static/download/incompatible.png"
         },
-        "winAppDeprImage": "/static/winapp.PNG",
+        "winAppDeprImage": "/docs/static/winapp.PNG",
         "showWinAppDeprBanner": false
     },
     "queryVariants": {
