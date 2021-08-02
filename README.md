@@ -3,7 +3,11 @@
 [![Build Status](https://travis-ci.org/microsoft/pxt-microbit.svg?branch=master)](https://travis-ci.org/microsoft/pxt-microbit) ![pxt-testghpkgs](https://github.com/microsoft/pxt-microbit/workflows/pxt-testghpkgs/badge.svg)
 
 pxt-microbit is a [Microsoft Programming Experience Toolkit (PXT)](https://github.com/Microsoft/pxt) target that allows you to program a [BBC micro:bit](https://microbit.org/). 
-* pxt-microbit **beta**,  ``v2.*`` (>2.0) requires pxt v5.*, which is currently in the [master branch of pxt](https://github.com/Microsoft/pxt/tree/master).
+
+* pxt-microbit **beta**, ``v3.0.*`` requires 
+  * [pxt-microbit#stable3.0](https://github.com/Microsoft/pxt-microbit/tree/stable3.0)
+  * [pxt#stable6.0](https://github.com/Microsoft/pxt/tree/stable6.0).
+  * [pxt-common-packages#stable6.0](https://github.com/Microsoft/pxt-common-packages/tree/stable7.0).
 * pxt-microbit ``v2.0.*``, branch ``stable2.0``, requires [pxt v5.15.\*](https://github.com/microsoft/pxt/tree/stable5.15). It is the servicing branch for live editor.
 * pxt-microbit ``v1.*`` requires pxt v4.4, which is currently in the [stable4.4 branch of pxt](https://github.com/Microsoft/pxt/tree/stable4.4).
 * pxt-microbit ``v0.*`` is in the [v0 branch of this repository](https://github.com/microsoft/pxt-microbit/tree/v0)
@@ -30,7 +34,7 @@ The local server lets you to run the editor and serve the documentation from you
 git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
 mv pxt-microbit-v3 pxt-microbit
 cd pxt-microbit
-git switch --track origin/code-canary_BL_stable3.0 
+git switch --track origin/code_canary_BL_stable4.0 
 ```
 3. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
@@ -43,13 +47,14 @@ npm install
 
 Go to the **Running** section.
 
-
-
 ### Developer Setup
 
 This is the typical setup used by the MakeCode team to work on the microbit.
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
+    node v14.15.4 is prefered
+    npm v7.5.6 is prefered
+
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
    Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
@@ -61,23 +66,21 @@ cd pxt
 ```
 4. Install the dependencies of pxt and build it
 ```
-git switch --track origin/code-canary_BL_stable6.0 
+git switch --track origin/code_canary_BL_stable7.0
 npm install
 npm run build
 cd ..
 ```
 5. Clone the pxt-common-packages repository
-   (change `mv` by `rename` for Windows shells).
 ```
 git clone https://github.com/Brilliant-Labs/pxt-common-packages-v3
 mv pxt-common-packages-v3 pxt-common-packages
 cd pxt-common-packages
-git switch --track origin/code-canary_BL_stable7.0 
+git switch --track origin/code_canary_BL_stable9 
 npm install
 cd ..
 ```
 6. Clone this repository.
-   (change `mv` by `rename` for Windows shells).
 ```
 git clone https://github.com/Brilliant-Labs/bboard-tutorials-v3
 mv bboard-tutorials-v3 bboard-tutorials
@@ -96,7 +99,7 @@ cd pxt-microbit
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
-git switch --track origin/code-canary_BL_stable3.0 
+git switch --track origin/code_BL_4.0.9 
 npm install -g pxt
 ```
 8. Install the pxt-microbit dependencies.
@@ -107,10 +110,10 @@ npm install
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
-change `rm -rf` by `rmdir /Q /S` for Windows shells).
+change `rm -rf` by `rmdir /Q /S` for Mac/Linux shells).
 ```
-rm -rf /Q /S node_modules/pxt-core/
-rm -rf /Q /S node_modules/pxt-common-packages/
+rm -rf node_modules/pxt-core/
+rm -rf node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
 
@@ -120,9 +123,11 @@ ln -s ../../../../../bboard-tutorials-cybersecurity/
 cd ../../../../
 
 
-cd libs/core/click
+cd libs/core
+mkdir click
+cd click
 ln -s ../../../../NFC_Tag_2
-cd ../../../../
+cd ../../../
 
 
 ```
@@ -135,13 +140,8 @@ Note the above command assumes the folder structure of
  pxt      pxt-common-packages  pxt-microbit  bboard-tutorials. 
  ```
 
-
-
-
-
 ### Running
 
-Run this command from inside pxt-microbit to open a local web server
 To install local htt server (add `sudo` for Mac/Linux shells):
 ```
 npm install -g http-server
@@ -156,6 +156,18 @@ http-server -c-1 built/packaged
 Alternative could run using
 ```
 pxt serve
+```
+If the local server opens in the wrong browser, make sure to copy the URL containing the local token. 
+Otherwise, the editor will not be able to load the projects.
+
+If you need to modify the `.cpp` files (and have installed yotta), enable yotta compilation using the `--localbuild` flag:
+```
+pxt serve --local
+```
+
+If you want to speed up the build, you can use the ``rebundle`` option, which skips building and simply refreshes the target information
+```
+pxt serve --rebundle
 ```
 
 ### Cleaning
@@ -189,11 +201,14 @@ If you are also modifiying CODAL, consider running ``pxt clean`` to ensure the p
 * do `export PXT_FORCE_LOCAL=1 PXT_RUNTIME_DEV=1 PXT_ASMDEBUG=1`; you can add `PXT_NODOCKER=1`; `pxt help` has help on these
 * find project folder under `pxt-microbit/projects`, typically `pxt-microbit/projects/Untitled-42`
 * if you're going to modify `.cpp` files in PXT, replace `"core": "*"` in `pxt.json` with `"core": "file:../../libs/core"`;
-  similarly `"radio": "file:../../libs/radio"`
+  similarly `"radio": "file:../../libs/radio"` and `"microphone": "file:../../libs/microphone"`
 * you can edit `main.ts` to change the PXT side of the program; you can also edit it from the localhost editor;
   note that `Download` in the localhost editor will produce different binary than command line, as it builds in the cloud
   and uses tagged version of CODAL
 * in that folder run `pxt build` - this will clone codal somewhere under `built/` (depends on build engine and docker)
+* there can be an issue with exporting the variables i.e. PXT_FORCE, so including them in the build command can help solve issues `sudo PXT_NODOCKER=1 PXT_ASMDEBUG=1 PXT_RUNTIME_DEV=1 PXT_DEBUG=1 PXT_FORCE_LOCAL=1 PXT_COMPILE_SWITCHES=csv---mbcodal pxt build`
+* if the target is not building, delete files in `hexcache` found in `pxt-microbit/built/hexcache` to force local build
+* the built hex can be found in `pxt-microbit/projects/<your project name>/built` named `binary.hex`
 * similarly, you can run `pxt deploy` (or just `pxt` which is the same) - it will build and copy to `MICROBIT` drive
 * assuming the build folder is under `built/codal`, go to `built/codal/libraries` and run `code *`
 * in git tab, checkout appropriate branches (they are all in detached head state to the way we tag releases)
@@ -217,6 +232,8 @@ mv dal.d.ts ../core
 Make sure to pull changes from all repos regularly. More instructions are at https://github.com/Microsoft/pxt#running-a-target-from-localhost
 
 ## Update playlists in markdown
+
+To add a new playlist, add an entry in ``/playlists.json``, and regenerate the markdown (see paragraph below). You'll now have a new markdown gallery file listing the videos which you can reference in ``/targetconfig.json``.
 
 Get a Google API key and store it in the ``GOOGLE_API_KEY`` environment variables (turn on data from the app).
 
