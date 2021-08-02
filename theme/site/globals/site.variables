@@ -11,17 +11,18 @@
 
 @teal: #3891A6;
 @blue: #3454D1;
-@red: #E41B21;
+@red: #EF767A;
 @pink: #F46197;
 @yellow: #FDE74C;
-@grey: #95a5a6;
+@grey: #EAF0F5;
 @green: #107C10;
 
 /* Microbit.org colors */
 @orange: #ff8b27;
-@purple: #6633cc;
+@purple: #431947;
 
 @pageBackground: #fff;
+@lightTextColor: white;
 
 /*******************************
          PXT Overrides
@@ -31,12 +32,12 @@
    Menu
 --------------------*/
 
-@mainMenuInvertedBackground: @blue;
+@mainMenuInvertedBackground: @purple;
 @mainMenuTutorialBackground: @purple;
 
 @mainMenuBlocksJsToggleColor: @primaryColor;
 
-@tutorialSelectedMenuColor: @blue;
+@tutorialSelectedMenuColor: @purple;
 
 /*-------------------
    Layout
@@ -50,9 +51,9 @@
    Background
 --------------------*/
 
-@simulatorBackground: #FDFDFF;
+@simulatorBackground: #EAF0F5;
 @editorToolsBackground: @simulatorBackground;
-@blocklySvgColor: #ecf0f1;
+@blocklySvgColor: #EAF0F5;
 
 /*-------------------
    Side Docs
@@ -90,3 +91,19 @@
    Tutorial Code Validation
 ----------------------------*/
 @tutorialCodeValidationCorrectBackground: #cd0365;
+
+/*-------------------
+   Home screen
+--------------------*/
+
+@homeScreenBackground: @purple;
+@homeCardBackgroundColor: fade(#97509E, 50%);
+@homeHeaderColor: fade(white, 50%);
+@homeCardColor: fade(white, 50%);
+@homeCardBorderRadius: 20px;
+@homeCardBorderSize: 3px;
+@homeCardBorderColor: lighten(#97509E, 10%);
+@homeCardHoverBorderColor: #34bfbc;
+@homeCardImageBorderRadius: 20px;
+
+
