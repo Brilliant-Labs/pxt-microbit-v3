@@ -186,27 +186,27 @@ enum moduleIDs {
 
 // 'Clear BBoard tx buffer' command
 let CLEAR_BBOARD_TX_BUFFER = pins.createBuffer(1)
-CLEAR_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_CLEAR_TX_BUFFER)
+CLEAR_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_TX_BUFFER)
 
 // 'Clear BBoard rx buffer' command
 let CLEAR_BBOARD_RX_BUFFER = pins.createBuffer(1)
-CLEAR_BBOARD_RX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_CLEAR_RX_BUFFER)
+CLEAR_BBOARD_RX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_RX_BUFFER)
 
 // 'Read BBoard tx buffer size' command
 let READ_TX_BUFFER_SIZE = pins.createBuffer(1)
-READ_TX_BUFFER_SIZE.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_SIZE)
+READ_TX_BUFFER_SIZE.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_TX_BUFFER_SIZE)
 
 // 'Execute BBoard command' command
 let EXECUTE_BBOARD_COMMAND = pins.createBuffer(1)
-EXECUTE_BBOARD_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_EXECUTE_COMMAND)
+EXECUTE_BBOARD_COMMAND.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_EXECUTE_COMMAND)
 
 // 'Read BBoard TX buffer' command
 let READ_BBOARD_TX_BUFFER = pins.createBuffer(1)
-READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
+READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
 
 // 'Read BBoard Event Click Mask' command
 let READ_EVENT_CLICK_MASK = pins.createBuffer(1)
-READ_EVENT_CLICK_MASK.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_EVENT_CLICK_MASK)
+READ_EVENT_CLICK_MASK.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_EVENT_CLICK_MASK)
 
 
 
@@ -220,8 +220,7 @@ let BBOARD_I2C_ADDRESS = 40
 
 let BBOARD_COMMAND_SW_VERSION = 9
 
-const enum RX_TX_Settings {
-
+const enum bBoard_Command {
     BBOARD_COMMAND_CLEAR_TX_BUFFER = 1,
     BBOARD_COMMAND_READ_TX_BUFFER_DATA = 2,
     BBOARD_COMMAND_READ_TX_BUFFER_SIZE = 3,
@@ -535,7 +534,7 @@ namespace bBoard_Control {
 
     let BBOARD_COMMAND_SW_VERSION = 9
 
-    const enum RX_TX_Settings {
+    const enum bBoard_Command {
 
         BBOARD_COMMAND_CLEAR_TX_BUFFER = 1,
         BBOARD_COMMAND_READ_TX_BUFFER_DATA = 2,
@@ -549,27 +548,27 @@ namespace bBoard_Control {
 
     // 'Clear BBoard tx buffer' command
     let CLEAR_BBOARD_TX_BUFFER = pins.createBuffer(1)
-    CLEAR_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_CLEAR_TX_BUFFER)
+    CLEAR_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_TX_BUFFER)
 
     // 'Clear BBoard rx buffer' command
     let CLEAR_BBOARD_RX_BUFFER = pins.createBuffer(1)
-    CLEAR_BBOARD_RX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_CLEAR_RX_BUFFER)
+    CLEAR_BBOARD_RX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_RX_BUFFER)
 
     // 'Read BBoard tx buffer size' command
     let READ_TX_BUFFER_SIZE = pins.createBuffer(1)
-    READ_TX_BUFFER_SIZE.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_SIZE)
+    READ_TX_BUFFER_SIZE.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_TX_BUFFER_SIZE)
 
     // 'Execute BBoard command' command
     let EXECUTE_BBOARD_COMMAND = pins.createBuffer(1)
-    EXECUTE_BBOARD_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_EXECUTE_COMMAND)
+    EXECUTE_BBOARD_COMMAND.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_EXECUTE_COMMAND)
 
     // 'Read BBoard TX buffer' command
     let READ_BBOARD_TX_BUFFER = pins.createBuffer(1)
-    READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
+    READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
 
     // 'Read BBoard Event Click Mask' command
     let READ_EVENT_CLICK_MASK = pins.createBuffer(1)
-    READ_EVENT_CLICK_MASK.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_EVENT_CLICK_MASK)
+    READ_EVENT_CLICK_MASK.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_READ_EVENT_CLICK_MASK)
 
 
 
@@ -1151,7 +1150,7 @@ namespace bBoard_Control {
         let interruptMask = 0
 
         let GET_INTERRUPT_COMMAND = pins.createBuffer(4)
-        GET_INTERRUPT_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        GET_INTERRUPT_COMMAND.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
         GET_INTERRUPT_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickNumSlot)
         GET_INTERRUPT_COMMAND.setNumber(NumberFormat.UInt8LE, 2, STATUS_module_id)
         GET_INTERRUPT_COMMAND.setNumber(NumberFormat.UInt8LE, 3, STATUS_INTERRUPT)
@@ -1497,7 +1496,7 @@ namespace bBoard_Control {
 
 
        
-        BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
         BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 1, clickAddress)
         BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 2, moduleID)
         BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 3, functionID)

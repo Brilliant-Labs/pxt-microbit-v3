@@ -93,14 +93,14 @@ namespace Load_Cell_4 {
 
 
 
-            BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+            BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
             BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 1, 1)
             BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
             BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 3, SET_id)
             BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 4, clickIOPin.CS & 0x00FF)
             BLiXCommandBuff.setNumber(NumberFormat.UInt8LE, 5, (clickIOPin.CS & 0xFF00) >> 8)
 
-            BLiXCommandBuff2.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+            BLiXCommandBuff2.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
             BLiXCommandBuff2.setNumber(NumberFormat.UInt8LE, 1, 1)
             BLiXCommandBuff2.setNumber(NumberFormat.UInt8LE, 2, I2C_module_id)
             BLiXCommandBuff2.setNumber(NumberFormat.UInt8LE, 3, I2C_WRITE_id)
