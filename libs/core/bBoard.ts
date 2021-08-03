@@ -930,7 +930,7 @@ namespace bBoard_Control {
 
     //% blockId=Open_Drain_set
     //% block="$ODC_Enable open drain on $clickPin on $boardID $clickID"
-    //% block.loc.fr="$ODC_Activer l’ouverture du drain sur $clickPin sur $boardID $clickID"
+    //% block.loc.fr="$ODC_Enable l’ouverture du drain sur $clickPin sur $boardID $clickID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
