@@ -68,7 +68,13 @@
         "soundexpressions.ts",
         "soundexpressions.cpp",
         "parts/speaker.svg",
-        "parts/headphone.svg"
+        "parts/headphone.svg",
+        "bBoard.ts",
+        "bBoardWiFi.ts",
+        "bBoardMotor.ts",
+        "bBoardSound.ts",
+        "bBoardMic.ts",
+        "bBoardBlixel.ts"
     ],
     "testFiles": [],
     "public": true,
