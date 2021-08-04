@@ -8,7 +8,7 @@ Build your own @boardname@ piano using bananas!
 
 ## ~
 
-![](/static/mb/lessons/banana-keyboard-0.png)
+![](/docs/static/mb/lessons/banana-keyboard-0.png)
 
 ## Duration: ~20 minutes.
 

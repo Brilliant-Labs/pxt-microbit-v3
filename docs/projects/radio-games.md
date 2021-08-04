@@ -14,59 +14,67 @@ Here are some cool projects that you can build with your @boardname@!
   "name": "Multi Dice",
   "url": "/projects/multi-dice",
   "description": "Compete with multiple dices",
-  "imageUrl": "/static/mb/projects/multi-dice.png",
+  "imageUrl": "/docs/static/mb/projects/multi-dice.png",
   "cardType": "tutorial"
 }, {
   "name": "Mood Radio",
   "url": "/projects/mood-radio",
   "description": "Send a mood message to your friends",
-  "imageUrl": "/static/mb/projects/mood-radio.png",
+  "imageUrl": "/docs/static/mb/projects/mood-radio.png",
   "cardType": "side"
 }, {
   "name": "Tele-potato",
   "url": "/projects/tele-potato",
   "description": "Play a radio version of the hot potato game",
-  "imageUrl": "/static/mb/projects/tele-potato.png",
+  "imageUrl": "/docs/static/mb/projects/tele-potato.png",
   "cardType": "side"
 }, {
   "name": "Fireflies",
   "url": "/projects/fireflies",
   "description": "Simulate fireflies with micro:bits, try it in the dark!",
-  "imageUrl": "/static/mb/projects/fireflies.png"
+  "imageUrl": "/docs/static/mb/projects/fireflies.png",
+  "cardType": "side"
 }, {
   "name": "Hot or Cold",
   "url": "/projects/hot-or-cold-multi",
   "description": "Find the hidden player by seeing if your close or not.",
-  "imageUrl": "/static/mb/projects/hot-or-cold.jpg"
+  "imageUrl": "/docs/static/mb/projects/hot-or-cold.jpg",
+  "cardType": "side"
 }, {
   "name": "Red Light Green Light",
   "url": "/projects/red-light-green-light",
   "description": "Play the classic game with your micro:bit.",
-  "imageUrl": "/static/mb/projects/red-light-green-light.png"
+  "imageUrl": "/docs/static/mb/projects/red-light-green-light.png",
+  "cardType": "side"
 }, {
   "name": "Voting Machine",
   "url": "/projects/voting-machine",
   "description": "Send in your vote and be counted, YES or NO!",
-  "imageUrl": "/static/mb/projects/voting-machine.png"
+  "imageUrl": "/docs/static/mb/projects/voting-machine.png",
+  "cardType": "side"
 }, {
   "name": "Rock Paper Scissors Teams",
   "url": "/projects/rps-teams",
   "description": "The Rock-Paper-Scissors game with lots and lots of players.",
-  "imageUrl": "/static/mb/projects/rpsteams.png"
+  "imageUrl": "/docs/static/mb/projects/rpsteams.png",
+  "cardType": "side"
 }, {
   "name": "Micro:Coin",
   "url": "/projects/micro-coin",
   "description": "A blockchain for micro:bit",
-  "imageUrl": "/static/mb/projects/micro-coin.png"
+  "imageUrl": "/docs/static/mb/projects/micro-coin.png",
+  "cardType": "side"
 }, {
   "name": "Infection",
   "url": "/projects/infection",
   "description": "An epidemic has broken out, see who will survive.",
-  "imageUrl": "/static/mb/projects/infection.png"
+  "imageUrl": "/docs/static/mb/projects/infection.png",
+  "cardType": "side"
 }, {
   "name": "Best Friends",
   "url": "/projects/best-friends",
   "description": "Your best friend is out there, play this game and go find them.",
-  "imageUrl": "/static/mb/projects/best-friends.png"
+  "imageUrl": "/docs/static/mb/projects/best-friends.png",
+  "cardType": "side"
 }]
 ```

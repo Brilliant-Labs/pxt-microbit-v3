@@ -5,7 +5,7 @@
 Let's turn the @boardname@ into a dice!
 (Want to learn how the accelerometer works? [Watch this video](https://youtu.be/byngcwjO51U)).
 
-![A microbit dice](/static/mb/projects/dice.png)
+![A microbit dice](/docs/static/mb/projects/dice.png)
 
 ## Step 1
 

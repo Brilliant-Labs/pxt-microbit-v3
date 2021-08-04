@@ -5,7 +5,7 @@
 ```codecard
 [{
   "name": "Timing Gates",
-  "url":"/projects/timing-gates",
+  "url":"/docs/projects/timing-gates.html",
   "description": "Setup timing gates to measure the speed of a moving object",
   "imageUrl":"/static/mb/projects/timegate.jpg"
 }]
@@ -16,12 +16,12 @@
 ```codecard
 [{
   "name": "Soil Moisture",
-  "url":"/projects/soil-moisture",
+  "url":"/docs/projects/soil-moisture.html",
   "description": "Keep track of the moisture level of your plants",
   "imageUrl":"/static/mb/projects/soilmoisture.jpg"
 }, {
   "name": "Plant Watering",
-  "url":"/projects/plant-watering",
+  "url":"/docs/projects/plant-watering.html",
   "description": "Automatically water you plants!",
   "imageUrl":"/static/mb/projects/plantwatering.jpg"
 }]

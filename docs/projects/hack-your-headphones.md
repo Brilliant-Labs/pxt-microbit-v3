@@ -8,7 +8,7 @@ Build your own @boardname@ music player using headphones.
 
 ## ~
 
-![](/static/mb/lessons/hack-your-headphones-0.png)
+![](/docs/static/mb/lessons/hack-your-headphones-0.png)
 
 
 ## Duration: ~15 minutes.

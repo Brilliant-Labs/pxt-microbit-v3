@@ -7,7 +7,7 @@ Track the soil moisture of your plants!
 
 ## ~
 
-![](/static/mb/projects/soil-moisture/soil-moisture.jpg)
+![](/docs/static/mb/projects/soil-moisture/soil-moisture.jpg)
 
 ## Materials
 

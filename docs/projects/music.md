@@ -7,18 +7,18 @@ Get your headphone and let's do music!
 ```codecard
 [{
   "name": "Hack Your Headphones",
-  "url":"/projects/hack-your-headphones",
+  "url":"/docs/projects/hack-your-headphones.html",
   "description": "Hook up your headphones to the micro:bit, does that sound good to you?",
-  "imageUrl":"/static/mb/projects/a6-music.png"
+  "imageUrl":"/docs/static/mb/projects/a6-music.png"
 }, {
   "name": "Banana Keyboard",
-  "url":"/projects/banana-keyboard",
+  "url":"/docs/projects/banana-keyboard.html",
   "description": "Use a banana to play music like a keyboard",
-  "imageUrl":"/static/mb/projects/a7-conductive.png"
+  "imageUrl":"/docs/static/mb/projects/a7-conductive.png"
 }, {
   "name": "Guitar",
-  "url":"/projects/guitar",
+  "url":"/docs/projects/guitar.html",
   "description": "An awesome cardboard guitar project, get ready to riff!",
-  "imageUrl":"/static/mb/projects/guitar.png"
+  "imageUrl":"/docs/static/mb/projects/guitar.png"
 }]
 ```

@@ -8,7 +8,7 @@ You have a friend out there. Send out messages to find your best friend!
 
 ## ~
 
-![Sending your friend message](/static/mb/projects/best-friends.png)
+![Sending your friend message](/docs/static/mb/projects/best-friends.png)
 
 You’ve lost the ability to speak. Oh no! However, even in silence you can make new friends. A new discovery has been made, radio transmission. Eureka! Now you must find the other person in your group who you are friends with by sending and receiving messages.
 

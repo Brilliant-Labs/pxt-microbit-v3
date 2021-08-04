@@ -8,7 +8,7 @@ Help Karel make LED art!
 
 **Karel the LED** can't turn right, but he can make some great LED art!
 
-![](/static/mb/projects/karel/hi.png "Hi")
+![](/docs/static/mb/projects/karel/hi.png "Hi")
 
 The goal of this activity is to download the JavaScript code given below onto a @boardname@.
 Then use the program to introduce new students to the @boardname@.
@@ -35,21 +35,21 @@ See if you can make each pattern below using **A**, **B**, and **shake**. Once y
 For patterns that you design, decide which LEDs you want to turn on and then make that design with Karel.
 
 ### Spiral
-![](/static/mb/projects/karel/spiral.png "Spiral")
+![](/docs/static/mb/projects/karel/spiral.png "Spiral")
 
 ### Right turn
-![](/static/mb/projects/karel/right-turn.png "Right turn")
+![](/docs/static/mb/projects/karel/right-turn.png "Right turn")
 
 ### Eyes
-![](/static/mb/projects/karel/eyes.png "Eyes")
+![](/docs/static/mb/projects/karel/eyes.png "Eyes")
 
 ### Smile
 
-![](/static/mb/projects/karel/smile.png "Smile")
+![](/docs/static/mb/projects/karel/smile.png "Smile")
 
 ### Check
 
-![](/static/mb/projects/karel/check.png "Check")
+![](/docs/static/mb/projects/karel/check.png "Check")
 
 ### First letter of your name
 

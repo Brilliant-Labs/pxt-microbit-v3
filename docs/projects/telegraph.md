@@ -1,6 +1,6 @@
 # Telegraph
 
-![](/static/mb/lessons/telegraph-0.png)
+![](/docs/static/mb/lessons/telegraph-0.png)
 
 ## ~avatar
 

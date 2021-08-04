@@ -24,7 +24,7 @@ https://youtu.be/BiZLjugXMbM
 * 1 micro servo 9g SG90
 * 1 paper clip
 
-![Materials](/static/mb/projects/inchworm/materials.jpg)
+![Materials](/docs/static/mb/projects/inchworm/materials.jpg)
 
 ## Preparation
 

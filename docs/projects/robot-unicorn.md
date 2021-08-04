@@ -6,7 +6,7 @@ Hey, I made a herd of very silly gesture controlled robot unicorns I did this be
 
 On this project page, I've written up what you'll need to make your own Robot Unicorn, with all the steps you'll need to follow and the code you'll need to write. I've even have videos for each of the steps to help guide you through this project. Happy making and have fun! 
 
-![Robot Unicorn](/static/mb/projects/robot-unicorn/robotunicorn.jpg)
+![Robot Unicorn](/docs/static/mb/projects/robot-unicorn/robotunicorn.jpg)
 
 ## Ingredients
 
@@ -23,7 +23,7 @@ Here's what you'll need. The links telling where to get parts are just examples 
 - Some wire strippers and some electrical tape.
 - Some double sided sticky tape, some sellotape and/or some decent glue. Those double sided sticky pads work really well for fixing the servos to the cardboard chassis.
 
-![micro:bits and Unicorn Horn](/static/mb/projects/robot-unicorn/microbitsunicorn.jpg)
+![micro:bits and Unicorn Horn](/docs/static/mb/projects/robot-unicorn/microbitsunicorn.jpg)
 
 ### Instructions
 
@@ -193,7 +193,7 @@ Here's where you can find all the templates you need to make the Robot Unicorn.
 - Template for the head: [pdf file here](https://github.com/helenleigh/robot-unicorn/blob/master/unicorn%20head%20A4.pdf) and [ai file here](https://github.com/helenleigh/robot-unicorn/blob/master/unicorn%20head%20A4.ai).
 - STL file for 3D printing your Robot Unicorn horn [is here](https://github.com/helenleigh/robot-unicorn/blob/master/unicorn%20horn%20solid%20base.stl).
 
-![Robot Unicorn Tail](/static/mb/projects/robot-unicorn/robotunicorntail.jpg)
+![Robot Unicorn Tail](/docs/static/mb/projects/robot-unicorn/robotunicorntail.jpg)
 
 ```package
 radio

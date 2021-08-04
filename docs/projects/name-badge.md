@@ -1,6 +1,6 @@
 # Name Badge
 
-![Name badge project](/static/mb/projects/name-badge/header.png)
+![Name badge project](/docs/static/mb/projects/name-badge/header.png)
 
 Make yourself known with a fancy name badge powered by your @boardname@!
 
@@ -61,38 +61,38 @@ Now that you have your name showing on the @boardname@, let's make a proper badg
 
 Cut out a badge shape from a piece of colored construction paper.
 
-![Construction paper and scisssors](/static/mb/projects/name-badge/picture1.png)
+![Construction paper and scisssors](/docs/static/mb/projects/name-badge/picture1.png)
 
 Loop a piece of duct tape and stick it on the back of your @boardname@.
 
-![Roll of tape with the other materials](/static/mb/projects/name-badge/picture2.png)
+![Roll of tape with the other materials](/docs/static/mb/projects/name-badge/picture2.png)
 
 Stick your @boardname@ onto the front of your badge.
 
-![Board attached to the paper](/static/mb/projects/name-badge/picture3.png)
+![Board attached to the paper](/docs/static/mb/projects/name-badge/picture3.png)
 
 Using a hole-punch, punch out 2 holes in the top of your badge.
 
-![Holes punched in the paper](/static/mb/projects/name-badge/picture4.png)
+![Holes punched in the paper](/docs/static/mb/projects/name-badge/picture4.png)
 
 Attach the battery pack to the @boardname@.
 
-![Battery pack connected to the board](/static/mb/projects/name-badge/picture5.png)
+![Battery pack connected to the board](/docs/static/mb/projects/name-badge/picture5.png)
 
 Tape battery pack onto the back of the badge.
 
-![Battery pack taped on](/static/mb/projects/name-badge/picture6.png)
+![Battery pack taped on](/docs/static/mb/projects/name-badge/picture6.png)
 
 Thread a shoelace through the top 2 holes of your badge.
 
-![Shoelace threaded through a hole](/static/mb/projects/name-badge/picture7.png)
+![Shoelace threaded through a hole](/docs/static/mb/projects/name-badge/picture7.png)
 
 Tie a knot at the end of your shoelace
 
-![Ends of shoelace tied together](/static/mb/projects/name-badge/picture8.png)
+![Ends of shoelace tied together](/docs/static/mb/projects/name-badge/picture8.png)
 
 Decorate your badge with colored paper, markers, stickers, glitter.
 
-![Completed name badge](/static/mb/projects/name-badge/picture9.png)
+![Completed name badge](/docs/static/mb/projects/name-badge/picture9.png)
 
 It's now finished! your badge is ready let others know who you are.

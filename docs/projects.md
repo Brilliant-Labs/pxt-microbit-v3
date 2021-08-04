@@ -11,8 +11,8 @@
     {
         "name": "b.Board Tutorials",
         "url": "/projects/bboard",
-        "imageUrl": "docs/static/mb/projects/bboard-tutorials/button-g/button_g.jpg",
-        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/button-g/cover.gif"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials/button-g/button_g.jpg",
+        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials/button-g/cover.gif"
     },
     {
         "name": " ",
@@ -35,8 +35,8 @@
     {
         "name": "b.Board Cyber Security",
         "url": "/projects/bboard-cybersec",
-        "imageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
-        "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
+        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
     },
     {
         "name": "Live Coding",
@@ -46,7 +46,7 @@
     {
         "name": "Games",
         "url": "/projects/games",
-        "imageUrl": "/static/mb/projects/a4-motion.png"
+        "imageUrl": "/docs/static/mb/projects/a4-motion.png"
     },
     {
         "name": "Radio Games",
@@ -56,17 +56,17 @@
     {
         "name": "Fashion",
         "url": "/projects/fashion",
-        "imageUrl": "/static/mb/projects/wallet.png"
+        "imageUrl": "/docs/static/mb/projects/wallet.png"
     },
     {
         "name": "Music",
         "url": "/projects/music",
-        "imageUrl": "/static/mb/projects/a6-music.png"
+        "imageUrl": "/docs/static/mb/projects/a6-music.png"
     },
     {
         "name": "Toys",
         "url": "/projects/toys",
-        "imageUrl": "/static/mb/projects/inchworm.jpg"
+        "imageUrl": "/docs/static/mb/projects/inchworm.jpg"
     },
     {
         "name": "Science",
@@ -76,12 +76,12 @@
     {
         "name": "Tools",
         "url": "/projects/tools",
-        "imageUrl": "/static/mb/projects/stopwatch.png"
+        "imageUrl": "/docs/static/mb/projects/stopwatch.png"
     },
     {
         "name": "Turtle",
         "url": "/projects/turtle",
-        "imageUrl": "/static/mb/projects/turtle-square.png"
+        "imageUrl": "/docs/static/mb/projects/turtle-square.png"
     },
     {
         "name": "Blocks To JavaScript",
@@ -91,7 +91,7 @@
     {
         "name": "Courses",
         "url": "/courses",
-        "imageUrl": "/static/courses/csintro.jpg"
+        "imageUrl": "/docs/static/courses/csintro.jpg"
     },
     {
         "name": "Behind the MakeCode Hardware",

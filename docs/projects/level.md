@@ -4,7 +4,7 @@
 
 Is your table flat? Use the @boardname@ as a level!
 
-![A level drawing](/static/mb/projects/level.png)
+![A level drawing](/docs/static/mb/projects/level.png)
 
 
 ## Step 1

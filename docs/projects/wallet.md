@@ -8,7 +8,7 @@ Make a @boardname@ wallet with this guided tutorial!
 
 ## ~
 
-![wallet image](/static/mb/projects/wallet/wallet.jpg)
+![wallet image](/docs/static/mb/projects/wallet/wallet.jpg)
 
 ## Activities
 

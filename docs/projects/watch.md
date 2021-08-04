@@ -6,7 +6,7 @@ Build your own @boardname@ watch from an old pair of jeans and T-shirt!
 
 ## ~
 
-![](/static/mb/lessons/the-watch-1.png)
+![](/docs/static/mb/lessons/the-watch-1.png)
 
 ## Materials
 

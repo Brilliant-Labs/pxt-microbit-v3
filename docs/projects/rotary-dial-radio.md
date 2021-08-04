@@ -2,7 +2,7 @@
 
 Rotary dial phones may not be one of the latest tech fashions but they've still got some wings if you pair them with a @boardname@. If you are lucky enough to still own one of these antiques, follow this guide and you can bring it into the 21st century.
 
-![A rotary dial phone connected to a @boardname@](/static/mb/projects/rotary-dial-radio/final.jpg)
+![A rotary dial phone connected to a @boardname@](/docs/static/mb/projects/rotary-dial-radio/final.jpg)
 
 This guide is mainly a journal of notes and techniques used to convert a 1945 rotary dial into a @boardname@ radio encoder. This is an example of **reverse engineering**, a treasure hunt for engineers if you wish.
 
@@ -19,7 +19,7 @@ Opening and handling any electrical device can be very dangerous. Make sure to u
 
 The phone below is a Belgium rotary dial phone from 1945. It's really heavy and the dial makes a wonderful clicking noise when it turns.
 
-![Antique rotary dial phone](/static/mb/projects/rotary-dial-radio/oldphone.jpg)
+![Antique rotary dial phone](/docs/static/mb/projects/rotary-dial-radio/oldphone.jpg)
 
 If you skim through the WikiPedia on "rotary dial phones", you'll quickly learn that they operated by using something called **pulse dialing** (https://en.wikipedia.org/wiki/Pulse_dialing). In a nutshell, the dialing mechanism opens and closes a circuit while it rotates which sends a series of electrical pulses on the phone line. One pulse for number 1, two pulses for number 2, and so on. (Hey, what about 0?)
 
@@ -27,7 +27,7 @@ If you skim through the WikiPedia on "rotary dial phones", you'll quickly learn 
 
 Fortunately for us, the bottom of the phone is easily removed by pressing lever. It reveals the internals of the phone. One can see the two massive bells to ring the phone and some other capacitors and circuitery. 
 
-![Inside of a rotary phone](/static/mb/projects/rotary-dial-radio/guts.jpg)
+![Inside of a rotary phone](/docs/static/mb/projects/rotary-dial-radio/guts.jpg)
 
 Most interestingly, there are 8 terminals near the 2 holes in the case for wires.
 
@@ -47,7 +47,7 @@ We connect the @boardname@ to the phone using 3 croc clips:
 * **3v** pin connects at the positive terminal on the phone line
 * **P0** is attacned to one of the headset lines (not **GND**)
 
-![Wiring](/static/mb/projects/rotary-dial-radio/wired.jpg)
+![Wiring](/docs/static/mb/projects/rotary-dial-radio/wired.jpg)
 
 In the MakeCode, we upload a program that reads the analog input on **P0** and plots it on the screen. If you pair your @boardname@, you can also see the data in the console view.
 

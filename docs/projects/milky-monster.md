@@ -35,12 +35,12 @@ https://youtu.be/egl3fNAYylk
 * Tape (masking, duct tape, and/or packing tape)
 * Glue gun
 
-![Materials](/static/mb/projects/milky-monster/materials.jpg)
+![Materials](/docs/static/mb/projects/milky-monster/materials.jpg)
 
 ## Preparation
 
 * Equip the [micro servo](/device/servo) with crocodile clips
-* Get the [cutout template](/static/mb/projects/milky-monster/template.pdf)
+* Get the [cutout template](/docs/static/mb/projects/milky-monster/template.pdf)
 * Download and 3D-print the servo clip designed for Milky Monster from [thingiverse](http://www.thingiverse.com/thing:2185971) (this is optional). Teachers may prefer to download the classroom pack (16 servo clips).
 
 ## Activities

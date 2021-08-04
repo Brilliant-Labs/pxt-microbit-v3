@@ -9,10 +9,10 @@ Learn to use Clickboards with your @boardname@.
 ```codecard
 [{
   "name": "Activity 1",
-  "url":"docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md",
   "description": "Activity 1",
-  "imageUrl":"docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
-  "largeImageUrl": "docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
+  "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
   "label": "Clickboards",
   "labelClass": "green ribbon med"

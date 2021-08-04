@@ -17,9 +17,9 @@ In today's world, one can easily use GPS to measure precisely the distance trave
 
 ### How do you measure distance?
 
-To compute the distance, the engineers relied on the relationship between stride time and running speed (the algorithm is described in [US Patent 4,771,394](/static/mb/projects/puma-rs-computer-shoe/patent.pdf) starting on line 65, column 6). The faster you run, the faster your stride and the less time between foot strikes. The runner had to go through a calibration of the shoe and then it was able to estimate distance **without a GPS**!
+To compute the distance, the engineers relied on the relationship between stride time and running speed (the algorithm is described in [US Patent 4,771,394](/docs/static/mb/projects/puma-rs-computer-shoe/patent.pdf) starting on line 65, column 6). The faster you run, the faster your stride and the less time between foot strikes. The runner had to go through a calibration of the shoe and then it was able to estimate distance **without a GPS**!
 
-[![Screenshot of the US patent](/static/mb/projects/puma-rs-computer-shoe/uspatent.png)](/static/mb/projects/puma-rs-computer-shoe/patent.pdf)
+[![Screenshot of the US patent](/docs/static/mb/projects/puma-rs-computer-shoe/uspatent.png)](/docs/static/mb/projects/puma-rs-computer-shoe/patent.pdf)
 
 Assuming``T`` is the elapsed time, ``S`` is the number of foot strikes
 and ``A``, ``B`` are constants that have been identified in the calibration phase, the 
@@ -32,7 +32,7 @@ Once the speed ``V`` is estimated and the running time ``T`` is known, then dist
 
     D = V * T
 
-![Physics section in patent](/static/mb/projects/puma-rs-computer-shoe/physics.png)
+![Physics section in patent](/docs/static/mb/projects/puma-rs-computer-shoe/physics.png)
 
 ### How do you measure calories?
 
@@ -52,10 +52,10 @@ The project consists of 3 phases that collect data, calibrate, and measure dista
 
 For the 30th anniversary of the shoe, Puma reissued a limited number of RS Computer shoes updated with modern hardware.
 
-![The modern shoe](/static/mb/projects/puma-rs-computer-shoe/packaging.gif)
+![The modern shoe](/docs/static/mb/projects/puma-rs-computer-shoe/packaging.gif)
 
 ## Acknowledgements
 
 This activity was developed in collaboration with [Charles Johnson](https://www.linkedin.com/in/thecharliehaus), Global Director of Innovation at Puma.
 
-![Puma logo](/static/mb/projects/puma-rs-computer-shoe/puma.png)
+![Puma logo](/docs/static/mb/projects/puma-rs-computer-shoe/puma.png)

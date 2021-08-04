@@ -4,7 +4,7 @@
 
 Tell everyone who you are. Show you name on the LEDs.
 
-![Name scrolling on the LEDs](/static/mb/projects/name-tag/name-tag.gif)
+![Name scrolling on the LEDs](/docs/static/mb/projects/name-tag/name-tag.gif)
 
 ## Step 1
 

@@ -9,7 +9,7 @@ Projects used to create escape room experiences.
   "name": "Rotary Dial Radio",
   "url":"/projects/rotary-dial-radio",
   "description": "Turn an antique rotary dial phone into a radio transmitter",
-  "imageUrl":"/static/mb/projects/rotary-dial-radio.png"
+  "imageUrl":"/docs/static/mb/projects/rotary-dial-radio.png"
 }]
 ```
 

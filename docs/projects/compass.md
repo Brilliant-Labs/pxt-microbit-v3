@@ -4,7 +4,7 @@
 
 This tutorial will show you how to program a script that displays which direction the @boardname@ is pointing. Let's get started!
 
-![A cartoon of a compass](/static/mb/projects/a5-compass.png)
+![A cartoon of a compass](/docs/static/mb/projects/a5-compass.png)
 
 ## Step 1
 

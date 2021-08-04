@@ -2,7 +2,7 @@
 
 ## Introduction @unplugged
 
-![A @boardname@ attached on a foot](/static/mb/projects/step-counter.png)
+![A @boardname@ attached on a foot](/docs/static/mb/projects/step-counter.png)
 
 This project turns the @boardname@ into a simple step counter. A step counter is also known as a pedometer. Each **shake** event increments a **counter** variable. The step count is displayed on the LEDs.
 

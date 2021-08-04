@@ -2,7 +2,7 @@
 
 ## @description A mini mood messaging app using radio
 
-![@boardname@ sending moods around](/static/mb/projects/mood-radio.png)
+![@boardname@ sending moods around](/docs/static/mb/projects/mood-radio.png)
 
 This project uses the [radio](/reference/radio) to share your mood with other @boardname@s.
 When you press ``A``, your friends will see a **smiley** face. When you press ``B``, they will see a **frowny** face.

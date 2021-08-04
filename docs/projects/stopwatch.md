@@ -2,7 +2,7 @@
 
 ## Introduction @unplugged
 
-![A @boardname@ stopwatch toon image](/static/mb/projects/stopwatch.png)
+![A @boardname@ stopwatch toon image](/docs/static/mb/projects/stopwatch.png)
 
 This project turns the @boardname@ into a simple stopwatch. Pressing **A** starts the timer. Pressing **B** displays the elapsed seconds.
 

@@ -18,7 +18,7 @@ The **magic** here is really in the code. This trick uses a magnet, hidden in yo
 
 The only things you need for this trick are your @boardname@ and any magnet that is small enough to fit in your hand, even a fridge magnet will work.
 
-![](/static/mb/projects/magic-button-trick/magnets.jpg "Magnets")
+![](/docs/static/mb/projects/magic-button-trick/magnets.jpg "Magnets")
 
 ## Step 1: Getting the buttons to display **A** and **B**
 

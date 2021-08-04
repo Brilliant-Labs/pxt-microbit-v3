@@ -10,13 +10,13 @@ MakeCode's course for learning Computer Science with the micro:bit. This is a 14
 [{
   "name": "Intro to CS Online",
   "description": "Online edition of the Intro to Computer Science course",
-  "url":"/courses/csintro",
-  "imageUrl": "/static/courses/csintro.jpg"
+  "url":"/docs/courses/csintro.html",
+  "imageUrl": "/docs/static/courses/csintro.jpg"
 }, {
   "name": "Intro to CS Classroom",
   "description": "Educator edition of the Intro to Computer Science course for the classroom, including complete downloadable materials",
-  "url":"/courses/csintro-educator",
-  "imageUrl": "/static/courses/csintro-educator.jpg"
+  "url":"/docs/courses/csintro-educator.html",
+  "imageUrl": "/docs/static/courses/csintro-educator.jpg"
 }]
 ```
 

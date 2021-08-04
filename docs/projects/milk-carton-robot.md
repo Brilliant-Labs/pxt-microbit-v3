@@ -35,7 +35,7 @@ https://youtu.be/Ah4fEbJtklU
 * Hole puncher (scissors will work too)
 * Glue gun
 
-![Materials](/static/mb/projects/milk-carton-robot/materials.jpg)
+![Materials](/docs/static/mb/projects/milk-carton-robot/materials.jpg)
 
 ## Preparation
 

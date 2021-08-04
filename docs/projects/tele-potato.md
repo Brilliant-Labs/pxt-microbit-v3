@@ -8,7 +8,7 @@ Don't keep the potato too long or you might lose the game!
 
 ## ~
 
-![A teleporting potato](/static/mb/projects/tele-potato.png)
+![A teleporting potato](/docs/static/mb/projects/tele-potato.png)
 
 Do you know the "Hot Potato" game? You toss around a potato while a timer counts down
 and the person holding it when the timer is up loses... It's super fun.
@@ -19,7 +19,7 @@ In this project, we'll build a similar kind of game but instead we'll use a **vi
 
 Instead of passing a real potato around while a real clock counts down, we are going to **send a number** between @boardname@s. We can do that using the ``||radio:Radio||`` blocks. They use the antenna on the @boardname@ to send data over radio frequency signals, just like the phones or gadgets around you.
 
-![Using radio to send a potato](/static/mb/projects/tele-potato/radio-potato.jpg)
+![Using radio to send a potato](/docs/static/mb/projects/tele-potato/radio-potato.jpg)
 
 Now, what does it mean to have a number represent a potato? Well, we need to **model** the clock as **a number** being tossed around with the potato. We do this so that we can play the game using the radio. So what is so special about this potato clock? It ticks down the time and when it reaches 0, it rings.
 
@@ -29,7 +29,7 @@ To keep track of things, let's have a variable called **potato**:
 * if value of **potato** reaches 0, the game is over
 * if the value of **potato** is negative, this means that the player doesn't have the potato in their hand
 
-![A diagram of the potato representation](/static/mb/projects/tele-potato/model.jpg)
+![A diagram of the potato representation](/docs/static/mb/projects/tele-potato/model.jpg)
 
 Now that we know what the potato is, we need to come up with the user interactions. This is how will the user play the game:
 

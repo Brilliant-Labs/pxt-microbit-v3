@@ -5,7 +5,7 @@
 The ``tug-of-LED`` is a virtual variation of the popular **tug of war** rope game.
 Instead of a rope, we'll use the LED screen by pulling the LED light through the center row.
 
-![A micro:bit holding a rope](/static/mb/projects/tug-of-led.png)
+![A micro:bit holding a rope](/docs/static/mb/projects/tug-of-led.png)
 
 ## Step 1
 

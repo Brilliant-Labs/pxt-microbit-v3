@@ -10,7 +10,7 @@ Overview of Blocks lessons for the @boardname@.
 
 * [Night Light](/lessons/night-light), dim the LEDs with set brightness
 * [Hack your headphones](/projects/hack-your-headphones), create music on the @boardname@ by hacking your headphones
-* [Banana Keyboard](/projects/banana-keyboard), create music with fruits
+* [Banana Keyboard](/docs/projects/banana-keyboard), create music with fruits
 * [Telegraph](/projects/telegraph), play the telegraph game between 2 @boardname@s
 * [Zoomer](/lessons/zoomer), measure the force with acceleration
 * [Glowing pendulum](/lessons/glowing-pendulum), construct a pendulum that glows using acceleration
