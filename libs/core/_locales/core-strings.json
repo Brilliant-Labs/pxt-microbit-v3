@@ -514,7 +514,7 @@
   "bBoard_Control.analogRead|block": "analog read pin %clickPin on $boardID $clickID",
   "bBoard_Control.digitalReadPin|block": "digital read pin $clickPin on $boardID $clickID",
   "bBoard_Control.getClickEventMask|block": "Get click event mask",
-  "bBoard_Control.getFirmwareVersion|block": "Get firmware version of $boardID at slot $clickID on $boardID $clickID",
+  "bBoard_Control.getFirmwareVersion|block": "Get firmware version on $boardID",
   "bBoard_Control.getInterruptSource|block": "Get Interrupt source on $boardID $clickID",
   "bBoard_Control.getUARTData|block": "read string on $boardID $clickID",
   "bBoard_Control.i2cWriteNumber|block": "i2c write number $value|to i2c address $address|of format $format | repeated $repeated on $boardID $clickID",

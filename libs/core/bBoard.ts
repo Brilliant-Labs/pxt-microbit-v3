@@ -258,7 +258,7 @@ let STATUS_INTERRUPT_ENABLE_CN_LOW_CLR = 0x10 //Clear which pin(s) can trigger a
 
 // PWM Function Ids
 let PWM_Duty_id = 1
-let PWM_Period_id = 2
+let PWM_Freq_id = 2
 
 
 //BLiXel Function IDs
@@ -728,16 +728,8 @@ namespace bBoard_Control {
     //% defl="PWMSettings"
     //% group="PWM"
     export function PWMFrequency(clickPin: clickPWMPin, PWMfreq: number, boardID: BoardID, clickID: ClickID) {
-
-        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_Period_id, [PWMfreq & 0x00FF, (PWMfreq & 0xFF00) >> 8],null, 0)
-
-
-
-
-
-
+        BLiX(boardID, clickID, parseInt(clickPin.toString()), PWM_module_id, PWM_Freq_id, [PWMfreq & 0x000000FF, (PWMfreq & 0x0000FF00) >> 8, (PWMfreq & 0x00FF0000) >> 16, (PWMfreq & 0xFF000000) >> 24],null, 0)
     }
-
 
 
 
@@ -1076,27 +1068,21 @@ namespace bBoard_Control {
 
 
     //% blockId=getFirmwareVersion
-    //% block="Get firmware version of $boardID at slot $clickID on $boardID $clickID"
-    //% block.loc.fr="Obtenir la version du firmware de $boardID sur l’espace $clickID on $boardID $clickID"
+    //% block="Get firmware version on $boardID"
+    //% block.loc.fr="Obtenir la version du firmware de $boardID"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
     //% group="_____________"
 
 
-    export function getFirmwareVersion(boardID: BoardID, clickID: ClickID): number {
-        let clickBoardNum = boardID * 3 + clickID
-
-        let VERSIONBuffer = BLiX(boardID, clickID, 0, STATUS_module_id, FIRMWARE_VERSION_id, null,null, 2)
-
-
+    export function getFirmwareVersion(boardID: BoardID): number {
+        let VERSIONBuffer = BLiX(boardID, 0, 0, STATUS_module_id, FIRMWARE_VERSION_id, null,null, 2)
 
         let versionInt = VERSIONBuffer.getUint8(1);
         let versionDec = VERSIONBuffer.getUint8(0);
 
-
         return (versionInt + versionDec / 100);
-
     }
 
     //% blockId=getClickEventMask
