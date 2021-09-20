@@ -364,9 +364,9 @@
         "organizationWideLogo": "/docs/static/Microsoft_logo_rgb_W-white_D.png",
         "homeScreenHero": {
             "imageUrl": "/docs/static/herogallery/heroNew1.png",
-            "name": "Flashing Heart",
-            "url": "/projects/flashing-heart",
-            "description": "New? Start here!",
+            "name": "New bBoard",
+            "url": "/projects/new-bboard",
+            "description": "New bBoard? Start here!",
             "cardType": "tutorial"
         },
         "homeScreenHeroGallery": "/hero-banner",
