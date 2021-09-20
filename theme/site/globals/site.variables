@@ -97,13 +97,14 @@
 --------------------*/
 
 @homeScreenBackground: @purple;
-@homeCardBackgroundColor: fade(#97509E, 50%);
+@homeCardBackgroundColor: fade((#372349), 50%);
 @homeHeaderColor: fade(white, 50%);
 @homeCardColor: fade(white, 50%);
 @homeCardBorderRadius: 20px;
 @homeCardBorderSize: 3px;
 @homeCardBorderColor: lighten(#97509E, 10%);
-@homeCardHoverBorderColor: #34bfbc;
+@homeCardHoverBorderColor: #EB77F6;
 @homeCardImageBorderRadius: 20px;
+@homeCardHoverBackgroundColor: fade((#372349), 100%);
 
 
