@@ -1,5 +1,5 @@
 //------------------------- Device IR_Distance_GP2Y0A -----------------------------------
-//% weight=100 color=#A8AA36 icon="↔"
+//% weight=100 color=#0fbc11 icon="↔"
 //% advanced=true
 //% labelLineWidth=1009
 namespace IR_Distance_GP2Y0A {

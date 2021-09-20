@@ -107,7 +107,8 @@
         "setBufferMode.asm",
         "Temp_Log_2.ts",
         "load_Cell_4.ts",
-        "./click/NFC_Tag_2/NFC_Tag_2.ts"
+        "./click/NFC_Tag_2/NFC_Tag_2.ts",
+        "tinkercademy.ts"
     ],
     "testFiles": [],
     "public": true,

@@ -1,5 +1,5 @@
 //------------------------- device IR_Break_Beam -----------------------------------
-//% weight=100 color=#A8AA36 icon="↔"
+//% weight=100 color=#0fbc11 icon="↔"
 //% advanced=true
 //% labelLineWidth=1009
 namespace IR_Break_Beam {
