@@ -34,7 +34,7 @@ The local server lets you to run the editor and serve the documentation from you
 git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
 mv pxt-microbit-v3 pxt-microbit
 cd pxt-microbit
-git switch --track origin/code_canary_BL_stable4.0 
+git switch --track origin/code_BL_stable4.0 
 ```
 3. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
@@ -66,7 +66,7 @@ cd pxt
 ```
 4. Install the dependencies of pxt and build it
 ```
-git switch --track origin/code_canary_BL_stable7.0
+git switch --track origin/code_BL_stable7.0
 npm install
 npm run build
 cd ..
@@ -76,7 +76,7 @@ cd ..
 git clone https://github.com/Brilliant-Labs/pxt-common-packages-v3
 mv pxt-common-packages-v3 pxt-common-packages
 cd pxt-common-packages
-git switch --track origin/code_canary_BL_stable9 
+git switch --track origin/code_BL_stable9.0 
 npm install
 cd ..
 ```
@@ -99,7 +99,7 @@ cd pxt-microbit
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
 ```
-git switch --track origin/code_BL_4.0.9 
+git switch --track origin/code_BL_stable4.0 
 npm install -g pxt
 ```
 8. Install the pxt-microbit dependencies.
