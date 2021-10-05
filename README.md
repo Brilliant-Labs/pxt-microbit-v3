@@ -178,6 +178,152 @@ pxt clean
 ```
 
 
+
+### How to program a new block
+
+* First read the generic documentation about blocks
+* https://makecode.com/defining-blocks
+* Using a button.ts example you could show specific implementations for bBoard IDE
+
+
+* Header includes:
+* comment to identify the block
+* weight (change vertical location when another block is in the same group)
+* color
+* icon
+* advanced property (must be true to locate the block in Advance tab or below)
+* labellinewidth=( 1001 to 1009 identify groups bellow Advanced)
+
+
+```
+//------------------------- Click Board ButtonG -----------------------------------
+//% weight=700 color=#F4B820 icon=""
+//% advanced=true
+//% labelLineWidth=1003
+```
+
+
+* Namespace identify the block to be used from other functions.
+* enum (show https://makecode.com/defining-blocks for help)
+
+```
+namespace ButtonG {
+    export enum Light {
+        On = 1,
+        Off = 0
+    }
+    export enum buttonPress {
+        Pressed = 1,
+        Released = 0
+    }
+```
+
+* Next create parameters and options for function xreateButtonG
+* shadow (show https://makecode.com/defining-blocks for help)
+
+```
+    /**
+     * Sets ButtonG object.
+     * @param boardID the boardID
+     * @param clickID the ClickID
+     * @param ButtonG the ButtonG Object
+     */
+    //% block="$boardID $clickID"
+    //% advanced=false
+    //% $boardID.shadow="BoardID.zero"
+    //% blockSetVariable="ButtonG"
+    //% weight=110
+```
+
+
+* Declare the class initializator
+
+```
+    export function createButtonG(boardID: BoardID, clickID: ClickID): ButtonG {
+        return new ButtonG(boardID, clickID);
+    }
+```
+
+* Declare the class, starting with private parameters and the class constructor.
+
+```
+    export class ButtonG {
+        private myBoardID: BoardID
+        private myClickID: ClickID
+ 
+        constructor(boardID: BoardID, clickID: ClickID) {
+            this.myBoardID = boardID;
+            this.myClickID = clickID;
+        }
+```
+ 
+* Next star creating class functions.
+* Note that advanced locate the function in … group.
+* Note the use of .loc.fr to translate the labels.
+
+* Note the use of bBoard_Control, this is another class with the Blix (protocol to control the bBoard) To know more, Refers to Blixel documentation
+
+```
+        //% blockId=ButtonG_SetLight
+        //% block="$this Turn button light $onOff"
+        //% block.loc.fr="$this Définir la lumière du bouton $onOff"
+        //% advanced=false
+        //% blockNamespace=ButtonG
+        //% this.shadow=variables_get
+        //% this.defl="ButtonG"
+        setLight(onOff: Light) {
+            bBoard_Control.writePin(onOff, clickIOPin.PWM, this.myBoardID, this.myClickID)
+        }
+```
+ 
+* Now could implement more functions according to your needs, this functions could be public or private
+ 
+```
+        //% blockId=ButtonG_SetLight_PWM
+        //% block="$this Set button light to $brightness brightness"
+        //% block.loc.fr="$this Définir la lumière du bouton à $brightness de luminosité"
+        //% advanced=false
+        //% brightness.min=0 brightness.max=100
+        //% brightness.defl=50
+        //% blockNamespace=ButtonG
+        //% this.shadow=variables_get
+        //% this.defl="ButtonG"
+        setLightPWM(brightness: number) {
+            //FIXME: remove writePin   
+            bBoard_Control.writePin(Light.Off, clickIOPin.PWM, this.myBoardID, this.myClickID)
+            bBoard_Control.setDuty(clickPWMPin.PWM, brightness, this.myBoardID, this.myClickID)
+        }
+ 
+        //% blockId=ButtonG_getSwitch
+        //% block="$this Read button state"
+        //% block.loc.fr="$this Lire l'état du bouton"
+        //% advanced=true
+        //% blockNamespace=ButtonG
+        //% this.shadow=variables_get
+        //% this.defl="ButtonG"
+        getSwitch(): number {
+            return bBoard_Control.digitalReadPin(clickIOPin.INT, this.myBoardID, this.myClickID);
+        }
+ 
+        //% blockId=onButtonG 
+        //% block="$this on button $state" 
+        //% block.loc.fr="$this sur le bouton $state"
+        //% advanced=false
+        //% blockAllowMultiple=0
+        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
+        //% blockNamespace=ButtonG
+        //% this.shadow=variables_get
+        //% this.defl="ButtonG"
+        onButtonState(state: buttonPress, a: () => void): void {
+            bBoard_Control.eventInit((state == buttonPress.Pressed) ? bBoardEventsMask.CN_HIGH : bBoardEventsMask.CN_LOW, this.myBoardID, this.myClickID); //Tell the BLiX to set the Change notification interrupts (High or Low)
+            bBoard_Control.pinEventSet(this.myBoardID, this.myClickID, clickIOPin.INT, (state == buttonPress.Pressed) ? bBoardEventsMask.CN_HIGH : bBoardEventsMask.CN_LOW) //Tell the BLiX which pin you want to monitor for high or low
+            control.onEvent(bBoard_Control.getbBoardEventBusSource(this.myBoardID, this.myClickID, (state == buttonPress.Pressed) ? bBoardEvents.CN_HIGH : bBoardEvents.CN_LOW), clickIOPin.INT, a); //Tell the DAL scheduler what function to call when the bBoard interrupt source is generated from this specific value
+        }
+    }
+}
+```
+
+
 ### Building with CODAL locally
 
 The following commands force a local build using CODAL.
