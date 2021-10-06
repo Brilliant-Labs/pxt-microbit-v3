@@ -144,7 +144,7 @@ Note the above command assumes the folder structure of
 
 ### Running
 
-To install local htt server (add `sudo` for Mac/Linux shells):
+To install local http server (add `sudo` for Mac/Linux shells):
 ```
 npm install -g http-server
 ```
