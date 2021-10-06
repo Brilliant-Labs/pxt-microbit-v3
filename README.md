@@ -108,7 +108,7 @@ npm install -g pxt
 ```
 npm install
 ```
-8. Link pxt-microbit back to base pxt repo (add `sudo` for Mac/Linux shells). 
+9. **Optional** Link pxt-microbit back to base pxt repo (add `sudo` for Mac/Linux shells). 
 This step is only required if you intend to make changes to pxt and/or 
 pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
 this step.
