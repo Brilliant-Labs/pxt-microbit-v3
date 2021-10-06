@@ -24,6 +24,8 @@ Authoring and testing of new extensions can be done directly from the web editor
 
 ## Local server setup
 
+** Please Note: You will need to install [GIT](https://git-scm.com/downloads), Node.js (see below), and NPM (Node Package Manager - should install with Node.js)
+
 The local server lets you to run the editor and serve the documentation from your own computer. It is meant for a single developer used and not designed to serve the editor to a large amount of users.
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
