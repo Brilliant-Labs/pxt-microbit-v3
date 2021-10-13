@@ -23,31 +23,13 @@ Please add an issue if you discover an (unreported) bug.
 Authoring and testing of new extensions can be done directly from the web editor. See [our documentation](https://makecode.com/blog/github-packages) on how to get started. If you want to run the editor locally, keep reading.
 
 ## Local server setup
+### Developer Setup
+
+** Please Note: You will need to install [GIT](https://git-scm.com/downloads), Node.js (see below), NPM (Node Package Manager - should install with Node.js), and [Python](https://www.python.org/downloads). 
 
 The local server lets you to run the editor and serve the documentation from your own computer. It is meant for a single developer used and not designed to serve the editor to a large amount of users.
 
-1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
-2. Clone this repository.
-   Use the https address of repo to clone https://github.com/<repo_directory>/<repo_name>
-   (change `mv` by `rename` for Windows shells).
-```
-git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
-mv pxt-microbit-v3 pxt-microbit
-cd pxt-microbit
-git switch --track origin/code_BL_stable4.0 
-```
-3. Install the PXT command line (add `sudo` for Mac/Linux shells).
-```
-npm install -g pxt
-```
-4. Install the pxt-microbit dependencies.
-```
-npm install
-```
-
-Go to the **Running** section.
-
-### Developer Setup
+Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
 
 This is the typical setup used by the MakeCode team to work on the microbit.
 
@@ -106,10 +88,8 @@ npm install -g pxt
 ```
 npm install
 ```
-8. Link pxt-microbit back to base pxt repo (add `sudo` for Mac/Linux shells). 
-This step is only required if you intend to make changes to pxt and/or 
-pxt-common-packages repos. If all you want is serve a local Makecode, you can skip
-this step.
+9. Link pxt-microbit back to base pxt repo (add `sudo` for Mac/Linux shells). 
+
 change `rm -rf` by `rmdir /Q /S` for Mac/Linux shells).
 ```
 rm -rf node_modules/pxt-core/
@@ -142,7 +122,7 @@ Note the above command assumes the folder structure of
 
 ### Running
 
-To install local htt server (add `sudo` for Mac/Linux shells):
+To install local http server (add `sudo` for Mac/Linux shells):
 ```
 npm install -g http-server
 ```
