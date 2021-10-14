@@ -9,6 +9,7 @@
 //% icon=""
 //% advanced=true
 //% labelLineWidth=1001
+//% deprecated=true
 
 namespace bBoard_Sound {
   let currentBPM = 0; 
