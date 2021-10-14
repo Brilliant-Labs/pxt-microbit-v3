@@ -108,7 +108,8 @@
         "Temp_Log_2.ts",
         "load_Cell_4.ts",
         "./click/NFC_Tag_2/NFC_Tag_2.ts",
-        "tinkercademy.ts"
+        "tinkercademy.ts",
+        "Ultrasonic_Sensor.ts"
     ],
     "testFiles": [],
     "public": true,

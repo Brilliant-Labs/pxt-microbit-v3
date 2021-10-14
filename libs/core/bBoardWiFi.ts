@@ -432,7 +432,8 @@ namespace bBoard_WiFi {
     //% block="Turn WiFi Off"
     //%block.loc.fr="Définir WiFi Off"
     //% weight=110
-    //% group="Initialize and Connect"
+    //% group="MQTT"
+    //% subcategory="More"
     export function WiFiOff(): void {
         bBoard_Control.writePin(0,clickIOPin.CS,boardIDGlobal,clickIDGlobal);
     }
@@ -583,6 +584,7 @@ namespace bBoard_WiFi {
     //% subcategory="Adafruit.io"
     //% weight=70   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi"  
     export function publishAdafruitMQTT(feedName: string, data: number): void {
         let currentBufferIndex = 0;
@@ -608,6 +610,7 @@ namespace bBoard_WiFi {
     //% subcategory="Adafruit.io"
     //% weight=70   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi" 
     export function connectMQTT(userName: string, password: string): void {
         let connectPacketSize = 0
@@ -692,6 +695,7 @@ namespace bBoard_WiFi {
     //% subcategory="Adafruit.io"
     //% weight=70   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi" 
     export function subscribeAdafruitMQTT(topic: string): void {
         let subscribePacketSize = 0
@@ -752,6 +756,7 @@ namespace bBoard_WiFi {
     //% subcategory="Adafruit.io"
     //% weight=70   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi" 
     export function getMQTTMessage(): string {
         return MQTTMessage
@@ -764,6 +769,7 @@ namespace bBoard_WiFi {
     //% subcategory="Adafruit.io"
     //% weight=70   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi"
     export function isMQTTMessage(): boolean {
         let startIndex = 0;
