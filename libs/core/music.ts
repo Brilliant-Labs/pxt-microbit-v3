@@ -174,7 +174,6 @@ enum MusicEvent {
  */
 //% color=#E63022 weight=106 icon="\uf025"
 //% groups='["Melody", "Tone", "Volume", "Tempo", "Melody Advanced"]'
-//% deprecated=true
     namespace music {
     const INTERNAL_MELODY_ENDED = 5;
 
@@ -199,7 +198,6 @@ enum MusicEvent {
     //% parts="headphone"
     //% useEnumVal=1
     //% group="Tone"
-    //% deprecated=true
     export function playTone(frequency: number, ms: number): void {
         if (_playTone) _playTone(frequency, ms);
         else pins.analogPitch(frequency, ms);
@@ -214,7 +212,6 @@ enum MusicEvent {
     //% parts="headphone"
     //% useEnumVal=1
     //% group="Tone"
-    //% deprecated=true
     export function ringTone(frequency: number): void {
         playTone(frequency, 0);
     }
@@ -227,7 +224,6 @@ enum MusicEvent {
     //% blockId=device_rest block="rest(ms)|%duration=device_beat"
     //% parts="headphone"
     //% group="Tone"
-    //% deprecated=true
     export function rest(ms: number): void {
         playTone(0, ms);
     }
@@ -245,7 +241,6 @@ enum MusicEvent {
     //% useEnumVal=1
     //% group="Tone"
     //% blockGap=8
-    //% deprecated=true
     export function noteFrequency(name: Note): number {
         return name;
     }
@@ -261,7 +256,6 @@ enum MusicEvent {
     //% blockId=device_beat block="%fraction|beat"
     //% group="Tempo"
     //% blockGap=8
-    //% deprecated=true
     export function beat(fraction?: BeatFraction): number {
         init();
         if (fraction == null) fraction = BeatFraction.Whole;
@@ -283,7 +277,6 @@ enum MusicEvent {
     //% help=music/tempo weight=40
     //% blockId=device_tempo block="tempo (bpm)" blockGap=8
     //% group="Tempo"
-    //% deprecated=true
     export function tempo(): number {
         init();
         return beatsPerMinute;
@@ -297,7 +290,6 @@ enum MusicEvent {
     //% blockId=device_change_tempo block="change tempo by (bpm)|%value" blockGap=8
     //% group="Tempo"
     //% weight=100
-    //% deprecated=true
     export function changeTempoBy(bpm: number): void {
         init();
         setTempo(beatsPerMinute + bpm);
@@ -312,7 +304,6 @@ enum MusicEvent {
     //% bpm.min=4 bpm.max=400
     //% group="Tempo"
     //% weight=99
-    //% deprecated=true
     export function setTempo(bpm: number): void {
         init();
         if (bpm > 0) {
@@ -331,7 +322,6 @@ enum MusicEvent {
     //% blockId=device_builtin_melody block="%melody"
     //% blockHidden=true
     //% group="Melody Advanced"
-    //% deprecated=true
     export function builtInMelody(melody: Melodies): string[] {
         return getMelody(melody);
     }
@@ -342,7 +332,6 @@ enum MusicEvent {
     //% blockId=melody_on_event block="music on %value"
     //% help=music/on-event weight=59 blockGap=32
     //% group="Melody Advanced"
-    //% deprecated=true
     export function onEvent(value: MusicEvent, handler: () => void) {
         control.onEvent(MICROBIT_MELODY_ID, value, handler);
     }
@@ -353,7 +342,6 @@ enum MusicEvent {
     //% hidden=1 deprecated=1
     //% parts="headphone"
     //% group="Melody Advanced"
-    //% deprecated=true
     export function beginMelody(melodyArray: string[], options: MelodyOptions = 1) {
         return startMelody(melodyArray, options);
     }
@@ -368,7 +356,6 @@ enum MusicEvent {
     //% blockId=device_start_melody block="start melody %melody=device_builtin_melody| repeating %options"
     //% parts="headphone"
     //% group="Melody Advanced"
-    //% deprecated=true
     export function startMelody(melodyArray: string[], options: MelodyOptions = 1) {
         init();
         if (currentMelody != undefined) {
@@ -420,7 +407,6 @@ enum MusicEvent {
     //% tempo.defl=120
     //% parts=headphone
     //% group="Melody"
-    //% deprecated=true
     export function playMelody(melody: string, tempo: number) {
         melody = melody || "";
         setTempo(tempo);
@@ -458,7 +444,6 @@ enum MusicEvent {
     //% melody.fieldOptions.onParentBlock="true"
     //% shim=TD_ID
     //% group="Melody"
-    //% deprecated=true
     export function melodyEditor(melody: string): string {
         return melody;
     }
@@ -471,7 +456,6 @@ enum MusicEvent {
     //% blockId=device_stop_melody block="stop melody $options"
     //% parts="headphone"
     //% group="Melody Advanced"
-    //% deprecated=true
     export function stopMelody(options: MelodyStopOptions) {
         if (options & MelodyStopOptions.Background)
             startMelody([], MelodyOptions.OnceInBackground);
@@ -486,7 +470,6 @@ enum MusicEvent {
     //% blockId=music_stop_all_sounds block="stop all sounds"
     //% weight=10
     //% group="Volume"
-    //% deprecated=true
     export function stopAllSounds() {
         rest(0);
         stopMelody(MelodyStopOptions.All);
@@ -500,7 +483,6 @@ enum MusicEvent {
     //% help=music/set-play-tone
     //% advanced=true
     //% group="Tone"
-    //% deprecated=true
     export function setPlayTone(f: (frequency: number, duration: number) => void) {
         _playTone = f;
     }

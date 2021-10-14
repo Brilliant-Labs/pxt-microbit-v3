@@ -1,64 +1,79 @@
 
-//-------------------------Click Board Relay -----------------------------------
-//% weight=100 color=#F4B820  icon=""
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#66791B  icon=""
 //% advanced=true
-//% labelLineWidth=1003
-namespace Relay {
-    export enum relay {
-        Relay1 = 1,
-        Relay2 = 2
-    }
-    export enum onOff {
-        On = 1,
-        Off = 0
-    }
+namespace Relay{
 
-    /**
-     * Sets Relay object.
-     * @param boardID the boardID
-     * @param clickID the ClickID
-     * @param Relay the Relay Object
-    */
-    //% block="$boardID $clickID"
-    //% advanced=false
-    //% $boardID.shadow="BoardID.zero"
-    //% blockSetVariable="Relay"
-    //% weight=110
-    export function createRelay(boardID: BoardID, clickID: ClickID): Relay {
-        return new Relay(boardID, clickID);
-    }
-    export class Relay {
-        private myBoardID: BoardID
-        private myClickID: ClickID
+export enum relay
+{
+    Relay1 = 1,
+    Relay2 = 2
+}
+export enum onOff
+{
+    On = 1,
+    Off = 0
+}
 
-        constructor(boardID: BoardID, clickID: ClickID) {
-            this.myBoardID = boardID;
-            this.myClickID = clickID;
-            this.Initialize()
-        }
-
-        Initialize() {
-            bBoard_Control.writePin(onOff.Off, clickIOPin.PWM, this.myBoardID, this.myClickID)
-            bBoard_Control.writePin(onOff.Off, clickIOPin.CS, this.myBoardID, this.myClickID)
-        }
-
-
-        //% blockId=Relay_relayOnOff
-        //% block="$this turn $onOff relay $relayNum"
-        //% block.loc.fr="$this éteindre $onOff relai $relayNum"
+    
+    
+       //%blockId=Relay_relayOn
+        //%block="Turn on relay %relayNum on click%clickBoardNum"
+        //% blockGap=7
         //% advanced=false
-        //% blockNamespace=Relay
-        //% this.shadow=variables_get
-        //% this.defl="Relay"
-        relayOnOff(onOff: onOff, relayNum: relay) {
-            switch (relayNum) {
-                case relay.Relay1:
-                    bBoard_Control.writePin(onOff, clickIOPin.PWM, this.myBoardID, this.myClickID)
-                    break;
-                case relay.Relay2:
-                    bBoard_Control.writePin(onOff, clickIOPin.CS, this.myBoardID, this.myClickID)
-                    break;
-            }
+    export function relayOn(relayNum:relay,clickBoardNum:clickBoardID)
+    {
+        switch(relayNum)
+        {
+            case relay.Relay1:
+                bBoard.setPin(clickIOPin.PWM,clickBoardNum);
+            break;
+
+            case relay.Relay2:
+            bBoard.setPin(clickIOPin.CS,clickBoardNum);
+            break;
         }
+    
     }
+
+         //%blockId=Relay_relayOff
+        //%block="Turn off relay %relayNum on click%clickBoardNum"
+        //% blockGap=7
+        //% advanced=false
+        export function relayOff(relayNum:relay,clickBoardNum:clickBoardID)
+        {
+            switch(relayNum)
+            {
+                case relay.Relay1:
+                    bBoard.clearPin(clickIOPin.PWM,clickBoardNum);
+                break;
+    
+                case relay.Relay2:
+                bBoard.clearPin(clickIOPin.CS,clickBoardNum);
+                break;
+            }
+        
+        }
+
+
+         //%blockId=Relay_relayOnOff
+        //%block="Turn %onOff relay %relayNum on click%clickBoardNum"
+        //% blockGap=7
+        //% advanced=false
+        export function relayOnOff(onOff: onOff,relayNum:relay,clickBoardNum:clickBoardID)
+        {
+            switch(relayNum)
+            {
+                case relay.Relay1:
+                    bBoard.writePin(onOff,clickIOPin.PWM,clickBoardNum);
+                break;
+    
+                case relay.Relay2:
+                     bBoard.writePin(onOff,clickIOPin.CS,clickBoardNum);
+                break;
+            }
+        
+        }
 }
