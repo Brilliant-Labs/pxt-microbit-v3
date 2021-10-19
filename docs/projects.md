@@ -33,12 +33,6 @@
         "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-click-gif.gif"
     },
     {
-        "name": "b.Board Cyber Security",
-        "url": "/projects/bboard-cybersec",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
-        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
-    },
-    {
         "name": "Live Coding",
         "url": "/live-coding",
         "imageUrl": "/static/live-coding/NvEOKZ8wh9s.jpg"
@@ -128,7 +122,6 @@
 [ ](/projects/bboard2),
 [  ](/projects/bboard3),
 [   ](/projects/bboard4),
-[b.Board Cyber Security](/projects/bboard-cybersec),
 [Live Coding](/live-coding),
 [Games](/projects/games),
 [Radio Games](/projects/radio-games),

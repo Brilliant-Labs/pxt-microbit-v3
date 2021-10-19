@@ -29,8 +29,6 @@
   * [WEATHER Click](docs/static/mb/projects/bboard-tutorials/weather/weather)
 * [   ](/projects/bboard4)
   * [WiFi BLE](docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-ble)
-* [b.Board Cyber Security](/projects/bboard-cybersec)
-  * [Activity 1](/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md)
 * [Live Coding](/live-coding)
   * [Flashing Heart](https://youtu.be/NvEOKZ8wh9s)
   * [Name Tag](https://youtu.be/xpRI5jjQ31E)
