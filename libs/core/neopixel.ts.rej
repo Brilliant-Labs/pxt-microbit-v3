@@ -1,0 +1,54 @@
+diff a/libs/core/neopixel.ts b/libs/core/neopixel.ts	(rejected hunks)
+@@ -58 +58 @@ namespace neopixel {
+-         * Shows all LEDs to a given color (range 0-255 for r, g, b). 
++         * Shows all LEDs to a given color (range 0-255 for r, g, b).
+@@ -61 +61 @@ namespace neopixel {
+-        //% blockId="neopixel_set_strip_color" block="%strip|show color %rgb=neopixel_colors" 
++        //% blockId="neopixel_set_strip_color" block="%strip|show color %rgb=neopixel_colors"
+@@ -71 +71 @@ namespace neopixel {
+-         * Shows a rainbow pattern on all LEDs. 
++         * Shows a rainbow pattern on all LEDs.
+@@ -75 +75 @@ namespace neopixel {
+-        //% blockId="neopixel_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue" 
++        //% blockId="neopixel_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue"
+@@ -142 +142 @@ namespace neopixel {
+-        //% blockId=neopixel_show_bar_graph block="%strip|show bar graph of %value|up to %high" 
++        //% blockId=neopixel_show_bar_graph block="%strip|show bar graph of %value|up to %high"
+@@ -174 +174 @@ namespace neopixel {
+-         * Set LED to a given color (range 0-255 for r, g, b). 
++         * Set LED to a given color (range 0-255 for r, g, b).
+@@ -179 +179 @@ namespace neopixel {
+-        //% blockId="neopixel_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=neopixel_colors" 
++        //% blockId="neopixel_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=neopixel_colors"
+@@ -200 +200 @@ namespace neopixel {
+-         * Set LED to a given color (range 0-255 for r, g, b) in a matrix shaped strip 
++         * Set LED to a given color (range 0-255 for r, g, b) in a matrix shaped strip
+@@ -206 +206 @@ namespace neopixel {
+-        //% blockId="neopixel_set_matrix_color" block="%string|set matrix color at x %x|y %y|to %rgb=neopixel_colors" 
++        //% blockId="neopixel_set_matrix_color" block="%string|set matrix color at x %x|y %y|to %rgb=neopixel_colors"
+@@ -219 +219 @@ namespace neopixel {
+-        
++
+@@ -225 +225 @@ namespace neopixel {
+-        //% blockId="neopixel_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white" 
++        //% blockId="neopixel_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white"
+@@ -229 +229 @@ namespace neopixel {
+-        setPixelWhiteLED(pixeloffset: number, white: number): void {            
++        setPixelWhiteLED(pixeloffset: number, white: number): void {
+@@ -235 +235 @@ namespace neopixel {
+-        /** 
++        /**
+@@ -305 +305 @@ namespace neopixel {
+-        /** 
++        /**
+@@ -541 +541 @@ namespace neopixel {
+-        
++
+@@ -546,2 +546,2 @@ namespace neopixel {
+-        let h1 = Math.idiv(h, 60);//[0,6]
+-        let h2 = Math.idiv((h - h1 * 60) * 256, 60);//[0,255]
++        let h1 = Math.idiv(h, 60); //[0,6]
++        let h2 = Math.idiv((h - h1 * 60) * 256, 60); //[0,255]
+@@ -549 +549 @@ namespace neopixel {
+-        let x = (c * (256 - (temp))) >> 8;//[0,255], second largest component of this color
++        let x = (c * (256 - (temp))) >> 8; //[0,255], second largest component of this color
