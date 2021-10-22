@@ -206,7 +206,9 @@
             "microsoft/pxt-data-streamer",
             "iBuilds/pxt-PTKidsBIT-Robot",
             "4tronix/EggBit",
-            "joy-it/SEN-MPU6050"
+            "joy-it/SEN-MPU6050",
+            "Brilliant-Labs/NFC_Tag_2"
+
         ],
         "preferredRepos": [
             "Microsoft/pxt-neopixel",
@@ -217,7 +219,8 @@
             "4tronix/BitBot",
             "kitronikltd/pxt-kitronik-servo-lite",
             "kitronikltd/pxt-kitronik-motor-driver",
-            "Tinkertanker/pxt-ringbitcar"
+            "Tinkertanker/pxt-ringbitcar",
+            "Brilliant-Labs/NFC_Tag_2"
         ],
         "upgrades": {
             "tinkertanker/pxt-iot-environment-kit": "min:v4.2.1",

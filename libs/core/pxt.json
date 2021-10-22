@@ -107,7 +107,7 @@
         "setBufferMode.asm",
         "Temp_Log_2.ts",
         "load_Cell_4.ts",
-        "./click/NFC_Tag_2/NFC_Tag_2.ts",
+        "microbit_servo.ts",
         "tinkercademy.ts",
         "Ultrasonic_Sensor.ts"
     ],
