@@ -63,7 +63,7 @@ namespace servos {
         //% weight=99 help=servos/run
         //% blockId=servoservorun 
         //% block="continuous %servo run at %speed=speedPicker \\%"
-        //% block.loc.fr="continuous %servo vitesse à %speed=speedPicker \\%"
+        //% block.loc.fr="tourner %servo vitesse à %speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
