@@ -588,9 +588,9 @@
 
             "downloadMenuHelpURL" : "/docs/device/usb/webusb.html",
             "downloadHelpURL" : "/docs/device/usb/webusb.html",
-            "firmwareHelpURL": "/docs/device/usb/webusb/troubleshoot",
-            "troubleshootWebUSBHelpURL": "/docs/device/usb/webusb/troubleshoot",
-            "incompatibleHardwareHelpURL": "/docs/device/v2",
+            "firmwareHelpURL": "/docs/device/usb/webusb/troubleshoot.html",
+            "troubleshootWebUSBHelpURL": "/docs/device/usb/webusb/troubleshoot.html",
+            "incompatibleHardwareHelpURL": "/docs/device/v2.html",
 
             "dragFileImage": "/docs/static/download/transfer.png",
             "connectDeviceImage": "/docs/static/download/connect.png",
