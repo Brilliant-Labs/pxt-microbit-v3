@@ -643,6 +643,7 @@
   "loops.everyInterval|block": "every $interval ms",
   "loops|block": "loops",
   "msgpack|block": "msgpack",
+  "music.bBoardSpeakerSelect|block": "Set music speaker to $speakerSelect",
   "music.beat|block": "%fraction|beat",
   "music.builtInMelody|block": "%melody",
   "music.changeTempoBy|block": "change tempo by (bpm)|%value",

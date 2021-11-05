@@ -108,3 +108,137 @@ bBoard_Control.BLiX(BoardID.zero,BUILT_IN_PERIPHERAL,0,moduleIDs.MUSIC_module_id
   // }
 }
   
+namespace music
+{
+
+
+export enum speakerTypes {
+
+// FunctionIds
+
+allSpeakers = 1,
+
+bBoardSpeaker = 2,
+
+microbitSpeaker = 3
+
+ 
+
+
+}
+
+enum functionID {
+
+// FunctionIds
+
+enableSpeaker = 1,
+
+setBPM = 2,
+
+sendSong = 3,
+
+playSong = 4,
+
+stopSong = 5,
+
+playTone = 6,
+
+setVolume = 7
+
+}
+
+ 
+
+//%blockId=bBoardSpeakerSelect
+
+//%block="Set music speaker to $speakerSelect"
+
+//%block.loc.fr="Réglez le haut-parleur sur $speakerSelect"
+
+//% blockGap=7
+
+//% advanced=false
+
+//% blockNamespace=music
+
+//% speakerSelect.defl=speakerTypes.allSpeakers
+
+export function bBoardSpeakerSelect(speakerSelect:speakerTypes)
+
+{
+
+if (speakerSelect == speakerTypes.bBoardSpeaker)
+
+{
+
+music.setPlayTone(function (frequency: number, duration: number) {
+
+let toneBuffer = pins.createBuffer(4);
+
+toneBuffer.setNumber(NumberFormat.UInt16LE, 0, frequency)
+
+toneBuffer.setNumber(NumberFormat.UInt16LE, 2, duration)
+
+
+
+bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, 0, moduleIDs.MUSIC_module_id, functionID.setVolume, [music.volume()], null, 0);
+
+bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, 0, moduleIDs.MUSIC_module_id, functionID.playTone, null, toneBuffer, 0);
+
+ 
+
+basic.pause(duration)
+
+})
+
+}
+
+else if (speakerSelect == speakerTypes.microbitSpeaker)
+
+{
+
+music.setPlayTone(function (frequency: number, duration: number) {
+
+
+pins.analogPitch(frequency, duration);
+
+
+})
+
+}
+
+else //all speakers
+
+{
+
+music.setPlayTone(function (frequency: number, duration: number) {
+
+let toneBuffer = pins.createBuffer(4);
+
+toneBuffer.setNumber(NumberFormat.UInt16LE, 0, frequency)
+
+toneBuffer.setNumber(NumberFormat.UInt16LE, 2, duration)
+
+
+
+bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, 0, moduleIDs.MUSIC_module_id, functionID.setVolume, [music.volume()], null, 0);
+
+bBoard_Control.BLiX(BoardID.zero, BUILT_IN_PERIPHERAL, 0, moduleIDs.MUSIC_module_id, functionID.playTone, null, toneBuffer, 0);
+
+pins.analogPitch(frequency, duration);
+
+// basic.pause(duration)
+
+})
+
+}
+
+}
+
+ 
+
+bBoardSpeakerSelect(speakerTypes.allSpeakers); //Set default to both speakers.
+
+}
+
+
