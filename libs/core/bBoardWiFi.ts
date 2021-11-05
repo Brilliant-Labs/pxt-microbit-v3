@@ -99,7 +99,7 @@ namespace bBoard_WiFi {
     */
     //% blockId=publishBLMQTT
     //% block="BL MQTT publish$data=text|feed$feedName|username$username|API Key%apiKey"
-    //% block.loc.fr="BL MQTT publier$data=text|flux$feedName|nom d'utilisateur|API clé%APIKey"
+    //% block.loc.fr="BL MQTT publier$data=text|flux$feedName|nom d'utilisateur$username|API clé%APIKey"
     //% subcategory="Brilliant Labs Cloud"
     //% group="MQTT"
     //% weight=70   
@@ -339,7 +339,7 @@ namespace bBoard_WiFi {
     */
     //% blockId=onBLMQTT 
     //% block="on BL MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey" 
-    //% block.loc.fr="sur nuage BL reçu $dataType $receivedData|flux $feedName|nom d'utilisateur $username|API clé $APIKey"
+    //% block.loc.fr="sur nuage BL reçu $dataType $receivedData|flux $feedName|nom d'utilisateur$username|API clé$apiKey"
     //% blockAllowMultiple=1
     //% afterOnStart=true                               //This block will only execute after the onStart block is finished
     //% receivedData.shadow=variables_get

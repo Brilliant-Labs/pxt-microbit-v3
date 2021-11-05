@@ -203,11 +203,9 @@
   "String.toLowerCase": "Converts the string to lower case characters.",
   "String@type": "Combine, split, and search text strings.",
   "StringMap": "A dictionary from string key to string values",
-
   "Temp_Log_2.createTemp_Log_2": "Sets Temp_Log_2 Click object.",
   "Temp_Log_2.createTemp_Log_2|param|boardID": "the boardID",
   "Temp_Log_2.createTemp_Log_2|param|clickID": "the ClickID",
-
   "bBoard": "Custom clickBoard",
   "bBoard.UARTFrequency": "Set the UART frequency",
   "bBoard.UARTFrequency|param|frequency": "the clock frequency, eg: 115200",
@@ -216,7 +214,6 @@
   "bBoard.spiCS": "Set the SPI Chip Select Pin",
   "bBoard.spiFrequency": "Set the SPI frequency",
   "bBoard.spiFrequency|param|frequency": "the clock frequency, eg: 1000000",
-
   "basic": "Provides access to basic micro:bit functionality.",
   "basic.clearScreen": "Turn off all LEDs",
   "basic.forever": "Repeats the code forever in the background. On each iteration, allows other codes to run.",
@@ -478,7 +475,6 @@
   "music.stopMelody": "Stops the melodies",
   "music.stopMelody|param|options": "which melody to stop",
   "music.tempo": "Returns the tempo in beats per minute. Tempo is the speed (bpm = beats per minute) at which notes play. The larger the tempo value, the faster the notes will play.",
-
   "neopixel": "La fonction pour piloter les bandes NeoPixel.",
   "neopixel.Strip": "La bande NeoPixel.",
   "neopixel.Strip.clear": "Éteint toutes les DELs.\nIl faut ``afficher`` le changement (second bloc) pour le rendre visible.",
@@ -528,7 +524,6 @@
   "neopixel.rgb|param|blue": "La valeur du canal B, bleu, entre  0 et 255. 255, par exemple.",
   "neopixel.rgb|param|green": "La valeur du canal G, vert, entre  0 et 255. 255, par exemple.",
   "neopixel.rgb|param|red": "La valeur du canal R, rouge, entre  0 et 255. 255, par exemple.",
-
   "parseFloat": "Convert a string to a number.",
   "parseInt": "Convert a string to an integer.",
   "pins": "Control currents in Pins for analog/digital signals, servos, i2c, ...",
