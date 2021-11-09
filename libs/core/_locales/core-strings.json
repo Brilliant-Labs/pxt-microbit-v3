@@ -548,6 +548,7 @@
   "bBoard_WiFi.onBLMQTT|block": "on BL MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey",
   "bBoard_WiFi.publishAdafruitMQTT|block": " Adafruit MQTT publish data %data to topic %topic  ",
   "bBoard_WiFi.publishBLMQTT|block": "BL MQTT publish$data=text|feed$feedName|username$username|API Key%apiKey",
+  "bBoard_WiFi.sendIFTTT|block": " IFTTT send$value1 with API key$key to event name$eventname",
   "bBoard_WiFi.subscribeAdafruitMQTT|block": "|Adafruit MQTT subscribe to topic $topic",
   "bBoard_WiFi|block": "bBoard_WiFi",
   "basic.clearScreen|block": "clear screen",
@@ -834,6 +835,7 @@
   "{id:group}Dewpoint": "Dewpoint",
   "{id:group}Humidity": "Humidity",
   "{id:group}I2C": "I2C",
+  "{id:group}IFTTT": "IFTTT",
   "{id:group}Initialize and Connect": "Initialize and Connect",
   "{id:group}MQTT": "MQTT",
   "{id:group}Melody": "Melody",
@@ -856,5 +858,6 @@
   "{id:group}micro:bit (V2)": "micro:bit (V2)",
   "{id:subcategory}Adafruit.io": "Adafruit.io",
   "{id:subcategory}Brilliant Labs Cloud": "Brilliant Labs Cloud",
+  "{id:subcategory}IFTTT": "IFTTT",
   "{id:subcategory}More": "More"
 }

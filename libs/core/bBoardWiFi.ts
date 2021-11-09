@@ -85,7 +85,7 @@ function WiFiResponse(
 //% labelLineWidth=1001
 //% advanced=true
 namespace bBoard_WiFi {
-    //% groups=" 'Initialize and Connect' weight=200 , 'IFTTT', 'MQTT Adafruit', 'Brilliant Labs Cloud' "
+    //% groups=" 'Initialize and Connect' weight=200 , 'IFTTT' weight=200, 'MQTT Adafruit', 'Brilliant Labs Cloud' weight=198"
 
     ////////////////
     /**  
@@ -429,15 +429,6 @@ namespace bBoard_WiFi {
         return 0;
     }
 
-    //% block="Turn WiFi Off"
-    //%block.loc.fr="Définir WiFi Off"
-    //% weight=110
-    //% group="MQTT"
-    //% subcategory="More"
-    export function WiFiOff(): void {
-        bBoard_Control.writePin(0,clickIOPin.CS,boardIDGlobal,clickIDGlobal);
-    }
-
 
 // // -------------- 3. Cloud ----------------
 //  // //% blockId=WiFi_BLE_HTTPSsendCommand
@@ -545,37 +536,47 @@ namespace bBoard_WiFi {
 //     return data;
 // }
 
-//% blockId=BL_set_ifttt
-//% block=" IFTTT send key $key event_name $event data $value1 "
-//% subcategory="IFTTT"
-//% weight=90
-//% defl="bBoard_WiFi"
-//     export function sendIFTTT(
-//         key: string,
-//         eventname: string,
-//         value1: number
-//     ): void {
-//         let getData =
-//             "GET /trigger/" +
-//             eventname +
-//             "/with/key/" +
-//             key +
-//             "?value1=" +
-//             value1.toString() +
-//             " HTTP/1.1\r\nHost: maker.ifttt.com\r\n\r\n";
-//             bBoard_Control.UARTSendString("AT+CIPMUX=1\r\n",boardIDGlobal,clickIDGlobal);  //Multiple connections enabled
-//             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-//             bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"maker.ifttt.com\",80\r\n",boardIDGlobal,clickIDGlobal);  //Make a TCP connection to the host
-//             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-//             bBoard_Control.UARTSendString(
-//             "AT+CIPSEND=0," + getData.length.toString() + "\r\n"
-//             ,boardIDGlobal,clickIDGlobal); //Get ready to send a packet and specifiy the size
-//         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-//         bBoard_Control.UARTSendString(getData,boardIDGlobal,clickIDGlobal); //Send the contents of the packet
-//         response = WiFiResponse("OK", true, defaultWiFiTimeoutmS); //Wait for the response "OK"
-//         bBoard_Control.UARTSendString("AT+CIPCLOSE=0\r\n",boardIDGlobal,clickIDGlobal);  //Close your TCP connection
-//         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-//     }
+    ////////////////
+    /**
+    * Trigger actions on one of your IFTTT Applets using this webhooks block.
+    * The event name and API key can be found in your Webhooks documentation on IFTTT
+    * @param value1 to value1 ,eg: "ex:1234"
+    * @param key to key, eg: "ex:bxJtVBvseCjqROZyeFo7GG"
+    * @param eventname to eventname ,eg: "ex:temperature"
+    */
+    //% blockId=BL_SendIFTTT
+    //% block=" IFTTT send$value1 with API key$key to event name$eventname"
+    //% block.loc.fr="IFTTT envoyer$value1 avec la clé API$key à l'événement$eventname"
+    //% weight=80
+    //% subcategory="IFTTT"
+    //% group="IFTTT"
+    //% blockGap=7
+    export function sendIFTTT(
+        key: string,
+        eventname: string,
+        value1: number
+    ): void {
+        let getData =
+            "GET /trigger/" +
+            eventname +
+            "/with/key/" +
+            key +
+            "?value1=" +
+            value1.toString() +
+            " HTTP/1.1\r\nHost: maker.ifttt.com\r\n\r\n";
+        bBoard_Control.UARTSendString("AT+CIPMUX=1\r\n", boardIDGlobal, clickIDGlobal); //Multiple connections enabled
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
+        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"SSL\",\"maker.ifttt.com\",443\r\n", boardIDGlobal, clickIDGlobal); //Make a TCP connection to the host
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
+        bBoard_Control.UARTSendString(
+            "AT+CIPSEND=0," + getData.length.toString() + "\r\n"
+            , boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
+        bBoard_Control.UARTSendString(getData, boardIDGlobal, clickIDGlobal); //Send the contents of the packet
+        response = WiFiResponse("OK", true, defaultWiFiTimeoutmS); //Wait for the response "OK"
+        bBoard_Control.UARTSendString("AT+CIPCLOSE=0\r\n", boardIDGlobal, clickIDGlobal); //Close your SSL connection
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
+    }
 
     // -------------- 3. Cloud ----------------
     //% blockId=publishAdafruitMQTT
@@ -830,10 +831,19 @@ namespace bBoard_WiFi {
         }
     }
 
+    //% block="Turn WiFi Off"
+    //%block.loc.fr="Définir WiFi Off"
+    //% weight=110
+    //% group="MQTT"
+    //% subcategory="More"
+    export function WiFiOff(): void {
+        bBoard_Control.writePin(0,clickIOPin.CS,boardIDGlobal,clickIDGlobal);
+    }
+
     //% blockId=getMACaddress
     //% block="$this Get MAC address"
     //% block.loc.fr="$this Obtenir la MAC address"
-    //% weight=50 
+    //% weight=100 
     //% advanced=false
     //% group="MQTT"
     //% subcategory="More"
