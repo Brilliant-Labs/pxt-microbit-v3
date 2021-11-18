@@ -10,6 +10,12 @@ enum OnOff {
     Off = 0,
     On = 1
 }
+ enum tempUnits{
+    //%block=Celcius
+    C=0,
+    //%block=Fahrenheit
+    F=1
+}
 
 /**
  * Custom blocks
@@ -37,21 +43,21 @@ namespace tinkercademy {
         pins.digitalWritePin(p, state);
     }
     /**
-   Checks if the specified key on the ADkeyboard is pressed.
-     */
-    //% blockId=octopus_adkeyboard weight=90 blockGap=30
+ Checks if the specified key on the ADkeyboard is pressed.
+   */
+    //% blockId=octopus_adkeyboard2 weight=90 blockGap=30
     //% block="key %k | is pressed on ADKeyboard at pin %p"
-    export function ADKeyboard(k: ADKeys, p: AnalogPin): boolean {
+    export function ADKeyboard2(k: ADKeys, p: AnalogPin): boolean {
         let a: number = pins.analogReadPin(p);
-        if (a < 10 && k == 1) {
+        if (a < 20 && k == 1) {
             return true;
-        } else if (a >= 40 && a <= 60 && k == 2) {
+        } else if (a >= 30 && a <= 70 && k == 2) {
             return true;
-        } else if (a >= 80 && a <= 110 && k == 3) {
+        } else if (a >= 70 && a <= 110 && k == 3) {
             return true;
-        } else if (a >= 130 && a <= 150 && k == 4) {
+        } else if (a >= 110 && a <= 150 && k == 4) {
             return true;
-        } else if (a >= 530 && a <= 560 && k == 5) {
+        } else if (a >= 150 && a <= 600 && k == 5) {
             return true;
         } else return false;
     }
@@ -86,4 +92,24 @@ namespace tinkercademy {
         crashSensorPin = p;
         pins.setPull(p, PinPullMode.PullUp)
     }
+
+        /**
+  Returns temperature from TMP36 Sensor
+    */
+    //% blockId=octopus_tmp36 weight=90 blockGap=30
+    //% block="TMP36 temperature in $units on pin $pin"
+    export function ADKeyboard(units: tempUnits,pin: AnalogPin): number {
+        let analogRead: number = pins.analogReadPin(pin);
+        let mv = (3300/1024) * analogRead; //3300mV divided into 1024 possible ADC values gives the mV per bit. Multiply this by the Analog reading to get the voltage in mV
+
+        let tempC = (mv-500)/10; //500mV offset and 10mV per degree Celcius as per TMP36 datasheet
+        if (units == tempUnits.C) {
+            return tempC;
+        } 
+        else
+        {
+            return tempC * 9.0 / 5.0 + 32.0
+        }
+    }
+
 }

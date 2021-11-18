@@ -1,7 +1,7 @@
 /**
  * Well known colours for a BLixel strip
  */
-enum BLiXelcolours {
+ enum BLiXelcolours {
     //% block=red
     //% block.loc.fr=rouge
     Red = 0xFF0000,
@@ -42,6 +42,17 @@ enum BLiXelIndex {
     five = 4
   
 }
+    /**
+     * Different modes for RGB or RGB+W BLiXel strips
+    */
+     enum BLiXelMode {
+        //% block="RGB (GRB format)"
+        RGB = 0,
+        //% block="RGB+W"
+        RGBW = 1,
+        //% block="RGB (RGB format)"
+        RGB_RGB = 2
+    }
 
 
 /**
@@ -57,18 +68,9 @@ namespace BLiXel {
     let currentBLiXelBuffer = pins.createBuffer(5*3);
     let currentColour:BLiXelcolours = null
     let currentBrightness = 100
+    let bBoardRGBMode = BLiXelMode.RGB
+
    blixelsOff(); //Need to set all BLiXels to off whenever we start up to avoid reprogramming micro:bit but BLiXels still on on b.Board from old code
-    /**
-     * Different modes for RGB or RGB+W BLiXel strips
-    */
-    enum BLiXelMode {
-        //% block="RGB (GRB format)"
-        RGB = 0,
-        //% block="RGB+W"
-        RGBW = 1,
-        //% block="RGB (RGB format)"
-        RGB_RGB = 2
-    }
 
 
      
@@ -109,10 +111,16 @@ namespace BLiXel {
                 currentColour = BLiXelcolours.Purple
                 showColour(currentColour)
             }
-            let red = (unpackR(currentColour)*currentBrightness)>>8;
-            let green = (unpackG(currentColour)*currentBrightness)>>8;
-            let blue = (unpackB(currentColour)*currentBrightness)>>8;
 
+        
+            let red = (unpackR(currentColour)*currentBrightness)>>8;
+            let green = (unpackG(currentColour)*currentBrightness)>>8; 
+            let blue = (unpackB(currentColour)*currentBrightness)>>8;
+            if(bBoardRGBMode == BLiXelMode.RGB_RGB)
+            {
+                 red = (unpackG(currentColour)*currentBrightness)>>8;
+                 green = (unpackR(currentColour)*currentBrightness)>>8;
+            }
             
             for(let i =0;i<MAX_BBOARD_BLIXELS;i++)
             {
@@ -141,7 +149,7 @@ namespace BLiXel {
         //% rgb.shadow="colorNumberPicker"
         //% weight=400 
         export function  showColour(rgb: number ) {
-
+            rgb = rgbModeApply(rgb);
             let colourBuffer = pins.createBuffer(4);
             colourBuffer.setNumber(NumberFormat.UInt32LE, 0, rgb)
             for(let i=0; i<MAX_BBOARD_BLIXELS;i++)
@@ -188,8 +196,33 @@ namespace BLiXel {
       export function blixel_index(index: BLiXelIndex): number {
         return index;
     }
+              /**
+     * Correct a BLiXeL Manufacturer error for colours on certain bBoards
+     */
+    //% blockGap=9
+    //% blockId="BLiXEL_colourCorrection"
+    //% block="BLiXeL colour correction" 
+    //% block.loc.fr="BLiXeL corriger les couleurs"
+    //% advanced=true
+    export function blixelColourCorrection()
+    {
+        bBoardRGBMode = BLiXelMode.RGB_RGB;
+    }
+    export function rgbModeApply(rgb:number):number
+    {
+        let red = unpackR(rgb);
+        let green = unpackG(rgb);
+        let blue = unpackB(rgb);
 
-
+        if(bBoardRGBMode == BLiXelMode.RGB_RGB)
+        {
+           return packRGB(green,red,blue);
+        }
+        else
+        {
+            return rgb
+        }
+    }
          /**
          * Set LED to a given colour (range 0-255 for r, g, b).
          * You need to call ``show`` to make the changes visible.
@@ -204,7 +237,7 @@ namespace BLiXel {
         //% advanced=false
         //% weight=200 
         export function setPixelColour(pixeloffset: number, rgb: number): void {
-
+            rgb = rgbModeApply(rgb);
             let BLiXelBuffer = pins.createBuffer(5);
             if (pixeloffset >= 5)
             {
