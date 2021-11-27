@@ -111,7 +111,8 @@
         "load_Cell_4.ts",
         "microbit_servo.ts",
         "tinkercademy.ts",
-        "Ultrasonic_Sensor.ts"
+        "Ultrasonic_Sensor.ts",
+        "KT403A.ts"
     ],
     "testFiles": [],
     "public": true,
