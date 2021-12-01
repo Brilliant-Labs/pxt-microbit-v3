@@ -35,7 +35,6 @@
   "Air_Quality_3.temp_units.C|block": "C",
   "Air_Quality_3.temp_units.F|block": "F",
   "Air_Quality_3|block": "Air_Quality_3",
-
   "AnalogPin.P11|block": "P11 (écrire seulement)",
   "AnalogPin.P12|block": "P12 (écrire seulement)",
   "AnalogPin.P13|block": "P13 (écrire seulement)",
@@ -49,7 +48,6 @@
   "AnalogPin.P7|block": "P7 (écrire seulement)",
   "AnalogPin.P8|block": "P8 (écrire seulement)",
   "AnalogPin.P9|block": "P9 (écrire seulement)",
-
   "Array._popStatement|block": "remove last value from %list",
   "Array._removeAtStatement|block": "%list| remove value at %index",
   "Array._shiftStatement|block": "remove first value from %list",
@@ -72,7 +70,6 @@
   "ArrowNames.SouthWest|block": "Sud Ouest",
   "ArrowNames.South|block": "Sud",
   "ArrowNames.West|block": "Ouest",
-
   "BLiXel.blixel_index|block": "%index",
   "BLiXel.blixelsOff|block": "fermer tous les BLiXels",
   "BLiXel.colours|block": "%colour",
@@ -99,7 +96,6 @@
   "BLiXelcolours.White|block": "blanc",
   "BLiXelcolours.Yellow|block": "jaune",
   "BLiXel|block": "BLiXel",
-
   "BUILT_IN_PERIPHERAL|block": "Expansion 20",
   "BaudRate.BaudRate115200|block": "115200",
   "BaudRate.BaudRate1200|block": "1200",
@@ -122,18 +118,15 @@
   "BoardID.zero|block": "b.Board",
   "Buffer|block": "Buffer",
   "Button.AB|block": "A+B",
-
   "ButtonG.ButtonG.getSwitch|block": "$this Lire l'état du bouton",
   "ButtonG.ButtonG.onButtonState|block": "$this sur le bouton $state",
   "ButtonG.ButtonG.setLightPWM|block": "$this Définir la lumière du bouton à $brightness de luminosité",
   "ButtonG.ButtonG.setLight|block": "$this Définir la lumière du bouton $onOff",
   "ButtonG.createButtonG|block": "$boardID $clickID",
   "ButtonG|block": "ButtonG",
-
   "CO_2.CO.CO_Read_Concentration|block": "Obtenir $this la concentration de CO en ppm (parties par million)",
   "CO_2.createCO|block": " $boardID $clickID avec $sensitivity nA/ppm",
   "CO_2|block": "CO_2",
-
   "ClickID.A|block": "Clickboard A",
   "ClickID.B|block": "Clickboard B",
   "Delimiters.CarriageReturn|block": "retour à la ligne(\r)",
@@ -157,11 +150,9 @@
   "DisplayMode.Greyscale|block": "gris",
   "EventCreationMode.CreateAndFire": "MicroBitEvent is initialised, and its event handlers are immediately fired (not suitable for use in interrupts!).",
   "EventCreationMode.CreateOnly": "MicroBitEvent is initialised, and no further processing takes place.",
-  
   "Force.Force.forceclick|block": "$this force",
   "Force.createForceSettings|block": " $boardID $clickID",
   "Force|block": "Force",
-
   "Gesture.EightG": "Raised when a 8G shock is detected",
   "Gesture.EightG|block": "8g",
   "Gesture.FreeFall": "Raised when the board is falling!",
@@ -187,11 +178,9 @@
   "IOPullDirection.one|block": "Pull Up",
   "IOPullDirection.three|block": "None",
   "IOPullDirection.two|block": "Pull Down",
-
   "IR_Break_Beam.IR_Break_Beam.onIRBreakBeam|block": "$this à $digitalPin $state",
   "IR_Break_Beam.createIR_Break_Beam|block": "$portID",
   "IR_Break_Beam|block": "IR_Break_Beam",
-
   "IR_Distance.IR_Distance.enable|block": "$this Tourne $enable",
   "IR_Distance.IR_Distance.getDistance|block": "$this obtenir la distance",
   "IR_Distance.IR_Distance.getValue|block": "$this obtenir la valeur",
@@ -201,14 +190,12 @@
   "IR_Distance_GP2Y0A.createIR_Distance_GP2Y0A|block": "$portID gamme $sensorType",
   "IR_Distance_GP2Y0A|block": "IR_Distance_GP2Y0A",
   "IR_Distance|block": "IR_Distance",
-
   "IR_Sense_3.IR_Sense.isHumanDetected|block": "$this humain détecté?",
   "IR_Sense_3.IR_Sense.onHumanDetected|block": "$this quand humain détecté",
   "IR_Sense_3.IR_Sense.readAK9754|block": "$this Lire l’enregistrement$register ?",
   "IR_Sense_3.IR_Sense.writeAK9754|block": "$this Écrire liste $values à AK9754 enregistrer $register ?",
   "IR_Sense_3.createIR_Sense|block": " $boardID $clickID",
   "IR_Sense_3|block": "IR_Sense_3",
-
   "IconNames.Angry|block": "faché",
   "IconNames.Asleep|block": "endormi",
   "IconNames.Butterfly|block": "papillon",
@@ -251,15 +238,12 @@
   "IconNames.Yes|block": "oui",
   "Image.scrollImage|block": "scroll image %sprite(myImage)|with offset %frameoffset|and interval (ms) %delay",
   "Image.showImage|block": "show image %sprite(myImage)|at offset %offset",
-
   "IrThermo_3.IrThermo_3.getObjectTemp|block": "$this obtenir la température de la surface en $units",
   "IrThermo_3.TempUnits.C|block": "C",
   "IrThermo_3.TempUnits.F|block": "F",
   "IrThermo_3.createIrThermo|block": " $boardID $clickID",
   "IrThermo_3|block": "IrThermo_3",
-
   "JSON|block": "JSON",
-  
   "Keylock.KeyPosition.one|block": "position 1",
   "Keylock.KeyPosition.three|block": "position 3",
   "Keylock.KeyPosition.two|block": "position 2",
@@ -267,33 +251,28 @@
   "Keylock.keylock.getLockPosition|block": "$this Obtenir la position de la serrure",
   "Keylock.keylock.onMotionDetected|block": "$this sur la serrure $position",
   "Keylock|block": "Serrure",
-
   "LCD_Mini.LCDSettings.lcd_clearDisplay|block": "Effacer l'écran $this LCD",
   "LCD_Mini.LCDSettings.lcd_writeString|block": "$this Écrire $LCDstring sur la ligne $lineNum",
   "LCD_Mini.createLCDSettings|block": " $boardID $clickID",
   "LCD_Mini.lineNumber.one|block": "1",
   "LCD_Mini.lineNumber.two|block": "2",
   "LCD_Mini|block": "LCD_Mini",
-
   "LedSpriteProperty.Blink|block": "clignote",
   "LedSpriteProperty.Brightness|block": "luminosité",
   "LedSpriteProperty.Direction|block": "direction",
   "LedSpriteProperty.X|block": "x",
   "LedSpriteProperty.Y|block": "y",
-
   "Line_Follower.LineFollower.getBlackDirection|block": "$this Correction requise pour suivre la ligne noire",
   "Line_Follower.LineFollower.getDirectionEnum|block": "$this $enumName",
   "Line_Follower.LineFollower.getWhiteDirection|block": "$this Correction requise pour suivre la ligne blanche",
   "Line_Follower.LineFollower.isReflected|block": "$this Est-ce que de la lumière a reflété sur $sensorNum",
   "Line_Follower.createLineFollower|block": " $boardID $clickID",
   "Line_Follower|block": "Suivre_Ligne",
-
   "Math.constrain|block": "contraindre la valeure %value|entre %low|et %high",
   "Math.map|block": "map %value|from low %fromLow|high %fromHigh|to low %toLow|high %toHigh",
   "Math.randomBoolean|block": "pick random true or false",
   "Math.randomRange|block": "pick random %min|to %limit",
   "Math|block": "Mathématiques",
-
   "Melodies.BaDing|block": "ba ding",
   "Melodies.Baddy|block": "baddy",
   "Melodies.Birthday|block": "bonne fête",
@@ -337,13 +316,11 @@
   "MesDpadButtonInfo._3Up|block": "3 up",
   "MesDpadButtonInfo._4Down|block": "4 down",
   "MesDpadButtonInfo._4Up|block": "4 up",
-
   "Motion.Motion.isDetected|block": "$this Est-ce que du mouvement a été détecté?",
   "Motion.Motion.motionEnable|block": "$this $enable mouvement",
   "Motion.Motion.onMotionDetected|block": "$this quand mouvement détecté",
   "Motion.createMotion|block": "$boardID $clickID",
   "Motion|block": "Mouvement",
-
   "MusicEvent.BackgroundMelodyEnded|block": "background melody ended",
   "MusicEvent.BackgroundMelodyNotePlayed|block": "background melody note played",
   "MusicEvent.BackgroundMelodyPaused|block": "background melody paused",
@@ -354,7 +331,6 @@
   "MusicEvent.MelodyNotePlayed|block": "note de la mélodie jouée",
   "MusicEvent.MelodyRepeated|block": "mélodie répétée",
   "MusicEvent.MelodyStarted|block": "mélodie débutée",
-
   "NFC_Tag_2.NFC_Tag_2.readNT3H2111|block": "$this Lire $numBytes Byte de l’enregistrement$register",
   "NFC_Tag_2.NFC_Tag_2.setURI|block": "$this Écrire URL $URL sur l'appareil NFC",
   "NFC_Tag_2.NFC_Tag_2.writeBlock|block": "$this Écrire variété $values au bloc $blockAddr",
@@ -366,11 +342,9 @@
   "NFC_Tag_2.URICode.zero|block": "FURL entier",
   "NFC_Tag_2.createNFC_Tag|block": " $boardID $clickID",
   "NFC_Tag_2|block": "NFC_Tag_2",
-  
   "NO2.NO2.NO2_Read_Concentration|block": "Obtenir $this concentration NO2 en ppm (parties par million)",
   "NO2.createNO2Settings|block": " $boardID $clickID avec $sensitivity nA/ppm",
   "NO2|block": "NO2",
-
   "NeoPixelColors.Black|block": "noir",
   "NeoPixelColors.Blue|block": "bleu",
   "NeoPixelColors.Green|block": "vert",
@@ -405,7 +379,6 @@
   "neopixel.hsl|block": "teinte %h|saturation %s|luminosité %l",
   "neopixel.rgb|block": "R %red|G %green|B %blue",
   "neopixel|block": "neopixel",
-
   "Note.CSharp3|block": "C#3",
   "Note.CSharp4|block": "C#4",
   "Note.CSharp5|block": "C#5",
@@ -422,7 +395,6 @@
   "ODCEnable.one|block": "Enable",
   "ODCEnable.zero|block": "Disable",
   "Object|block": "Objet",
-
   "PinEvent.Fall|block": "fall",
   "PinEvent.PulseHigh|block": "pulse high",
   "PinEvent.PulseLow|block": "pulse low",
@@ -434,32 +406,25 @@
   "PinPullMode.PullDown|block": "down",
   "PinPullMode.PullNone|block": "none",
   "PinPullMode.PullUp|block": "up",
-
   "Proximity_2.Proximity_2.proximity_2_Read_Als|block": "$this Obtenir niveau de lumière ambiante(lux)",
   "Proximity_2.Proximity_2.proximity_2_Read_Proximity|block": "$this Obtenir la valeur de la proximité",
   "Proximity_2.createProximity_2|block": " $boardID $clickID",
   "Proximity_2|block": "Proximity_2",
-
   "PulseValue.High|block": "élevé",
   "PulseValue.Low|block": "modique",
-
   "Reed.Reed.getSwitch|block": "$this aimant détecté",
   "Reed.Reed.onMagnetDetected|block": "$this quand aimant détecté",
   "Reed.createReed|block": " $boardID $clickID",
   "Reed|block": "Reed",
-
   "Relay.Relay.relayOnOff|block": "$this éteindre $onOff relai $relayNum",
   "Relay.createRelay|block": "$boardID $clickID",
   "Relay|block": "Relai",
-
   "Rotation.Pitch|block": "pitch",
   "Rotation.Roll|block": "roll",
-
   "Servo.Servo.readPCA9685|block": "$this lire l’enregistrement%register",
   "Servo.Servo.setServoAngle|block": "$this définir servo numéro %n à %angle degrés",
   "Servo.createServo|block": " $boardID $clickID",
   "Servo|block": "Servo",
-
   "SoundExpression.playUntilDone|block": "play sound $this until done",
   "SoundExpression.play|block": "play sound $this",
   "String.charAt|block": "char from %this=text|at %pos",
@@ -472,12 +437,10 @@
   "String.split|block": "split %this=text|at %separator",
   "String.substr|block": "substring of %this=text|from %start|of length %length",
   "String|block": "String",
-
   "Temp_Log_2.Temp_Log_2.readTemperatureC|block": "$this Obtenir la température en Celcius",
   "Temp_Log_2.Temp_Log_2.readTemperatureF|block": "$this Obtenir la température en Fahrenheit",
   "Temp_Log_2.createTemp_Log_2|block": " $boardID $clickID",
   "Temp_Log_2|block": "Temp_Log_2",
-
   "Thermo_6.TempUnits.C|block": "C",
   "Thermo_6.TempUnits.F|block": "F",
   "Thermo_6.Thermo_6.getTemp|block": "$this Obtenir la température en $units",
@@ -485,7 +448,6 @@
   "Thermo_6.Thermo_6.writeMAX31875|block": "$this Écrire $value à enregistrer $register",
   "Thermo_6.createThermo_6|block": " $boardID $clickID",
   "Thermo_6|block": "Thermo_6",
-
   "TouchButtonEvent.LongPressed|block": "long pressed",
   "TouchButtonEvent.Pressed|block": "pressed",
   "TouchButtonEvent.Released|block": "released",
@@ -496,7 +458,6 @@
   "TouchTarget.P2|block": "P2",
   "TouchTargetMode.Capacitive|block": "capacitive",
   "TouchTargetMode.Resistive|block": "resistive",
-
   "UV_3.UV_3.UVSteps|block": "$this Intensité UV",
   "UV_3.UV_3.disableShutdown|block": "$this Allumer l'appareil",
   "UV_3.UV_3.enableShutdown|block": "$this Éteindre l’appareil",
@@ -504,12 +465,10 @@
   "UV_3.UV_3.writeVEML6070|block": "$this Écrire $value à VEML6070 registre de contrôle",
   "UV_3.createUV_3|block": " $boardID $clickID",
   "UV_3|block": "UV_3",
-
   "Water_Detect.Water_Detect.isWater|block": "$this Est-ce que de l'eau a été détecté?",
   "Water_Detect.Water_Detect.onWaterDectect|block": "$this quand de l’eau est détectét",
   "Water_Detect.createWater_Detect|block": " $boardID $clickID",
   "Water_Detect.Water_Detect|block": "Détecter_Eau",
-
   "Weather.Weather.Dewpoint|block": "$this Point de rosée $u",
   "Weather.Weather.Power|block": "$this Courant $power",
   "Weather.Weather.humidity|block": "$this humidité",
@@ -524,9 +483,7 @@
   "Weather.Weather_T.T_F|block": "F",
   "Weather.createWeather|block": " $boardID $clickID",
   "Weather|block": "Température",
-
   "_py|block": "_py",
-
   "bBoard_Control.I2CreadNoMem|block": "i2c lire $numBytes bytes à l’adresse i2c $address sur $boardID $clickID",
   "bBoard_Control.I2Cread|block": "i2c lire $numBytes bytes |à l’adresse enregistrée $memAddress |at i2c adresse $address sur $boardID $clickID",
   "bBoard_Control.PWMFrequency|block": "définir fréquence PWM sur broche $clickPin à $PWMfreq sur $boardID $clickID",
@@ -576,7 +533,6 @@
   "bBoard_WiFi.publishBLMQTT|block": "BL MQTT publier$data sur fil$feedName",
   "bBoard_WiFi.subscribeBLMQTT|block": "| BL MQTT s'abonner à fil $topic",
   "bBoard_WiFi|block": "bBoard_WiFi",  
-
   "basic.clearScreen|block": "nettoyer l'écran du micro:bit",
   "basic.forever|block": "toujours",
   "basic.pause|block": "pause (ms) %pause",
@@ -586,7 +542,6 @@
   "basic.showNumber|block": "montrer|chiffre %number",
   "basic.showString|block": "montrer|string %text",
   "basic|block": "base",
-  
   "console|block": "console",
   "control.deviceName|block": "nom de l'appareil",
   "control.deviceSerialNumber|block": "device serial number",
@@ -654,7 +609,6 @@
   "input.setAccelerometerRange|block": "set accelerometer|range %range",
   "input.temperature|block": "température (°C)",
   "input|block": "Entrée",
-
   "led.brightness|block": "brightness",
   "led.enable|block": "led enable %on",
   "led.plotBarGraph|block": "plot bar graph of %value up to %high",
@@ -690,7 +644,6 @@
   "music.tempo|block": "tempo (bpm)",
   "music.volume|block": "volume",
   "music|block": "musique",
-
   "parseFloat|block": "parse to number %text",
   "parseInt|block": "parse to integer %text",
   "pins.analogPitchVolume|block": "analog pitch volume",
@@ -749,7 +702,6 @@
   "soundExpression.spring|block": "{id:soundexpression}spring",
   "soundExpression.twinkle|block": "{id:soundexpression}twinkle",
   "soundExpression.yawn|block": "{id:soundexpression}yawn",
-  
   "{id:category}Air_Quality_3": "Qualité_Air_3",
   "{id:category}AnalogInPin": "BrocheEntréeAnalogue",
   "{id:category}AnalogOutPin": "BrocheSortieAnalogue",
@@ -820,6 +772,7 @@
   "{id:group}Motion": "Mouvement",
   "{id:category}_py": "_py",
   "{id:group}Configuration": "Configuration",
+  "{id:group}Continuous": "Mise en marche",
   "{id:group}Dewpoint": "Point de Rosé",
   "{id:group}Humidity": "Humidité",
   "{id:group}I2C": "I2C",
@@ -831,6 +784,7 @@
   "{id:group}Operations": "Opérations",
   "{id:group}PWM": "PWM",
   "{id:group}Pins": "Broches",
+  "{id:group}Positional": "Direction",
   "{id:group}Power": "Courant",
   "{id:group}Pressure": "Pression",
   "{id:group}Read": "Lire",

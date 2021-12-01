@@ -28,7 +28,9 @@ namespace servos {
          * Set the servo angle
          */
         //% weight=100 help=servos/set-angle
-        //% blockId=servoservosetangle block="set %servo angle to %degrees=protractorPicker °"
+        //% blockId=servoservosetangle 
+        //% block="set %servo angle to %degrees=protractorPicker °"
+        //% block.loc.fr="definir %servo à angle %degrees=protractorPicker ° degrés"
         //% degrees.defl=90
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
@@ -59,7 +61,9 @@ namespace servos {
          * @param speed the throttle of the motor from -100% to 100%
          */
         //% weight=99 help=servos/run
-        //% blockId=servoservorun block="continuous %servo run at %speed=speedPicker \\%"
+        //% blockId=servoservorun 
+        //% block="continuous %servo run at %speed=speedPicker \\%"
+        //% block.loc.fr="tourner %servo vitesse à %speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
@@ -82,7 +86,9 @@ namespace servos {
          */
 
         //% weight=10 help=servos/set-pulse
-        //% blockId=servoservosetpulse block="set %servo pulse to %micros μs"
+        //% blockId=servoservosetpulse 
+        //% block="set %servo pulse to %micros μs"
+        //% block.loc.fr="définir %servo impulsion à %micros μs"
         //% micros.min=500 micros.max=2500
         //% micros.defl=1500
         //% servo.fieldEditor="gridpicker"
@@ -107,7 +113,9 @@ namespace servos {
         // On a normal servo this will stop the servo where it is, rather than return it to neutral position.
         // It will also not provide any holding force.
         //% weight=10 help=servos/stop
-        //% blockId=servoservostop block="stop %servo"
+        //% blockId=servoservostop 
+        //% block="stop %servo"
+        //% block.loc.fr="arrêter %servo"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
@@ -139,7 +147,9 @@ namespace servos {
          * @param maxAngle the maximum angle from 90 to 180
          */
         //% help=servos/set-range
-        //% blockId=servosetrange block="set %servo range from %minAngle to %maxAngle"
+        //% blockId=servosetrange 
+        //% block="set %servo range from %minAngle to %maxAngle"
+        //% block.loc.fr="définir %servo range de %minAngle à %maxAngle"
         //% minAngle.min=0 minAngle.max=90
         //% maxAngle.min=90 maxAngle.max=180 maxAngle.defl=180
         //% servo.fieldEditor="gridpicker"
@@ -158,7 +168,9 @@ namespace servos {
          * @param on true to enable this mode
          */
         //% help=servos/set-stop-on-neutral
-        //% blockId=servostoponneutral block="set %servo stop on neutral %enabled"
+        //% blockId=servostoponneutral 
+        //% block="set %servo stop on neutral %enabled"
+        //% block.loc.fr="définir %servo arrêter au neutre %enabled"
         //% enabled.shadow=toggleOnOff
         //% group="Configuration"
         //% blockGap=8

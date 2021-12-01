@@ -33,7 +33,7 @@ You will need to unpair your device from the editor to disable WebUSB.
 * Uncheck each **BBC micro:bit CMSIS-DAP** or **DAPLink CMSIS-DAP** device
 * Reload the page
 
-![](/static/webusb/unpair.gif)
+![](/docs/static/webusb/unpair.gif)
 
 ## One-click Download
 
