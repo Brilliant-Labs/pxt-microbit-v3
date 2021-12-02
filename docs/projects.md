@@ -35,14 +35,14 @@
     {
         "name": "b.Board Cyber Security",
         "url": "/projects/bboard-cybersec",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
-        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/EN_Activity_1.png",
+        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/EN_Activity_1.png"
     },
     {
         "name": "b.Board Cybersécurité",
         "url": "/projects/bboard-cybersecurite",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
-        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1_FR/FR_Activity_1.png",
+        "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1_FR/FR_Activity_1.png"
     },
     {
         "name": "Live Coding",
