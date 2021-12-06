@@ -35,7 +35,7 @@ This is the typical setup used by the MakeCode team to work on the microbit.
 
 1. Install [Node.js](https://nodejs.org/) 8.9.4 or higher.
     node v14.15.4 is prefered
-    npm v7.5.6 is prefered
+    npm v7.5.6 is prefered (npm install -g npm@7.5.6)
 
 2. Install [Docker](https://www.docker.com/get-started) if you plan to build ``.cpp`` files.
 3. Clone the pxt repository.
@@ -70,9 +70,6 @@ mv bboard-tutorials-v3 bboard-tutorials
 git clone https://github.com/Brilliant-Labs/bboard-tutorials-cybersecurity-v3
 mv bboard-tutorials-cybersecurity-v3 bboard-tutorials-cybersecurity
 
-git clone https://github.com/Brilliant-Labs/NFC_Tag_2
-git clone https://github.com/Brilliant-Labs/ <click repo>
-
 git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
 mv pxt-microbit-v3 pxt-microbit
 
@@ -90,19 +87,32 @@ npm install
 ```
 9. Link pxt-microbit back to base pxt repo (add `sudo` for Mac/Linux shells). 
 
-change `rm -rf` by `rmdir /Q /S` for Mac/Linux shells).
+change `rm -rf` by `rmdir /Q /S` for windows shells).
+
+
 ```
 rm -rf node_modules/pxt-core/
 rm -rf node_modules/pxt-common-packages/
 pxt link ../pxt
 pxt link ../pxt-common-packages
 
+```
+for windows shells change `ln -s` command by
+`mklink /D bboard-tutorials ..\..\..\..\..\bboard-tutorials`
+`mklink /D bboard-tutorials-cybersecurity ..\..\..\..\..\bboard-tutorials-cybersecurity`
+
+```
 cd docs/static/mb/projects/
 ln -s ../../../../../bboard-tutorials/
 ln -s ../../../../../bboard-tutorials-cybersecurity/
 cd ../../../../
 
 
+```
+(optional step to link external clickboards repo) 
+```
+git clone https://github.com/Brilliant-Labs/NFC_Tag_2
+git clone https://github.com/Brilliant-Labs/ <click repo>
 cd libs/core
 mkdir click
 cd click
