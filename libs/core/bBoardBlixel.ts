@@ -201,8 +201,8 @@ namespace BLiXel {
      */
     //% blockGap=9
     //% blockId="BLiXEL_colourCorrection"
-    //% block="BLiXeL colour correction" 
-    //% block.loc.fr="BLiXeL corriger les couleurs"
+    //% block="BLiXel colour correction" 
+    //% block.loc.fr="BLiXel corriger les couleurs"
     //% advanced=true
     export function blixelColourCorrection()
     {
