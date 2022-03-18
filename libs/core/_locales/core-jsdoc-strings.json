@@ -921,5 +921,6 @@
   "tinkercademy.MoistureSensor": "Returns the value of the moisture sensor on a scale of 0 to 100.",
   "tinkercademy.PIR": "Checks whether the motion sensor is currently detecting any motion.",
   "tinkercademy.crashSensor": "Checks whether the crash sensor is currently pressed.",
-  "tinkercademy.crashSensorSetup": "IMPORTANT: Sets up the motion sensor."
+  "tinkercademy.crashSensorSetup": "IMPORTANT: Sets up the motion sensor.",
+  "tinkercademy.dht11value": "get dht11 temperature and humidity Value"
 }
