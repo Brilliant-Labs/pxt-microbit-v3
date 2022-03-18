@@ -10,19 +10,28 @@ enum OnOff {
     Off = 0,
     On = 1
 }
- enum tempUnits{
+enum tempUnits {
     //%block=Celcius
-    C=0,
+    C = 0,
     //%block=Fahrenheit
-    F=1
+    F = 1
 }
+ enum DHT11Type {
+    //% block="temperature(℃)" enumval=0
+    DHT11_temperature_C,
 
+    //% block="temperature(℉)" enumval=1
+    DHT11_temperature_F,
+
+    //% block="humidity(0~100)" enumval=2
+    DHT11_humidity,
+}
 /**
  * Custom blocks
  */
 //% color=#0fbc11 icon="\uf121"
 //% weight=101
-//% advanced=true
+//% advanced=false
 //% labelLineWidth=1009
 namespace tinkercademy {
     let crashSensorPin: DigitalPin;
@@ -93,23 +102,81 @@ namespace tinkercademy {
         pins.setPull(p, PinPullMode.PullUp)
     }
 
-        /**
-  Returns temperature from TMP36 Sensor
-    */
+    /**
+Returns temperature from TMP36 Sensor
+*/
     //% blockId=octopus_tmp36 weight=90 blockGap=30
     //% block="TMP36 temperature in $units on pin $pin"
-    export function ADKeyboard(units: tempUnits,pin: AnalogPin): number {
+    export function ADKeyboard(units: tempUnits, pin: AnalogPin): number {
         let analogRead: number = pins.analogReadPin(pin);
-        let mv = (3300/1024) * analogRead; //3300mV divided into 1024 possible ADC values gives the mV per bit. Multiply this by the Analog reading to get the voltage in mV
+        let mv = (3300 / 1024) * analogRead; //3300mV divided into 1024 possible ADC values gives the mV per bit. Multiply this by the Analog reading to get the voltage in mV
 
-        let tempC = (mv-500)/10; //500mV offset and 10mV per degree Celcius as per TMP36 datasheet
+        let tempC = (mv - 500) / 10; //500mV offset and 10mV per degree Celcius as per TMP36 datasheet
         if (units == tempUnits.C) {
             return tempC;
-        } 
-        else
-        {
+        }
+        else {
             return tempC * 9.0 / 5.0 + 32.0
         }
     }
+
+
+    /**
+ * get dht11 temperature and humidity Value
+ * @param dht11pin describe parameter here, eg: AnalogPin.P0    */
+    //% advanced=false
+    //% blockId="readdht11" block="value of dht11 %dht11type| at pin %dht11pin"
+    export function dht11value(dht11type: DHT11Type, dht11Apin: AnalogPin): number {
+
+        //initialize
+        basic.pause(1100)
+        let _temperature: number = -999.0
+        let _humidity: number = -999.0
+        let checksum: number = 0
+        let checksumTmp: number = 0
+        let dataArray: boolean[] = []
+        let resultArray: number[] = []
+        for (let index = 0; index < 40; index++) dataArray.push(false)
+        for (let index = 0; index < 5; index++) resultArray.push(0)
+        let dht11pin = parseFloat(dht11Apin.toString())
+        pins.setPull(dht11pin, PinPullMode.PullUp)
+        pins.digitalWritePin(dht11pin, 0) //begin protocol, pull down pin
+        basic.pause(18)
+        pins.digitalReadPin(dht11pin) //pull up pin
+        control.waitMicros(40)
+        while (pins.digitalReadPin(dht11pin) == 0); //sensor response
+        while (pins.digitalReadPin(dht11pin) == 1); //sensor response
+
+        //read data (5 bytes)
+        for (let index = 0; index < 40; index++) {
+            while (pins.digitalReadPin(dht11pin) == 1);
+            while (pins.digitalReadPin(dht11pin) == 0);
+            control.waitMicros(28)
+            //if sensor still pull up data pin after 28 us it means 1, otherwise 0
+            if (pins.digitalReadPin(dht11pin) == 1) dataArray[index] = true
+        }
+        //convert byte number array to integer
+        for (let index = 0; index < 5; index++)
+            for (let index2 = 0; index2 < 8; index2++)
+                if (dataArray[8 * index + index2]) resultArray[index] += 2 ** (7 - index2)
+        //verify checksum
+        checksumTmp = resultArray[0] + resultArray[1] + resultArray[2] + resultArray[3]
+        checksum = resultArray[4]
+        if (checksumTmp >= 512) checksumTmp -= 512
+        if (checksumTmp >= 256) checksumTmp -= 256
+        switch (dht11type) {
+            case DHT11Type.DHT11_temperature_C:
+                _temperature = resultArray[2] + resultArray[3] / 100
+                return _temperature
+            case DHT11Type.DHT11_temperature_F:
+                _temperature = resultArray[2] + resultArray[3] / 100 * 33.8
+                return _temperature
+            case DHT11Type.DHT11_humidity:
+                _humidity = resultArray[0] + resultArray[1] / 100
+                return _humidity
+        }
+        return 0
+    }
+
 
 }
