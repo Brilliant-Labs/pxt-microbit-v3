@@ -8,63 +8,63 @@ Learn to use Clickboards with your @boardname@.
 
 ```codecard
 [{
-  "name": "Activity 1",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/README.md",
+  "name": "Activité 1",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1_FR/README.md",
   "description": "Activity 1",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 },
 {
-  "name": "Activity 2",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_2/README.md",
+  "name": "Activité 2",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_2_FR/README.md",
   "description": "Activity 2",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 },
 {
-  "name": "Activity 3",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_3/README.md",
+  "name": "Activité 3",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_3_FR/README.md",
   "description": "Activity 3",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 },
 {
-  "name": "Activity 4",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_4/README.md",
+  "name": "Activité 4",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_4_FR/README.md",
   "description": "Activity 4",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 },
 {
-  "name": "Activity 5",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_5/README.md",
+  "name": "Activité 5",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_5_FR/README.md",
   "description": "Activity 5",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 },
 {
-  "name": "Activity 6",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_6/README.md",
+  "name": "Activité 6",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_6_FR/README.md",
   "description": "Activity 6",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_1/connect-microbit.gif",
   "cardType": "side",
-  "label": "Cybersecurity",
+  "label": "Cybersécurité",
   "labelClass": "green ribbon med"
 }
 ]
