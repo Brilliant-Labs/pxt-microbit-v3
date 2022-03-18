@@ -112,6 +112,7 @@
         "microbit_servo.ts",
         "tinkercademy.ts",
         "Ultrasonic_Sensor.ts",
+        "OpenLog.ts",
         "KT403A.ts"
     ],
     "testFiles": [],
