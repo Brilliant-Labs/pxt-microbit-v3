@@ -31,7 +31,7 @@ enum tempUnits {
  */
 //% color=#0fbc11 icon="\uf121"
 //% weight=101
-//% advanced=false
+//% advanced=true
 //% labelLineWidth=1009
 namespace tinkercademy {
     let crashSensorPin: DigitalPin;
