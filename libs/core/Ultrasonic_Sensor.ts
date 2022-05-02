@@ -3,6 +3,12 @@
 //% advanced=true
 //% labelLineWidth=1009
 namespace Ultrasonic_Sensor {
+    export enum DistUnits {
+        //% block="cm"
+        cm = 0,
+        //% block="in"
+        in = 1
+    }
     /**
      * Sets Ultrasonic_Sensor object.
      * @param portTriger the portID
@@ -28,19 +34,20 @@ namespace Ultrasonic_Sensor {
         }
 
         //% blockId=Ultrasonic_Sensor_getDistance
-        //% block="$this get distance"
-        //% block.loc.fr="$this obtenir la distance"
+        //% block="$this get distance in $units"
+        //% block.loc.fr="$this obtenir la distance en $units"
         //% advanced=false
         //% blockNamespace=Ultrasonic_Sensor
         //% this.defl="Ultrasonic_Sensor"
-        getDistance(): number {
+        getDistance(units: Ultrasonic_Sensor.DistUnits): number {
             pins.digitalWritePin(this.myPortTriger, 1)
             basic.pause(10)
             pins.digitalWritePin(this.myPortTriger, 0)
             let duration = pins.pulseIn(this.myPortEcho, PulseValue.High)
             // Distance is in CM
-            let distance = duration / 2 / 29.1
-            return distance
+            let distance_cm = duration / 2 / 29.1
+            let distance_in = duration / 2 / 29.1 / 2.54
+            return units == DistUnits.cm ? distance_cm : distance_in
         }
 
         //% blockId=Ultrasonic_Sensor_getValue
