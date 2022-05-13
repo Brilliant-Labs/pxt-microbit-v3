@@ -85,7 +85,7 @@ function WiFiResponse(
 //% labelLineWidth=1001
 //% advanced=true
 namespace bBoard_WiFi {
-    //% groups=" 'Initialize and Connect' weight=200 , 'IFTTT' weight=200, 'MQTT Adafruit', 'Brilliant Labs Cloud' weight=198"
+    //% groups=" 'Initialize and Connect' weight=200 , 'IFTTT' weight=200, 'Brilliant Labs Cloud' weight=198"
 
     ////////////////
     /**  
@@ -129,7 +129,7 @@ namespace bBoard_WiFi {
         MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length >> 8); //Topic (project key) Length MSB 
         MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length & 0xFF); //Topic (project key) Length LSB
         MQTTpublishPacket.write(currentBufferIndex, control.createBufferFromUTF8(feedName + mqttBody))
-        if (isConnected() == 0) {
+        if (isConnected() == false) {
             connectBLMQTT(username, apiKey);
         }
         BLMQTTPacketSend(MQTTpublishPacket);
@@ -212,8 +212,12 @@ namespace bBoard_WiFi {
         MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, topic.length & 0xFF); //Topic (project key) Length LSB
         MQTTsubscribePacket.write(currentBufferIndex, control.createBufferFromUTF8(topic))
         MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, MQTTsubscribePacket.length - 1, 0); //QOS
-        if (isConnected() == 0) {
+        if (isConnected() == false) {
             connectBLMQTT(username, apiKey);
+        } else {
+            basic.showIcon(IconNames.Sad, 2000)
+            basic.showString("WiFi Error #1 WiFi connection")
+            basic.pause(2000)
         }
         BLMQTTPacketSend(MQTTsubscribePacket)
         control.inBackground(function () {
@@ -293,8 +297,6 @@ namespace bBoard_WiFi {
     let prevTime: number;
     let pingActive = false;
     let lastPing = 0;
-    let pingActiveAdafruit: boolean;
-    let lastPingAdafruit: number;
     function BLMQTTPacketSend(packet: Buffer) {
         clearSerialBuffer()
         bBoard_Control.UARTSendString("AT+CIPSEND=0," + packet.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal)
@@ -441,16 +443,7 @@ namespace bBoard_WiFi {
         }
     }
 
-    export function isConnected(): number {
-        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-        let statusStartIndex = receivedData.indexOf("STATUS:")
-        let connected = parseInt(receivedData.substr(statusStartIndex + 7, 1)); //Convert the characters we received representing the length of the IPD response to an integer
-        if (connected == 3) {
-            return 1;
-        }
-        return 0;
-    }
+
 
 
 // // -------------- 3. Cloud ----------------
@@ -601,261 +594,6 @@ namespace bBoard_WiFi {
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
     }
 
-    // -------------- 3. Cloud ----------------
-    //% blockId=publishAdafruitMQTT
-    //% block=" Adafruit MQTT publish data %data to topic %topic  "
-    //% group="MQTT"
-    //% subcategory="Adafruit.io"
-    //% weight=70   
-    //% blockGap=7
-    //% deprecated=true
-    //% defl="bBoard_WiFi"  
-    export function publishAdafruitMQTT(feedName: string, data: number): void {
-        let currentBufferIndex = 0;
-        //feedName = "feeds/" + feedName;
-        let mqttBody = data.toString();
-        //remaining length =  topic Length = 2 bytes +  topic = topic.length bytes + mqttBody.length bytes
-        let remainingLength = 2 + feedName.length + mqttBody.length;
-        //publishPacketSize = control Packet = 1 byte + remainingLengthSize = 1 byte + remaining Length from above
-        let publishPacketSize = 1 + 1 + remainingLength
-        let MQTTpublishPacket = pins.createBuffer(publishPacketSize)
-        MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, 0x30); //Publish Packet header
-        MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, remainingLength); //Remaining Length
-        MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length >> 8); //Topic (project key) Length MSB 
-        MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length & 0xFF); //Topic (project key) Length LSB
-        MQTTpublishPacket.write(currentBufferIndex, control.createBufferFromUTF8(feedName + mqttBody))
-        BLMQTTPacketSend(MQTTpublishPacket);
-    }
-
-    // -------------- 3. Cloud ----------------
-    //% blockId=connectMQTT
-    //% block="|Adafruit MQTT connect with username$userName and AIO Key$password "
-    //% group="MQTT"
-    //% subcategory="Adafruit.io"
-    //% weight=70   
-    //% blockGap=7
-    //% deprecated=true
-    //% defl="bBoard_WiFi" 
-    export function connectMQTT(userName: string, password: string): void {
-        let connectPacketSize = 0
-        let controlPacket = pins.createBuffer(1);
-        controlPacket.setNumber(NumberFormat.UInt8LE, 0, 0x10); //Publish Control Packet header
-        let remainingLengthTemp = pins.createBuffer(4) //Max size of remaining Length packet
-        let protocolName = "MQTT"
-        let protocolNameLength = pins.createBuffer(2);
-        protocolNameLength.setNumber(NumberFormat.UInt8LE, 0, protocolName.length >> 8);
-        protocolNameLength.setNumber(NumberFormat.UInt8LE, 1, protocolName.length & 0xFF);
-        let protocolLevel = pins.createBuffer(1);
-        protocolLevel.setNumber(NumberFormat.UInt8LE, 0, 0x04);
-        let protocolFlags = pins.createBuffer(1);
-        protocolFlags.setNumber(NumberFormat.UInt8LE, 0, 0xC2);
-        let keepAliveSeconds = 60
-        let keepAlive = pins.createBuffer(2);
-        keepAlive.setNumber(NumberFormat.UInt8LE, 0, keepAliveSeconds >> 8);
-        keepAlive.setNumber(NumberFormat.UInt8LE, 1, keepAliveSeconds & 0xFF);
-        let clientID = control.deviceSerialNumber().toString();
-        let clientIDLength = pins.createBuffer(2);
-        clientIDLength.setNumber(NumberFormat.UInt8LE, 0, clientID.length >> 8);
-        clientIDLength.setNumber(NumberFormat.UInt8LE, 1, clientID.length & 0xFF);
-        let userNameLength = pins.createBuffer(2);
-        userNameLength.setNumber(NumberFormat.UInt8LE, 0, userName.length >> 8);
-        userNameLength.setNumber(NumberFormat.UInt8LE, 1, userName.length & 0xFF);
-        let passwordLength = pins.createBuffer(2);
-        passwordLength.setNumber(NumberFormat.UInt8LE, 0, password.length >> 8);
-        passwordLength.setNumber(NumberFormat.UInt8LE, 1, password.length & 0xFF);
-        let i = 0
-        let encodedByte = 0
-        let X = 0
-        let remainingLengthBytes = 1 //At least 1 byte of RL is necessary for packet
-        X = 0x02 + 0x02 + protocolName.length + 0x01 + 0x01 + 0x02 + 0x02 + clientID.length + 0x02 + userName.length + 0x02 + password.length
-        connectPacketSize = X
-        for (i = 0; i < 4; i++) {
-            if (X >= 128) {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, 0xFF)
-                X -= 127
-            }
-            else {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, X)
-                break;
-            }
-        }
-        let remainingLength = pins.createBuffer(i + 1)
-        for (let j = 0; j < i + 1; j++) {
-            remainingLength.setNumber(NumberFormat.UInt8LE, j, remainingLengthTemp.getNumber(NumberFormat.UInt8LE, j))
-        }
-        connectPacketSize = connectPacketSize + 1 + remainingLength.length //The total size of the packet to send
-        clearSerialBuffer()
-        bBoard_Control.UARTSendString("AT+CIPMUX=1\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        clearSerialBuffer()
-        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"io.adafruit.com\",1883,30\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        clearSerialBuffer()
-        bBoard_Control.UARTSendString("AT+CIPSEND=0," + connectPacketSize.toString() + "\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        bBoard_Control.UARTSendBuffer(controlPacket, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(remainingLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(protocolNameLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(protocolName, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(protocolLevel, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(protocolFlags, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(keepAlive, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(clientIDLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(clientID, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(userNameLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(userName, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(passwordLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(password, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString("\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        basic.pause(200)
-    }
-
-
-    // -------------- 3. Cloud ----------------
-    //% blockId=subscribeAdafruitMQTT
-    //% block="|Adafruit MQTT subscribe to topic $topic"
-    //% group="MQTT"
-    //% subcategory="Adafruit.io"
-    //% weight=70   
-    //% blockGap=7
-    //% deprecated=true
-    //% defl="bBoard_WiFi" 
-    export function subscribeAdafruitMQTT(topic: string): void {
-        let subscribePacketSize = 0
-        let controlPacket = pins.createBuffer(1);
-        controlPacket.setNumber(NumberFormat.UInt8LE, 0, 0x82); //Subscribe Control Packet header
-        let remainingLengthTemp = pins.createBuffer(4) //Max size of remaining Length packet
-        let packetID = pins.createBuffer(2); // packet ID 
-        packetID.setNumber(NumberFormat.UInt8LE, 0, 0);
-        packetID.setNumber(NumberFormat.UInt8LE, 1, 1);
-        let topicLength = pins.createBuffer(2);
-        topicLength.setNumber(NumberFormat.UInt8LE, 0, topic.length >> 8);
-        topicLength.setNumber(NumberFormat.UInt8LE, 1, topic.length & 0xFF);
-        let QS = pins.createBuffer(1);
-        QS.setNumber(NumberFormat.UInt8LE, 0, 0); //Set QOS to 0
-        let i = 0
-        let encodedByte = 0
-        let X = 0
-        let remainingLengthBytes = 1 //At least 1 byte of RL is necessary for packet
-        X = 0x02 + 2 + topic.length + 1
-        for (i = 0; i < 4; i++) {
-            if (X >= 128) {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, 0xFF)
-                X -= 127
-            }
-            else {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, X)
-                break;
-            }
-        }
-        let remainingLength = pins.createBuffer(i + 1)
-        for (let j = 0; j < i + 1; j++) {
-            remainingLength.setNumber(NumberFormat.UInt8LE, j, remainingLengthTemp.getNumber(NumberFormat.UInt8LE, j))
-        }
-        subscribePacketSize = 1 + remainingLength.length + 2 + 2 + topic.length + 1
-        bBoard_Control.UARTSendString("AT+CIPSEND=0," + subscribePacketSize.toString() + "\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        bBoard_Control.UARTSendBuffer(controlPacket, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(remainingLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(packetID, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(topicLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(topic, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(QS, boardIDGlobal, clickIDGlobal) //Quality of service
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        basic.pause(200)
-        bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);
-        control.inBackground(function () {
-            while (1) {
-                basic.pause(10000);
-                pingAdafruitMQTT(50);
-            }
-        })
-    }
-
-    // -------------- 3. Cloud ----------------
-    //% blockId=getMQTTMessage
-    //% block=" Adafruit MQTT get message"
-    //% group="MQTT"
-    //% subcategory="Adafruit.io"
-    //% weight=70   
-    //% blockGap=7
-    //% deprecated=true
-    //% defl="bBoard_WiFi" 
-    export function getMQTTMessage(): string {
-        return MQTTMessage
-    }
-
-    // -------------- 3. Cloud ----------------
-    //% blockId=isMQTTMessage
-    //% block=" Adafruit MQTT is message available?"
-    //% group="MQTT"
-    //% subcategory="Adafruit.io"
-    //% weight=70   
-    //% blockGap=7
-    //% deprecated=true
-    //% defl="bBoard_WiFi"
-    export function isMQTTMessage(): boolean {
-        let startIndex = 0;
-        let remainingLength = 0;
-        let topicLength = 0;
-        if (UARTRawData.length > 300) {
-            UARTRawData = ""
-        }
-        if (bBoard_Control.isUARTDataAvailable(boardIDGlobal, clickIDGlobal) || UARTRawData.length > 0) //Is new data available OR is there still unprocessed data?
-        {
-            UARTRawData = UARTRawData + bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal); // Retrieve the new data and append it
-            let IPDIndex = UARTRawData.indexOf("+IPD,0,") //Look for the ESP WiFi response +IPD which indicates data was received
-            if (IPDIndex !== -1) //If +IPD, was found 
-            {
-                startIndex = UARTRawData.indexOf(":") //Look for beginning of MQTT message (which comes after the :)
-                if (startIndex != -1) //If a : was found
-                {
-                    let IPDSizeStr = UARTRawData.substr(IPDIndex + 7, startIndex - IPDIndex - 7) //The length of the IPD message is between the , and the :
-                    let IPDSize = parseInt(IPDSizeStr)
-                    if (UARTRawData.length >= IPDSize + startIndex + 1) //Is the whole message here?
-                    {
-                        startIndex += 1; // Add 1 to the start index to get the first character after the ":"
-                        if (UARTRawData.charCodeAt(startIndex) != 0x30) //If message type is not a publish packet
-                        {
-                            return false; //Not a publish packet
-                        }
-                        remainingLength = UARTRawData.charCodeAt(startIndex + 1); //Extract the remaining length from the MQTT message (assuming RL < 127)
-                        topicLength = UARTRawData.charCodeAt(startIndex + 3); //Extract the topic length from the MQTT message (assuming TL < 127)
-                        MQTTMessage = UARTRawData.substr(startIndex + 4 + topicLength, remainingLength - topicLength - 2)
-                        UARTRawData = UARTRawData.substr(IPDSize + startIndex, UARTRawData.length - 1) //Remove all data other than the last character (in case there is no more data)
-                        return true; //Message retrieved
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    export function pingAdafruitMQTT(pingInterval: number) {
-        if (pingActiveAdafruit == false) {
-            lastPingAdafruit = input.runningTime();
-            let controlPacket = pins.createBuffer(1);
-            controlPacket.setNumber(NumberFormat.UInt8LE, 0, 0xC0); //Subscribe Control Packet header
-            let remainingLength = pins.createBuffer(1) //size of remaining Length packet
-            remainingLength.setNumber(NumberFormat.UInt8LE, 0, 0x00); //Remaining Length = 0 
-            bBoard_Control.UARTSendString("AT+CIPSEND=0,2\r\n", boardIDGlobal, clickIDGlobal)
-            response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-            bBoard_Control.UARTSendBuffer(controlPacket, boardIDGlobal, clickIDGlobal);
-            bBoard_Control.UARTSendBuffer(remainingLength, boardIDGlobal, clickIDGlobal);
-            response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-            pingActiveAdafruit = true;
-        }
-        else //If a ping has been sent
-        {
-            if ((input.runningTime() - lastPingAdafruit) > pingInterval * 1000) {
-                pingActiveAdafruit = false;
-            }
-        }
-    }
-
-
-
     // -------------- 4. MQTT generic ----------------
 
     /**  
@@ -869,7 +607,7 @@ namespace bBoard_WiFi {
     * @param data data
     */
 
-    //% blockId=publishMQTTgen
+    //% blockId=publishMQTT
     //% block="MQTT publish$data=text|feed$feedName"
     //% block.loc.fr="MQTT publier$data=text|flux$feedName|nom"
     //% group="MQTT"
@@ -877,7 +615,7 @@ namespace bBoard_WiFi {
     //% weight=80   
     //% blockGap=7
     //% defl="bBoard_WiFi"  
-    // export function publishMQTTgen(feedName: string, data: number): void {
+    // export function publishMQTT(feedName: string, data: number): void {
     //     let currentBufferIndex = 0;
     //     //feedName = "feeds/" + feedName;
     //     let mqttBody = data.toString();
@@ -894,7 +632,7 @@ namespace bBoard_WiFi {
     //     BLMQTTPacketSend(MQTTpublishPacket);
 
 
-    export function publishMQTTgen(feedName: string, data: any): void {
+    export function publishMQTT(feedName: string, data: any): void {
         let currentBufferIndex = 0;
         //              2           +       4             +         1            +          1           +         2        +        2              +    control.deviceSerialNumber().toString().length
         //protocolNameLength.length + protocolName.length + protocolLevel.length + protocolFlags.length + keepAlive.length + clientIDLength.length + clientID.length 
@@ -918,16 +656,18 @@ namespace bBoard_WiFi {
         MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length >> 8); //Topic (project key) Length MSB 
         MQTTpublishPacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, feedName.length & 0xFF); //Topic (project key) Length LSB
         MQTTpublishPacket.write(currentBufferIndex, control.createBufferFromUTF8(feedName + mqttBody))
-        if (isConnected() == 0) {
-            basic.showIcon(IconNames.Sad, 2000)
-            basic.showString("MQTT Error #1 connection")
+        if (isConnected() == false) {    
+            basic.showIcon(IconNames.Sad, 1000)
+            basic.showString("MQTT Error #1 WiFi connection")
+            basic.pause(1000)
+        } else {
+            BLMQTTPacketSend(MQTTpublishPacket);
+            basic.pause(200)
         }
-        BLMQTTPacketSend(MQTTpublishPacket);
-        basic.pause(200)
     }
 
     // -------------- 3. Cloud ----------------
-    //% blockId=connectMQTTgen
+    //% blockId=connectMQTT
     //% block="MQTT connect with server$serverADD username$username and Key$password "
     //% block.loc.fr="MQTT connecter avec server$serverADD nom d'utilisateur$username et API clé%APIKey"
     //% group="MQTT"
@@ -936,7 +676,7 @@ namespace bBoard_WiFi {
     //% blockGap=7
     //% defl="bBoard_WiFi" 
 
-    export function connectMQTTgen(username: string, password: string, serverADD:string): void {
+    export function connectMQTT(username: string, password: string, serverADD: string): void {
         let currentBufferIndex = 0;
         //              2           +       4             +         1            +          1           +         2        +        2              +    control.deviceSerialNumber().toString().length
         //protocolNameLength.length + protocolName.length + protocolLevel.length + protocolFlags.length + keepAlive.length + clientIDLength.length + clientID.length 
@@ -973,6 +713,12 @@ namespace bBoard_WiFi {
         bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+serverADD+"\",1883,30\r\n", boardIDGlobal, clickIDGlobal)
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
         BLMQTTPacketSend(MQTTconnectPacket)
+        control.inBackground(function () {
+            while (1) {
+                basic.pause(30000);
+                pingBLMQTT(50)    
+            }
+        })
 
     }
 
@@ -1032,7 +778,7 @@ namespace bBoard_WiFi {
         control.inBackground(function () {
             while (1) {
                 basic.pause(10000);
-                pingAdafruitMQTT(50);
+                pingMQTT(50);
             }
         })
     }
@@ -1094,9 +840,18 @@ namespace bBoard_WiFi {
         return false;
     }
 
+    //% blockId=pingMQTT
+    //% block="$this MQTT ping interval $pingInterval"
+    //% block.loc.fr="$this MQTT ping interval $pingInterval"
+    //% weight=110 
+    //% advanced=false
+    //% group="MQTT"
+    //% subcategory="Advanced"
+    //% this.shadow=variables_get
+    //% this.defl="pingMQTT"
     export function pingMQTT(pingInterval: number) {
-        if (pingActiveAdafruit == false) {
-            lastPingAdafruit = input.runningTime();
+        if (pingActive == false) {
+            lastPing = input.runningTime();
             let controlPacket = pins.createBuffer(1);
             controlPacket.setNumber(NumberFormat.UInt8LE, 0, 0xC0); //Subscribe Control Packet header
             let remainingLength = pins.createBuffer(1) //size of remaining Length packet
@@ -1106,17 +861,15 @@ namespace bBoard_WiFi {
             bBoard_Control.UARTSendBuffer(controlPacket, boardIDGlobal, clickIDGlobal);
             bBoard_Control.UARTSendBuffer(remainingLength, boardIDGlobal, clickIDGlobal);
             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-            pingActiveAdafruit = true;
+            pingActive = true;
         }
         else //If a ping has been sent
         {
-            if ((input.runningTime() - lastPingAdafruit) > pingInterval * 1000) {
-                pingActiveAdafruit = false;
+            if ((input.runningTime() - lastPing) > pingInterval * 1000) {
+                pingActive = false;
             }
         }
     }
-
-
 
 
     //% block="Turn WiFi Off"
@@ -1142,4 +895,25 @@ namespace bBoard_WiFi {
         response = WiFiResponse("OK", false, 1000);
         return(receivedData.substr(27,17));
     }
+
+    //% blockId=isConnected
+    //% block="$this WiFi is connected"
+    //% block.loc.fr="$this WiFi est connecté?"
+    //% weight=110 
+    //% advanced=false
+    //% group="MQTT"
+    //% subcategory="More"
+    //% this.shadow=variables_get
+    //% this.defl="isConnected"
+    export function isConnected(): boolean {
+        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+        let statusStartIndex = receivedData.indexOf("STATUS:")
+        let connected = parseInt(receivedData.substr(statusStartIndex + 7, 1)); //Convert the characters we received representing the length of the IPD response to an integer
+        if (connected == 3) {
+            return true;
+        }
+        return false;
+    }
+
 }
