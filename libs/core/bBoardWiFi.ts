@@ -214,11 +214,7 @@ namespace bBoard_WiFi {
         MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, MQTTsubscribePacket.length - 1, 0); //QOS
         if (isConnected() == false) {
             connectBLMQTT(username, apiKey);
-        } else {
-            basic.showIcon(IconNames.Sad, 2000)
-            basic.showString("WiFi Error #1 WiFi connection")
-            basic.pause(2000)
-        }
+        } 
         BLMQTTPacketSend(MQTTsubscribePacket)
         control.inBackground(function () {
             while (1) {
@@ -722,6 +718,45 @@ namespace bBoard_WiFi {
 
     }
 
+    /**  
+    * When new data is published to your feed (feedName) using your
+    * username "example: brilliantLabs@gmail.com"
+    * and your Project API Key (Select "Users" and the key icon on BL Cloud)
+    * the data will be stored in the variable "receivedData" as a String or
+    * number depending on your selection
+    * @param username to username ,eg: "ex:brilliantlabs@gmail.com"
+    * @param apiKey to apiKey ,eg: "ex:312a9205-8675-429f-98c5-023cb8325390"
+    * @param feedName to feedName ,eg: "ex:temperature"
+    * @param data to data ,eg: 0
+    * @param server to server ,eg: "ex:ip address"
+    */
+    //% blockId=onMQTT 
+    //% block="on MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey|server $server" 
+    //% block.loc.fr="sur nuage reçu $dataType $receivedData|flux $feedName|nom d'utilisateur$username|API clé$apiKey|server $server"
+    //% blockAllowMultiple=1
+    //% afterOnStart=true                               //This block will only execute after the onStart block is finished
+    //% receivedData.shadow=variables_get
+    //% group="MQTT"
+    //% subcategory="Advanced"
+    //% draggableParameters=variable
+    export function onMQTT(feedName: string, dataType: DataType, username: string, apiKey: string, server: string, a: (receivedData: any) => void): void { //Pass user blocks as a callback export function "a". 
+        bBoard_Control.eventInit(bBoardEventsMask.UARTRx, 0, 0) //set on BLiX
+        control.onEvent(bBoard_Control.getbBoardEventBusSource(BoardID.zero, BUILT_IN_PERIPHERAL, bBoardEvents.UARTRx), 0, () => MQTTEvent(feedName, dataType, a)) //Set interrupt mb
+        subscribeMQTTgen(username, apiKey, feedName, server);
+    }
+
+    function MQTTEvent(feedName: string, dataType: DataType, a: (data: any) => void) {
+        let feedData = getMQTTMessagegen(feedName)
+        if (feedData != null) {
+            if (dataType == DataType.numberType) {
+                a(parseInt(feedData))
+            }
+            else {
+                a(feedData)
+            }
+        }
+    }
+
 
     // -------------- 3. Cloud ----------------
     //% blockId=subscribeMQTTgen
@@ -730,58 +765,39 @@ namespace bBoard_WiFi {
     //% subcategory="Advanced"
     //% weight=90   
     //% blockGap=7
+    //% deprecated=true
     //% defl="bBoard_WiFi" 
-    export function subscribeMQTTgen(topic: string): void {
-        let subscribePacketSize = 0
-        let controlPacket = pins.createBuffer(1);
-        controlPacket.setNumber(NumberFormat.UInt8LE, 0, 0x82); //Subscribe Control Packet header
-        let remainingLengthTemp = pins.createBuffer(4) //Max size of remaining Length packet
-        let packetID = pins.createBuffer(2); // packet ID 
-        packetID.setNumber(NumberFormat.UInt8LE, 0, 0);
-        packetID.setNumber(NumberFormat.UInt8LE, 1, 1);
-        let topicLength = pins.createBuffer(2);
-        topicLength.setNumber(NumberFormat.UInt8LE, 0, topic.length >> 8);
-        topicLength.setNumber(NumberFormat.UInt8LE, 1, topic.length & 0xFF);
-        let QS = pins.createBuffer(1);
-        QS.setNumber(NumberFormat.UInt8LE, 0, 0); //Set QOS to 0
-        let i = 0
-        let encodedByte = 0
-        let X = 0
-        let remainingLengthBytes = 1 //At least 1 byte of RL is necessary for packet
-        X = 0x02 + 2 + topic.length + 1
-        for (i = 0; i < 4; i++) {
-            if (X >= 128) {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, 0xFF)
-                X -= 127
-            }
-            else {
-                remainingLengthTemp.setNumber(NumberFormat.UInt8LE, i, X)
-                break;
-            }
-        }
-        let remainingLength = pins.createBuffer(i + 1)
-        for (let j = 0; j < i + 1; j++) {
-            remainingLength.setNumber(NumberFormat.UInt8LE, j, remainingLengthTemp.getNumber(NumberFormat.UInt8LE, j))
-        }
-        subscribePacketSize = 1 + remainingLength.length + 2 + 2 + topic.length + 1
-        bBoard_Control.UARTSendString("AT+CIPSEND=0," + subscribePacketSize.toString() + "\r\n", boardIDGlobal, clickIDGlobal)
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        bBoard_Control.UARTSendBuffer(controlPacket, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(remainingLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(packetID, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(topicLength, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendString(topic, boardIDGlobal, clickIDGlobal)
-        bBoard_Control.UARTSendBuffer(QS, boardIDGlobal, clickIDGlobal) //Quality of service
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK"
-        basic.pause(200)
-        bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);
+    export function subscribeMQTTgen(username: string, apiKey: string, topic: string, server: string): void {
+        topic = topic; //append -rsp to the API key as this is the proper subscription topic name
+        let currentBufferIndex = 0;
+        //              2           +       4             +         1            +          1           +         2        +        2              +    control.deviceSerialNumber().toString().length
+        //protocolNameLength.length + protocolName.length + protocolLevel.length + protocolFlags.length + keepAlive.length + clientIDLength.length + clientID.length 
+        //remaining length =  PackedID = 2 bytes + topic Length = 2 bytes +  topic = topic.length bytes + QOS = 1 byte
+        let remainingLength = 2 + 2 + topic.length + 1;
+        //publishPacketSize = subscribe control Packet = 1 byte + remainingLengthSize = 1 byte + remaining Length from above
+        let subscribePacketSize = 1 + 1 + remainingLength
+        let MQTTsubscribePacket = pins.createBuffer(subscribePacketSize)
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, 0x82); //Subscribe Control Packet header
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, remainingLength); //Remaining Length
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, 0); //Packed ID MSB
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, 1); //Packet ID LSB
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, topic.length >> 8); //Topic (project key) Length MSB 
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, currentBufferIndex++, topic.length & 0xFF); //Topic (project key) Length LSB
+        MQTTsubscribePacket.write(currentBufferIndex, control.createBufferFromUTF8(topic))
+        MQTTsubscribePacket.setNumber(NumberFormat.UInt8LE, MQTTsubscribePacket.length - 1, 0); //QOS
+        if (isConnected() == false) {
+            connectMQTT(username, apiKey, server);
+        } 
+        BLMQTTPacketSend(MQTTsubscribePacket)
         control.inBackground(function () {
             while (1) {
                 basic.pause(10000);
-                pingMQTT(50);
+                pingBLMQTT(50)
             }
         })
     }
+
+    
 
     // -------------- 3. Cloud ----------------
     //% blockId=getMQTTMessagegen
@@ -791,9 +807,27 @@ namespace bBoard_WiFi {
     //% weight=70   
     //% blockGap=7
     //% defl="bBoard_WiFi" 
-    export function getMQTTMessagegen(): string {
-        return MQTTMessage
+    export function getMQTTMessagegen(feedName: string): string {
+        let returnValue: string;
+        if (isMQTTMessagegen(feedName)) {            
+            for (let i = 0; i < mqttMessageListgen.length; i++) {
+                if (mqttMessageListgen[i].feedName == feedName) {
+                    returnValue = mqttMessageListgen[i].value;
+                    mqttMessageListgen.removeAt(i);
+                    return returnValue
+                }
+            }
+        }
+        return returnValue = null
     }
+
+    let MQTTMessageObjectgen = {
+        feedName: "", //Feed name
+        value: "" //Value received 
+    }
+    let mqttMessageListgen = [MQTTMessageObjectgen]; //Create a blank array of MQTTMessageObject objects
+    mqttMessageListgen.pop();
+
 
     // -------------- 3. Cloud ----------------
     //% blockId=isMQTTMessagegen
@@ -803,18 +837,20 @@ namespace bBoard_WiFi {
     //% weight=70   
     //% blockGap=7
     //% defl="bBoard_WiFi"
-    export function isMQTTMessagegen(): boolean {
+    export function isMQTTMessagegen(feedName: string): boolean {
         let startIndex = 0;
+        let endIndex = 0;
         let remainingLength = 0;
         let topicLength = 0;
-        if (UARTRawData.length > 300) {
+        let key: string;
+        if (UARTRawData.length > 500) {
             UARTRawData = ""
         }
         if (bBoard_Control.isUARTDataAvailable(boardIDGlobal, clickIDGlobal) || UARTRawData.length > 0) //Is new data available OR is there still unprocessed data?
         {
             UARTRawData = UARTRawData + bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal); // Retrieve the new data and append it
             let IPDIndex = UARTRawData.indexOf("+IPD,0,") //Look for the ESP WiFi response +IPD which indicates data was received
-            if (IPDIndex !== -1) //If +IPD, was found 
+            if (IPDIndex != -1) //If +IPD, was found 
             {
                 startIndex = UARTRawData.indexOf(":") //Look for beginning of MQTT message (which comes after the :)
                 if (startIndex != -1) //If a : was found
@@ -826,16 +862,32 @@ namespace bBoard_WiFi {
                         startIndex += 1; // Add 1 to the start index to get the first character after the ":"
                         if (UARTRawData.charCodeAt(startIndex) != 0x30) //If message type is not a publish packet
                         {
+                            UARTRawData = UARTRawData.substr(startIndex); //Remove all data other than the last character (in case there is no more data)
                             return false; //Not a publish packet
                         }
-                        remainingLength = UARTRawData.charCodeAt(startIndex + 1); //Extract the remaining length from the MQTT message (assuming RL < 127)
-                        topicLength = UARTRawData.charCodeAt(startIndex + 3); //Extract the topic length from the MQTT message (assuming TL < 127)
-                        MQTTMessage = UARTRawData.substr(startIndex + 4 + topicLength, remainingLength - topicLength - 2)
-                        UARTRawData = UARTRawData.substr(IPDSize + startIndex, UARTRawData.length - 1) //Remove all data other than the last character (in case there is no more data)
-                        return true; //Message retrieved
+                        startIndex += 1; // Add 1 to the start index to get the remaining length in bytes
+                        let remainingLength = UARTRawData.charCodeAt(startIndex)
+                        let topicLength = UARTRawData.charCodeAt(startIndex + 2)  //This assumes the topic Length <127 bytes
+                        let payloadLength = remainingLength - topicLength - 2; //Assuming 2 bytes for topic length fields 
+                        let payloadStr = UARTRawData.substr(startIndex + remainingLength - payloadLength + 1, payloadLength)
+                        let receivedFeedName = UARTRawData.substr(startIndex + 3, topicLength) 
+
+
+                        MQTTMessageObjectgen.feedName = receivedFeedName
+                        MQTTMessageObjectgen.value = payloadStr
+                        mqttMessageListgen.push(MQTTMessageObjectgen); //Add the latest message to our list
+                        UARTRawData = UARTRawData.substr(IPDSize + startIndex) //Remove all data other than the last character (in case there is no more data)
                     }
                 }
             }
+            else {
+                UARTRawData = ""
+            }
+        }
+        let results = mqttMessageListgen.filter(tempResults => tempResults.feedName === feedName)
+        if (results.length >= 1) //If a value was found
+        {
+            return true;
         }
         return false;
     }

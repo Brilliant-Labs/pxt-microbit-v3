@@ -597,6 +597,7 @@
   "bBoard_WiFi.isConnected|block": "$this WiFi is connected",
   "bBoard_WiFi.isMQTTMessagegen|block": "MQTT is message available?",
   "bBoard_WiFi.onBLMQTT|block": "on BL MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey",
+  "bBoard_WiFi.onMQTT|block": "on MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey|server $server",
   "bBoard_WiFi.pingMQTT|block": "$this MQTT ping interval $pingInterval",
   "bBoard_WiFi.publishBLMQTT|block": "BL MQTT publish$data=text|feed$feedName|username$username|API Key%apiKey",
   "bBoard_WiFi.publishMQTT|block": "MQTT publish$data=text|feed$feedName",
