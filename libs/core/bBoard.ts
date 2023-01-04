@@ -755,11 +755,7 @@ namespace bBoard_Control {
 
 
     export function clearUARTRxBuffer( boardID: BoardID, clickID: ClickID) {
-
         BLiX(boardID, clickID, 0, UART_module_id, UART_CLEAR_RX_DATA, null,null, 0)
-
-
-
     }
 
     //% blockId=is_UART_Data_Avail

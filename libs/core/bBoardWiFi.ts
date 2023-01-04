@@ -962,7 +962,7 @@ namespace bBoard_WiFi {
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
         let statusStartIndex = receivedData.indexOf("STATUS:")
         let connected = parseInt(receivedData.substr(statusStartIndex + 7, 1)); //Convert the characters we received representing the length of the IPD response to an integer
-        if (connected == 3) {
+        if (connected == 2) {
             return true;
         }
         return false;
