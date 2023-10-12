@@ -973,8 +973,31 @@ namespace bBoard_WiFi {
 
 
 
-//------------------------- CYBERSECURITY -----------------------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------- CYBERSECURITY -----------------------------------
 /** Cybersecurity
  */
 //% block="CyberSecurity"
@@ -997,16 +1020,26 @@ namespace bBoard_WiFi {
             //% this.defl="Animation" 
             export function Animation() {        
                 soundExpression.twinkle.play()
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));                             
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));                             
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));              
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one)); 
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));                             
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four)); 
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));                             
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); 
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));              
             }
 
     /* WiFi Connect */
@@ -1017,48 +1050,67 @@ namespace bBoard_WiFi {
         //% block="Connect to WiFi: $ssid| with Password: $pwd"
         //% weight=110
         //% group="Initialize and Connections"
-        export function WifiConnect(ssid: string, pwd: string): void {  
+        export function WifiConnect(ssid: string, pwd: string): void {         
+            serial.writeLine("Initializing")
             bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
             bBoard_Control.writePin(1, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
             basic.pause(1000)
-            bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);          
+            bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);    
+            bBoard_Control.UARTSendString("AT+CWQAP\r\n", boardIDGlobal, clickIDGlobal); // Reset previous WiFi//Disconnect the created conextion,                  
             // Animation using BLiXel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one)); 
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three)); 
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
+            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); 
+            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one)); 
+            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); 
+            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
+            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20);
+            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three)); 
+            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); 
+            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
+            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);
+            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
                 
             bBoard_Control.UARTSendString("AT+CWMODE=1\r\n", boardIDGlobal, clickIDGlobal);
-//            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK" 
     
             bBoard_Control.UARTSendString("AT+CIPMUX=1\r\n", boardIDGlobal, clickIDGlobal);  //Enable multiple connections
-//            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             response = WiFiResponse("OK",false,defaultWiFiTimeoutmS); 
         
-            bBoard_Control.UARTSendString("AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"\r\n", boardIDGlobal, clickIDGlobal);  //Connect to WiFi Network
-            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
+            bBoard_Control.UARTSendString("AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"\r\n", boardIDGlobal, clickIDGlobal);//Connect to WiFi Network
             response = WiFiResponse("OK",false,defaultWiFiTimeoutmS);
-    
+            
             bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);  // CHECK NO connection MAKE INFINITE LOOP
-//           serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-            if (response==0){
+            if (response==0){//WiFi Error 
                 while (1){
-                    serial.writeLine("Done! IsConnected? Error") 
+                    serial.writeLine("Done! AP available? Error Try Again") 
                     basic.showIcon(IconNames.Sad, 400)  
-                    basic.showString(" WiFi Error")
+                    basic.showString("Error AP not available Try Again")
+                    basic.pause(1000)
+                    break
                 }
-            }    
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));             
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));               
-                serial.writeLine("Done! Initialize")               
-        }
-     
+            }else{
+                    // WiFI Conected
+                    basic.showLeds(`
+                    . . . . .
+                    . . . . # 
+                    . # . # .
+                    . . # . .
+                    . . . . .
+                    `)  
+                    basic.pause(300) 
+                    serial.writeLine(" ") 
+                    serial.writeLine("Connected!")
+                    serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal))) //show Console Device
+                    basic.clearScreen() 
+                }
+
+  //              Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
+  //              Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
+  //              Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));             
+  //              Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
+  //              Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));      
+        }       
+        
     /* WiFi OFF */
         //% blockId=WiFiOff
                 //% block="Turn WiFi Off"
@@ -1071,13 +1123,13 @@ namespace bBoard_WiFi {
         export function WiFi_OFF(): void {
             bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);             //  bBoard.clearUARTRxBuffer(clickBoardNum);
             bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32 
-//            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             bBoard_Control.UARTSendString("AT+CWQAP\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion,
-//            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             bBoard_Control.writePin(0,clickIOPin.CS,boardIDGlobal,clickIDGlobal);       //OFF ESP32            serial.writeLine("Done! WiFi Off")
-            basic.pause(200)
+            serial.writeLine(" ") 
+            serial.writeLine("Done! WiFi OFF")
+            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
         }          
-            
+       
     /* WiFi Reset */
         //% blockId=Reset
         //% block="Reset WiFi"
@@ -1093,11 +1145,13 @@ namespace bBoard_WiFi {
             bBoard_Control.UARTSendString("AT+CWAUTOCONN=0\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
             bBoard_Control.UARTSendString("AT+RESTORE\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
             bBoard_Control.UARTSendString("AT+RST\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
-//            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-            bBoard_Control.eventInit(bBoardEventsMask.UARTRx, 0, 0) //set on BLiX  ASK TO JOSH   
-            serial.writeLine(""+("Done! Reset"))
+    //serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
+    //        serial.writeLine(""+("Done! Reset"))
+            serial.writeLine(" ") 
+            serial.writeLine("Done! Reset")
+            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
         }  
-          
+        
     /* WiFi Disconnect */
         //% blockId=Disconnect
         //% block="Disconnect WiFi"
@@ -1110,8 +1164,12 @@ namespace bBoard_WiFi {
             bBoard_Control.UARTSendString("AT+CWQAP\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
 //            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
             response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); //Wait for the response "OK" 
-            serial.writeLine("Done! Disconnected")   
+ //           serial.writeLine("Done! Disconnected")   
+            serial.writeLine(" ") 
+            serial.writeLine("Done! Disconected")
+            serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
         }
+
         
     /* WiFi Check  */
         //% blockId=WiFi_Connected
@@ -1161,11 +1219,11 @@ namespace bBoard_WiFi {
                 . . # . .
                 . . . . .
                 `)                
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));             
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
-                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));               
+//                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(20);Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
+//                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
+//                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));             
+//                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two)); 
+//                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(20); Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));               
                 serial.writeLine("") 
                 serial.writeLine("Done! IsConnected? OK #2") 
                 return true;
@@ -1760,7 +1818,12 @@ bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
             //% group="Activity 12"
             //% icon="\uf509"
             export function IntelligentComunity() {
-            }    
+            }   
+            
+
+
+ 
+            
 }
     
 
