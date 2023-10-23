@@ -73,7 +73,7 @@ mv bboard-tutorials-cybersecurity-v3 bboard-tutorials-cybersecurity
 git clone https://github.com/Brilliant-Labs/pxt-microbit-v3
 mv pxt-microbit-v3 pxt-microbit
 
-cd pxt-microbit
+cd pxt-microbit±±
 
 ```
 7. Install the PXT command line (add `sudo` for Mac/Linux shells).
