@@ -1004,21 +1004,22 @@ namespace bBoard_WiFi {
 //% advanced=true
 //% weight=100 color=#9E4894 icon="\uf21b"      //LOGO CYBER
 //% labelLineWidth=1001
-//% groups="['Networking', 'Valuable Date', 'Remote Comands']"
+//% groups="['Networking', 'Valuable Data', 'Remote Comands']"
 
 //------------------------- Networking -----------------------------------   
 
  namespace Cybersec {
 
+
 //--------------------- Initialize and Connections ----------------------    
     
     /* Secuence Animation */ 
-    /** | >> Es << | Show a lighting secuence on bBoard´s BLiXels and sound "twinkle".
-        | >> Fr << | Montrer une séquence d'éclairage sur les BLiXels de bBoard et le son "twinkle". 
+    /** | >> En << | Show a lighting secuence on b.Board´s BLiXels and sound "twinkle".
+        | >> Fr << | Montrer une séquence d'éclairage sur les BLiXels de b.Board et le son "twinkle". 
     */
-        //% blockId="Secuence Animation" 
-        //% block="Secuence BLiXels on bBoard"
-        //% block.loc.fr="BLiXels de secuence au bBoard"
+        //% blockId="Sequence Animation" 
+        //% block="Sequence BLiXels on b.Board"
+        //% block.loc.fr="Séquence des BLiXels du b.Board"
         //% advanced=false
         //% group="Initialize and Connections" 
         //% weight=100 
@@ -1046,14 +1047,14 @@ namespace bBoard_WiFi {
                 Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));              
             }
 
-    /* Coding Check bBoard */ 
-    /** | >> Es << | Turn on bBoard BLiXel to be notified when your code crosses this point.
-        | >> Fr << | Activez le BLixel bBoard pour être averti lorsque votre code franchit ce point.
-        * @param pixelONset position of the BLiXel in bBoard
+    /* Coding Check b.Board */ 
+    /** | >> En << | Turn on b.Board BLiXel to be notified when your code crosses this point.
+        | >> Fr << | Activez le BLixel b.Board pour être averti lorsque votre code franchit ce point.
+        * @param pixelONset position of the BLiXel in b.Board
     */
-        //% blockId="Coding Check bBoard" 
-        //% block="bBoard BliXel $pixelONset=BLiXel_Index to check your code crosing here. "
-        //% block.loc.fr="bBoard BliXel $pixelONset=BLiXel_Index pour vérifier votre code qui se croise ici."            //% advanced=false
+        //% blockId="Coding Check b.Board" 
+        //% block="b.Board BliXel $pixelONset=BLiXel_Index to check when it reaches this point"
+        //% block.loc.fr="b.Board BliXel $pixelONset=BLiXel_Index pour vérifier si le code francît ce point"
         //% advanced=false
         //% group="Initialize and Connections" 
         //% weight=100  
@@ -1075,8 +1076,8 @@ namespace bBoard_WiFi {
             }
 
     /* WiFi Connection */
-    /** | >> Es << | Initializes WiFi capabilities. bBoard power switch should be ON.
-        | >> Fr << | Initialise les capacités WiFi. bBoard l'interrupteur d'alimentation de la carte doit être sur ON.         
+    /** | >> En << | Initializes WiFi capabilities. b.Board power switch should be ON.
+        | >> Fr << | Initialise les capacités WiFi. b.Board l'interrupteur d'alimentation de la carte doit être sur ON.         
         * @param ssid to ssid, eg: "BrilliantLabs AP"           
         * @param pwd to ssid, eg: "CYBERSEC"
     */
@@ -1119,7 +1120,10 @@ namespace bBoard_WiFi {
                 bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);    // Mode 0 = Active (data receive instantly to MCU),  Mode 1 = Passive (data reveice keep in socket)
                 response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
 
-                bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);        // CHECK NO connection MAKE INFINITE LOOP you have to reset bBoard
+                bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);    // Set the Configuration for the Command AT+CWLAP "list AP´s"
+                response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+               
+                bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);        // CHECK NO connection MAKE INFINITE LOOP you have to reset b.Board
                 response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
                 
                 if (response==0){                                                                       // WiFi Error 
@@ -1150,8 +1154,8 @@ namespace bBoard_WiFi {
             }
             
     /* WiFi Off */
-    /** | >> Es << | Turn off Wi-Fi capabilities; to reestablish, you need to turn off and then turn on the board again.
-        | >> Fr << | Désactivez les capacités Wi-Fi; pour les rétablir, vous devez éteindre puis rallumer le bBoard.      
+    /** | >> En << | Turn off Wi-Fi capabilities; to reestablish, you need to turn off and then turn on the b.Board again.
+        | >> Fr << | Désactivez les capacités Wi-Fi; pour les rétablir, vous devez éteindre puis rallumer le b.Board.      
     */
         //% blockId="WiFi Off"
         //% block="WiFi Off"
@@ -1160,7 +1164,7 @@ namespace bBoard_WiFi {
         //% group="Initialize and Connections"
         //% weight=100
             export function WiFi_OFF(): void {
-                serial.writeLine("" + "bBoard->" + "")     // Always to publish in Console, the last "" completes the line to send and show
+                serial.writeLine("" + "b.Board->" + "")     // Always to publish in Console, the last "" completes the line to send and show
                 
                 bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);             //  bBoard.clearUARTRxBuffer(clickBoardNum);
                 bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
@@ -1171,7 +1175,7 @@ namespace bBoard_WiFi {
             }          
        
     /* WiFi Reset */
-    /** | >> Es << | Reset Wi-Fi capabilities. You need to enter WiFi information. 
+    /** | >> En << | Reset Wi-Fi capabilities. You need to enter WiFi information. 
         | >> Fr << | Réinitialiser les capacités Wi-Fi. Vous devez saisir les informations relatives au Wi-Fi.      
     */
         //% blockId="WiFi Reset"
@@ -1181,7 +1185,7 @@ namespace bBoard_WiFi {
         //% group="Initialize and Connections"
         //% weight=100
             export function WiFi_RST(): void {
-                serial.writeLine("" + "bBoard->" + "")     // Always to publish in Console, the last "" completes the line to send and show
+                serial.writeLine("" + "b.Board->" + "")     // Always to publish in Console, the last "" completes the line to send and show
 
                 bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);             //  bBoard.clearUARTRxBuffer(clickBoardNum);
                 bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
@@ -1197,7 +1201,7 @@ namespace bBoard_WiFi {
             }  
         
     /* WiFi Disconnect */
-    /** | >> Es << | Discconect from the current WiFi.
+    /** | >> En << | Discconect from the current WiFi.
         | >> Fr << | Se déconnecter du réseau Wi-Fi actuel.      
     */
         //% blockId="WiFi Disconnect"
@@ -1207,7 +1211,7 @@ namespace bBoard_WiFi {
         //% group="Initialize and Connections"
         //% weight=100 
             export function Disconnect():void {
-                serial.writeLine("" + "bBoard->" + "")     // Always to publish in Console, the last "" completes the line to send and show
+                serial.writeLine("" + "b.Board->" + "")     // Always to publish in Console, the last "" completes the line to send and show
 
                 bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);             //  bBoard.clearUARTRxBuffer(clickBoardNum);
                 bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32  
@@ -1218,7 +1222,7 @@ namespace bBoard_WiFi {
         }
 
     /* WiFi Check  */
-    /** | >> Es << | Check the WiFi status. 
+    /** | >> En << | Check the WiFi status. 
         | >> Fr << | Vérifiez l'état du WiFi. 
         | >> 
         #O: The ESP32 station is not initialized. 
@@ -1230,8 +1234,8 @@ namespace bBoard_WiFi {
         << |
         */
         //% blockId="WiFi Check"
-        //% block="the bBoard WiFi is Connected"
-        //% block.loc.fr="le WiFi du bBoard est connecté"
+        //% block="the b.Board WiFi is Connected"
+        //% block.loc.fr="le WiFi du b.Board est connecté"
         //% advanced=false
         //% group="Initialize and Connections"
         //% weight=100 
@@ -1325,8 +1329,8 @@ namespace bBoard_WiFi {
             }
     
     /* Signal Strength */
-    /** | >> Es << | Get the signal strength from bBoard to the access point. 
-        | >> Fr << | Obtenir la force du signal entre le bBoard et le point d'accès.
+    /** | >> En << | Get the signal strength from b.Board to the access point. 
+        | >> Fr << | Obtenir la force du signal entre le b.Board et le point d'accès.
         | >> 
         Excellent > -60. 
         Good -61 to -75. 
@@ -1354,13 +1358,13 @@ namespace bBoard_WiFi {
 
 //------------------------- Networking -----------------------------------  
 
-    /* MAC Address bBoard */
-    /** | >> Es << | Display the bBoard MAC Address on the Console PC and on the Micro:Bit screen.
-        | >> Fr << | Affichez l'adresse MAC du bBoard sur le PC de la console et sur l'écran du Micro:Bit. 
+    /* MAC Address b.Board */
+    /** | >> En << | Display the b.Board MAC Address on the Console PC and on the Micro:Bit screen.
+        | >> Fr << | Affichez l'adresse MAC du b.Board sur le PC de la console et sur l'écran du Micro:Bit. 
     */
         //% blockId="GetMACbBoard"
-        //% block="$this Get MAC bBoard"
-        //% block.loc.fr="$this Obtenir le MAC bBoard"
+        //% block="$this Get the b.Board MAC address"
+        //% block.loc.fr="$this Obtenir Ládresse MAC du b.Board"
         //% advanced=false
         //% group="Networking"        
         //% weight=100 
@@ -1369,40 +1373,20 @@ namespace bBoard_WiFi {
         //% this.shadow=variables_get
         //% this.defl="Get_MAC_bBoard"
         export function getMACaddressbBoard(): string {
-            bBoard_Control.UARTSendString("AT+CWJAP?\r\n", boardIDGlobal, clickIDGlobal); 
+            bBoard_Control.UARTSendString("AT+CIPSTAMAC?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
             response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);//CyberWiFiConsoleTimeoutmS=1000
-            serial.writeLine("MAC bBoard: " + receivedData.substr(32, 17) + "")
-            return("MAC bBoard:" + receivedData.substr(32,17));
-        }
-        
-    /* MAC Address AP */
-    /** | >> Es << | Display the bBoard access point MAC Address on the Console PC and on the Micro:Bit screen.
-        | >> Fr << | Affichez l'adresse point d'accès MAC du bBoard sur le PC de la console et sur l'écran du Micro:Bit. 
-     */
-        //% blockId=GetMACAP
-        //% block="$this Get MAC AP"
-        //% block.loc.fr="$this Obtenir le MAC AP"
-        //% advanced=false
-        //% group="Networking"
-        //% weight=100
+            serial.writeLine("My MAC: " + receivedData.substr(27, 17) + "")    //55,17 CIFSR
+            return("My MAC:" + receivedData.substr(27,17));     
+            serial.writeLine("My MAC: " + receivedData.substr(27, 17) + "")          
+            }
 
-        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
-        //% this.shadow=variables_get
-        //% this.defl="MAC_AP"
-        export function getMACaddressAP(): string {
-            bBoard_Control.UARTSendString("AT+CIPAPMAC?\r\n", boardIDGlobal, clickIDGlobal); 
-            response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-            serial.writeLine("MAC AP: " + (receivedData.substr(25,17)) + "")
-            return("MAC AP:" + receivedData.substr(25,17));
-    }
-        
-    /* IP Address bBoard */   
-    /** | >> Es << | Display the bBoard IP Address on the Console PC and on the Micro:Bit screen.
-        | >> Fr << | Affichez l'adresse IP du bBoard sur le PC de la console et sur l'écran du Micro:Bit. 
+    /* IP Address b.Board */   
+    /** | >> Es << | Display the b.Board IP Address on the Console PC and on the Micro:Bit screen.
+        | >> Fr << | Affichez l'adresse IP du b.Board sur le PC de la console et sur l'écran du Micro:Bit. 
      */
         //% blockId="GetIPBoard"
-        //% block="$this Get IP bBoard"
-        //% block.loc.fr="$this Obtenir le IP bBoard"
+        //% block="$this Get the b.Board´s IP address"
+        //% block.loc.fr="$this Obtenir I´IP du b.Board"
         //% advanced=false
         //% group="Networking"        
         //% weight=100 
@@ -1411,19 +1395,50 @@ namespace bBoard_WiFi {
         //% this.shadow=variables_get
         //% this.defl="IP_bBoard"
         export function getIPaddressbBoard(): string {
-            bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); 
+            bBoard_Control.UARTSendString("AT+CIFSR\r\n", boardIDGlobal, clickIDGlobal);
             response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-            serial.writeLine("IP bBoard: " + (receivedData.substr(24,11)) + "")
-            return("IP bBoard:" + receivedData.substr(24,11));//20,17
-        }
+            serial.writeLine("My IP: " + (receivedData.substr(23,15)) + "")//22,17
+            return("My IP:" + receivedData.substr(23,15));
+            serial.writeLine("My IP: " + receivedData.substr(23, 15) + "")          
+        }   
+
+    /* MAC Address AP */
+    /** | >> En << | Display the b.Board access point MAC Address on the Console PC and on the Micro:Bit screen.
+        | >> Fr << | Affichez l'adresse point d'accès MAC du b.Board sur le PC de la console et sur l'écran du Micro:Bit. 
+     */
+        //% blockId=GetMACAP
+        //% block="$this Get the AP´s MAC address"
+        //% block.loc.fr="$this Obtenir Ládresse MAC du point d´accès"
+        //% advanced=false
+        //% group="Networking"
+        //% weight=100
+
+        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
+        //% this.shadow=variables_get
+        //% this.defl="MAC_AP"
+        export function getMACaddressAP(): string {
+            let macAP=""
+            bBoard_Control.UARTSendString("AT+CWJAP?\r\n", boardIDGlobal, clickIDGlobal);
+            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//            serial.writeLine("" + (receivedData))          
+            let startIndex = receivedData.indexOf("+CWJAP:") + 8
+            let endIndex = receivedData.indexOf(",",startIndex) - 1
+            let wfname = receivedData.substr(startIndex, endIndex - startIndex )
+            let szwf = wfname.length
+            let startIndexMAC = receivedData.indexOf("+CWJAP:") +11 + szwf
+            let endIndexMAC = receivedData.indexOf(",", startIndexMAC) -2
+            macAP = receivedData.substr(startIndexMAC, endIndexMAC - startIndexMAC+1) 
+            serial.writeLine("AP MAC: " + macAP)              
+            return("AP MAC:" + macAP);
+            }
         
     /* IP Address AP */
-    /** | >> Es << | Display the access point IP Address on the Console PC and on the Micro:Bit screen.
+    /** | >> En << | Display the access point IP Address on the Console PC and on the Micro:Bit screen.
         | >> Fr << | Affichez l'adresse IP du point d'accès sur le PC de la console et sur l'écran du Micro:Bit. 
     */
         //% blockId="GetIPAP"
-        //% block="$this Get IP AP"
-        //% block.loc.fr="$this Obtenir le IP AP"
+        //% block="$this Get the AP´s IP address"
+        //% block.loc.fr="$this Obtenir L´IP du point d´accés"
         //% advanced=false
         //% group="Networking"
         //% weight=100
@@ -1432,22 +1447,26 @@ namespace bBoard_WiFi {
         //% this.shadow=variables_get
         //% this.defl="IP_bBoard"
         export function getIPaddressAP(): string {
-            bBoard_Control.UARTSendString("AT+CIPAP?\r\n", boardIDGlobal, clickIDGlobal); 
-            response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-            serial.writeLine("IP AP: " + (receivedData.substr(22,11)) + "")
-            return("IP AP:" + receivedData.substr(22,11));//18,17
+            bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal);
+            response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);        
+//            serial.writeLine("" + (receivedData))
+            let startIndex = receivedData.indexOf("gateway:")+9
+            let endIndex = receivedData.indexOf("+",startIndex) - 3
+            let APIP = receivedData.substr(startIndex, endIndex - startIndex )
+            serial.writeLine("AP IP: "+ APIP)
+            return("AP IP:" + APIP);
         }
     
 //------------------------- More -----------------------------------     
     
     /* Firmware ESP32 */
-    /** | >> Es << | Display the ESP32 firmware version. 
+    /** | >> En << | Display the ESP32 firmware version. 
         | >> Fr << | Affichez la version du firmware de l'ESP32. 
         | >>  We strongly recommend version 3.2 or higher.  << |
     */
         //% blockId="GetFirmwareESP32"
-        //% block="$this Get firmware ESP32 on bBoard"
-        //% block.loc.fr="$this Télécharger le firmware ESP32 sur la bBoard"
+        //% block="$this Get firmware ESP32 on b.Board"
+        //% block.loc.fr="$this Télécharger le firmware ESP32 sur la b.Board"
         //% advanced=true
         //% group="Networking"
         //% weight=100 
@@ -1489,20 +1508,19 @@ namespace bBoard_WiFi {
             bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
         }
         
-//------------------------- Valuable Date -----------------------------------  
+//------------------------- Valuable Data -----------------------------------  
 
 
     //* Set HostName */
-    /** | >> Es << | Configure your HostName for the network. Others can then use this name to perform a PING.. 
+    /** | >> En << | Configure your Name in Cyberville for the network. Others can then use this name to perform a PING.. 
         | >> Fr << | Configurez votre nom d'hôte pour le réseau. D'autres personnes peuvent ensuite utiliser ce nom pour effectuer un PING.              
-        | >> It can be use as a "Role" into the Cyberville.  << |
         * @param HNamebB to HNamebB, eg: "SCHOOL"
     */
         //% blockId="SetHostName"
-        //% block="HostName: $HNamebB"
-        //% block.loc.fr="Nom d'hôte: $HNamebB"
+        //% block="Your name in Cyberville: $HNamebB"
+        //% block.loc.fr="Votre nom à Cyberville: $HNamebB"
         //% advanced=false
-        //% group="Valuable Date"      
+        //% group="Valuable Data"      
         //% weight=100
         
         export function HostNamebB(HNamebB:string):void{
@@ -1527,20 +1545,20 @@ namespace bBoard_WiFi {
             response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
 //serial.writeLine("" + (receivedData))
                  
-            serial.writeLine("HostName: "+(HNamebB))
+            serial.writeLine("Name in Cyberville: "+(HNamebB))
         }
 
     /* PING IP */
-    /** | >> Es << | Do PING to a IP address.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
-        *| >> Fr << | Faites un PING vers une adresse IP.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
-        *| >> The response time should not exceed 10 seconds  << |
+    /** | >> En << | Do PING to a IP address.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
+        | >> Fr << | Faites un PING vers une adresse IP.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
+        | >> The response time should not exceed 10 seconds  << |
         * @param PingbB to PingbB, eg: "192.168.4.1"
     */
         //% blockId="PINGIP"
         //% block="Do PING to IP: $PingbB"
         //% block.loc.fr="Effectuez un PING vers l'IP: $PingbB"
         //% advanced=false
-        //% group="Valuable Date"      
+        //% group="Valuable Data"      
         //% weight=100
         export function PingbBfrend(PingbB:string):void{  
             bBoard_Control.UARTSendString("AT+PING=\"" + PingbB +"\"\r\n", boardIDGlobal, clickIDGlobal); 
@@ -1565,16 +1583,16 @@ namespace bBoard_WiFi {
         }
                    
     /* PING HostName*/
-    /** | >> Es << | Do PING to a HostName.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
-        *| >> Fr << | Faites un PING vers une nom d'hôte.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
-        *| >> The response time should not exceed 10 seconds  << |
-        * @param PingbBDNS to PingbBDNS ,eg: "WiFi_BL"
+    /** | >> En << | Do PING to a Name in Cyberville.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
+        | >> Fr << | Faites un PING vers une nom Cyberville.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
+        | >> The response time should not exceed 10 seconds  << |
+        * @param PingbBDNS to PingbBDNS ,eg: "WiFi-BL"
         */
         //% blockId="PingHostName"
-        //% block="Do PING to DNS: $PingbBDNS"
-        //% block.loc.fr="Effectuez un PING vers l' nom d'hôte: $PingBDNS"
+        //% block="Do PING to a Name in Cyberville: $PingbBDNS"
+        //% block.loc.fr="Faire PING à un nom dans Cyberville: $PingBDNS"
         //% advanced=false
-        //% group="Valuable Date"      
+        //% group="Valuable Data"      
         //% weight=100 
         export function PingbBDNS(PingbBDNS:string):void{
             let dnslocal=PingbBDNS+".local"
@@ -1587,30 +1605,30 @@ serial.writeLine("" + (receivedData))
             if (receivedData == "TIMEOUT"){
                 basic.showIcon(IconNames.No,2000) 
                 serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to HostName: "+ PingbBDNS)
+                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
             }
             if (response == 1) {                                //RESPONSE ==1 connected
                 basic.showIcon(IconNames.Happy,2000)
                 serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to HostName: "+ PingbBDNS)
+                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
             }
             if (response == 0) {   
                 basic.showIcon(IconNames.Sad,2000)              //response ==0 NO conected
                 serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to HostName: "+ PingbBDNS)
+                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
             }
         }
 
     /* Read HostName */
-    /** | >> Es << | Display your current HostName.  
-        *| >> Fr << | Affichez votre nom d'hôte actuel.
-        *| >> The default HostName is espressif wich is the the manufacturer of ESP32<< |
+    /** | >> En << | Display your current Name in Cyberville.  
+        | >> Fr << | Affichez votre nom Cyberville actuel.
+        | >> The default HostName is espressif wich is the the manufacturer of ESP32<< |
     */       
         //% blockId="ReadHostName"
-        //% block="$this Get your HostName"
-        //% block.loc.fr="$this Obtenez votre nom d'hôte"
+        //% block="$this Get your Name in Cyberville"
+        //% block.loc.fr="$this Obtenez votre nom à Cyberville"
         //% advanced=false
-        //% group="Valuable Date"
+        //% group="Valuable Data"
         //% weight=100
 
         //% afterOnStart=true                               //This block will only execute after the onStart block is finished
@@ -1619,8 +1637,8 @@ serial.writeLine("" + (receivedData))
         export function getHostNamebB(): string {
             bBoard_Control.UARTSendString("AT+CWHOSTNAME?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
             response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-            serial.writeLine("HostName: "+(receivedData.substr(28,10))) 
-            return("HostName:"+receivedData.substr(28,10));
+            serial.writeLine("Name in Cyberville: "+(receivedData.substr(28,10))) 
+            return("Name in Cyberville:"+receivedData.substr(28,10));
         }
 
 
@@ -2533,3 +2551,83 @@ serial.writeLine("" + (receivedData))
 //    //% group="MQTT"
 //    //% subcategory="Brilliant Labs Cloud"
 //    //% draggableParameters=variable
+
+
+
+
+  //  bBoard_Control.UARTSendString("AT+CWLIF\r\n", boardIDGlobal, clickIDGlobal);
+   // bBoard_Control.UARTSendString("AT+CIFSR\r\n", boardIDGlobal, clickIDGlobal);//NO FOR IP STATIC, ONLY SOFT
+
+
+
+//_____
+//   bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
+//   response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//   serial.writeLine("" + (receivedData))
+//bBoard_Control.UARTSendString("AT+CWLAP=\"dlink-E750\"\r\n", boardIDGlobal, clickIDGlobal);
+//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
+//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//serial.writeLine("" + (receivedData))
+//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
+
+//bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
+//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//basic.pause(300)
+//bBoard_Control.UARTSendString("AT+CWLAP=\"Cyberville\"\r\n", boardIDGlobal, clickIDGlobal);
+//serial.writeLine("" + (receivedData.substr(28,17)))//28,17
+//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
+//_____
+
+
+  //  bBoard_Control.UARTSendString("AT+CWSAP?\r\n", boardIDGlobal, clickIDGlobal); 
+    //serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
+ //   response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+ //basic.pause(500)
+ //   serial.writeLine("" + (receivedData.substr(11, 10)))//28,17
+    //let wifiname = receivedData.substr(11, 10)
+    //serial.writeLine("wifiname is:" + wifiname)
+
+//    bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
+//    response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//    basic.pause(500)
+//    bBoard_Control.UARTSendString("AT+CWLAP=\"dlink-E750\"\r\n", boardIDGlobal, clickIDGlobal);
+//    serial.writeLine(receivedData.substr(28, 17))
+//    response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
+
+
+
+
+//OK OK to get data from command
+//let wfname = ""
+//let endIndex = 0
+//let startIndex = 0
+//let endIndexMAC = 0
+//let startIndexMAC = 0
+//let macAP=""
+//let sz = 0
+//let wifiname = ""
+//bBoard_Control.UARTSendString("AT+CWJAP?\r\n", boardIDGlobal, clickIDGlobal);
+//response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//serial.writeLine("" + (receivedData))
+//sz = receivedData.length
+//serial.writeLine("length-> " + sz)
+
+//startIndex = receivedData.indexOf("+CWJAP:") + 8
+//serial.writeLine("start-> " + startIndex)
+//endIndex = receivedData.indexOf(",",startIndex) - 1
+//serial.writeLine("end-> " + endIndex)
+//wfname = receivedData.substr(startIndex, endIndex - startIndex )
+//serial.writeLine(wfname)
+
+//let szwf = wfname.length
+//serial.writeLine("WFlength-> " + szwf)
+
+//startIndexMAC = receivedData.indexOf("+CWJAP:") +11 + szwf
+//serial.writeLine("startMAC-> " + startIndexMAC)
+//endIndexMAC = receivedData.indexOf(",", startIndexMAC) -2
+//serial.writeLine("endmac-> " + endIndexMAC)
+//macAP = receivedData.substr(startIndexMAC, endIndexMAC - startIndexMAC+1)
+//serial.writeLine(macAP)
+//_______
