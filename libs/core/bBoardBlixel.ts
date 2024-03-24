@@ -297,7 +297,6 @@ namespace BLiXel {
     }
 
 
-
          /**
          * Set the brightness of the strip. This flag only applies to future operation.
          * @param brightness a measure of LED brightness in 0-100. eg: 50

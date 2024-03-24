@@ -1,9 +1,5 @@
 
-
-
-
 // Configuring command messages...
-
 
 const enum BoardID {
 
@@ -689,7 +685,6 @@ namespace bBoard_Control {
     }
 
 
-
     //% blockId=set_Duty
     //% block="set duty cycle on pin $clickPin to $duty on $boardID $clickID"
     //% block.loc.fr="Définir le rapport cyclique sur la broche $clickPin à $duty sur $boardID $clickID",
@@ -761,6 +756,12 @@ namespace bBoard_Control {
 
 
     }
+
+    export function clearUARTMPCR(){
+        CLEAR_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_TX_BUFFER)
+        CLEAR_BBOARD_RX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, bBoard_Command.BBOARD_COMMAND_CLEAR_RX_BUFFER)
+    }
+
 
     //% blockId=is_UART_Data_Avail
     //% block="is UART data available on $boardID $clickID?"
@@ -1531,8 +1532,4 @@ namespace bBoard_Control {
 
 
 
-
 }
-
-
-

@@ -75,6 +75,7 @@
         "_locales/es-ES/core-strings.json",
         "bBoard.ts",
         "bBoardWiFi.ts",
+        "bBoardCyberSec.ts",
         "bBoardMotor.ts",
         "bBoardSound.ts",
         "bBoardMic.ts",

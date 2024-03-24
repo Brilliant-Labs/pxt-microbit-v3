@@ -1017,7 +1017,7 @@ namespace bBoard_WiFi {
 //% color=#9E4894 
 //% icon="\uf21b"      //LOGO CYBER
 //% labelLineWidth=1001
-//% groups="['Initialize and Connections', 'Networking', 'Roles', 'Remote Comands', 'Missions', 'Missions1']"
+//% groups="['Initialize and Connections', 'Networking', 'Roles','Version ESP32', 'Remote Comands', 'Missions', 'Missions1']"
 
 //------------------------- Networking -----------------------------------   
 
@@ -1489,56 +1489,6 @@ namespace bBoard_WiFi {
 //            return("AP IP:" + APIP);
         }
     
-//------------------------- More -----------------------------------     
-    
-    /* Firmware ESP32 */
-    /** | >> En << | Display the ESP32 firmware version. 
-        | >> Fr << | Affichez la version du firmware de l'ESP32. 
-        | >>  We strongly recommend version 3.2 or higher.  << |
-    */
-        //% blockId="GetFirmwareESP32"
-        //% block="$this Get firmware ESP32 on b.Board"
-        //% block.loc.fr="$this Télécharger le firmware ESP32 sur la b.Board"
-        //% advanced=true
-        //% group="Networking"
-        //% weight=100    
-        //% afterOnStart=true 
-        //% this.shadow=variables_get
-        //% this.defl="getFirmwareESP32"
-    //% blockHidden=true 
-        export function getFirmwareESP32(): string {
-            bBoard_Control.UARTSendString("AT+GMR\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-            serial.writeLine("ESP32 V.: "+(receivedData.substr(19,3)))
-            basic.showString("ESP32 V.:" + receivedData.substr(19,3))
-            return(receivedData.substr(19,3));
-        }
-
-    // Set here to publish  BLiXel ON 
-        export function setPixelColourON(pixelONset: number): void {       
-            let BLiXelBuffer = pins.createBuffer(5);
-            if (pixelONset >= 5)
-            {
-                pixelONset = 4;
-            }
-            BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0,0xFF00FF)// Purple = 0xFF00FF
-            BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixelONset)
-            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null, BLiXelBuffer,0)
-            bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
-        }
-
-    // Set here to publis  BLiXel OFF         
-        export function setPixelColourOFF(pixelOFFset: number): void {       
-            let BLiXelBuffer = pins.createBuffer(5);
-            if (pixelOFFset >= 5)
-            {              
-                pixelOFFset = 4;
-            }
-            BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0,0x000000)// Black = 0x000000
-            BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixelOFFset)
-            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null, BLiXelBuffer,0)
-            bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
-        }
         
 //------------------------- Roles -----------------------------------  
 
@@ -1632,7 +1582,7 @@ namespace bBoard_WiFi {
 //         bBoard_Control.UARTSendString("AT+PING=\"" + PingbBDNS+"\"+\".local\"\r\n", boardIDGlobal, clickIDGlobal); 
             bBoard_Control.UARTSendString("AT+PING=\"dnslocal\"\r\n", boardIDGlobal, clickIDGlobal); 
             response = WiFiResponse("OK",false,10000);//defaultWiFiTimeoutmS=30000
-serial.writeLine("" + (receivedData))
+//serial.writeLine("" + (receivedData))
             
             if (receivedData == "TIMEOUT"){
                 basic.showIcon(IconNames.No,2000) 
@@ -1672,6 +1622,81 @@ serial.writeLine("" + (receivedData))
             return("Name in Cyberville:"+receivedData.substr(28,10));
         }
 
+//------------------------- Version ESP32 - Others -----------------------------------     
+    //% block 
+    //% group="Version ESP32"
+    //% icon="\uf7c0"
+    //% afterOnStart=true
+    //% blockGap=9
+    //% advanced=false
+
+    /* Firmware ESP32 */
+    /** | >> En << | Display the ESP32 firmware version. 
+        | >> Fr << | Affichez la version du firmware de l'ESP32. 
+        | >>  We strongly recommend version 3.2 or higher.  << |
+    */
+        //% blockId="GetFirmwareESP32"
+        //% block="Get firmware ESP32 on b.Board"
+        //% block.loc.fr="Télécharger le firmware ESP32 sur la b.Board"
+        //% advanced=false
+        //% group="Version ESP32"
+        //% blockGap=9
+        //% weight=110    
+        //% afterOnStart=true
+        //% advanced=false
+        //% blockHidden=false 
+        export function getFirmwareESP32(): string {
+            bBoard_Control.UARTSendString("AT+GMR\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
+            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+            serial.writeLine("ESP32 V.: "+(receivedData.substr(19,3)))
+            basic.showString("V:" + receivedData.substr(19,3))
+            return(receivedData.substr(19,3));
+        }
+
+        
+    // Colours
+    // Red = 0xFF0000, Orange = 0xFFA500, Yellow = 0xFFFF00, Green = 0x00FF00, White = 0xFFFFFF
+    // Blue = 0x0000FF, Indigo = 0x4b0082,Violet = 0x8a2be2,Purple = 0xFF00FF, Black = 0x000000
+
+    // Set here to publish  BLiXel ON GREEN
+        export function setPixelColourON(pixelONset: number): void {       
+            let BLiXelBuffer = pins.createBuffer(5);
+            if (pixelONset >= 5)
+            {
+                pixelONset = 4;
+            }
+            BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0,0xFF00FF)// Purple = 0xFF00FF
+            BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixelONset)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null, BLiXelBuffer,0)
+            bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
+        }
+    
+    // Set here to publish  BLiXel ON RED
+        export function setPixelColourRED(pixelONset: number): void {       
+            let BLiXelBuffer = pins.createBuffer(5);
+            if (pixelONset >= 5)
+            {
+                pixelONset = 4;
+            }
+            BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0,0xFF0000)// RED = 0xFF0000
+            BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixelONset)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null, BLiXelBuffer,0)
+            bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
+        }
+
+
+    // Set here to publis  BLiXel OFF         
+        export function setPixelColourOFF(pixelOFFset: number): void {       
+            let BLiXelBuffer = pins.createBuffer(5);
+            if (pixelOFFset >= 5)
+            {              
+                pixelOFFset = 4;
+            }
+            BLiXelBuffer.setNumber(NumberFormat.UInt32LE, 0,0x000000)// Black = 0x000000
+            BLiXelBuffer.setNumber(NumberFormat.UInt8LE, 4, pixelOFFset)
+            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_PIXEL, null, BLiXelBuffer,0)
+            bBoard_Control.sendData (parseInt(clickIOPin.PWM.toString()), moduleIDs.BLiXel_module_id, BLiXel_SHOW, [],0,0)//Show
+        }
 
 //Here END Cyberville 1
 
@@ -1687,7 +1712,7 @@ serial.writeLine("" + (receivedData))
     //% icon="\uf7c0"
     //% afterOnStart=true
     //% blockGap=9
-    //% advanced=False
+    //% advanced=false
 //------------------------- Send Data -----------------------------------    
 /**  Send Data
     * @param IPAdd to IPAdd, eg: "192.168.4.1"
@@ -1700,7 +1725,7 @@ serial.writeLine("" + (receivedData))
     //% blockGap=9
     //% group="Remote Commands"
     //% blockHidden=true 
-    //% advanced=False
+    //% advanced=false
     export function send_MSG_MPCR(IPAdd: string, MSG:string): void {
 
         //Getting my IP address
@@ -1715,8 +1740,8 @@ serial.writeLine("" + (receivedData))
         //Start comunication
         bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); 
         response = WiFiResponse("OK", false, CyberComTimeoutmS);       
-        let MSGS = "GET /"+MSG+"\r"     // This is the message to send.   the last \r means end of tha line sended, Carriage Return
-        let LENMSGS = MSG.length+5      // Size messag  probado Enero18 ok  //        let LENMSGS = MSG.length+7      // Size message  Original
+        let MSGS = "GET1/PCBL_"+MSG//((+"\r"     // This is the message to send.   the last \r means end of tha line sended, Carriage Return
+        let LENMSGS = MSG.length+10      // Size message 10 characters {GET1/PCBL_}
         //_____
 
         //Sending request "GET /" to start communication with AP. Sending GET /xxxMSGSxxx
@@ -1819,7 +1844,7 @@ serial.writeLine("" + (receivedData))
 
 //RCVInfo = RCVInfo.substr(sIndexDXrcv, TotLen)
     RCVInfo = RCVInfo.substr(sIndexDXrcv, parseInt(LenDrcv))
-    serial.writeLine("Receiving: "+RCVInfo)// to visualize data received
+    serial.writeLine("Receiving block: " + RCVInfo)// to visualize data received
     //______           
 
     bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
@@ -1926,14 +1951,14 @@ serial.writeLine("" + (receivedData))
                 let endIndexDXrcv = receivedData.indexOf(",", startIndexDXrcv)
                 let DXrcv = receivedData.substr(startIndexDXrcv, endIndexDXrcv - startIndexDrcv+26)
 //              serial.writeLine("Frame DXrcv: " + DXrcv) //to visualize the data frame
-//            let totDX=DXrcv.length
+                let totDX=DXrcv.length
 //            serial.writeLine("len totDX: " + totDX) //to visualize lenght amount
             //___
             //For RCVInfo
             RCVdoneIPON = bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)
-              let sIndexDXrcv = RCVdoneIPON.indexOf(":") + LenDrcvSize + 2 // Ok Ok OK
+                let sIndexDXrcv = RCVdoneIPON.indexOf(":") + LenDrcvSize + 2 // Ok Ok OK
 //              serial.writeLine("sIndexDXrcv: " + sIndexDXrcv)
-              let eIndexDXrcv = RCVdoneIPON.indexOf(",", sIndexDXrcv) + parseInt(LenDrcv)
+                let eIndexDXrcv = RCVdoneIPON.indexOf(",", sIndexDXrcv) + parseInt(LenDrcv)
 //              serial.writeLine("eIndexDXrcv: " + eIndexDXrcv)
             //___
 
@@ -2091,7 +2116,7 @@ serial.writeLine("" + (receivedData))
     //% blockId="BLiXel_IndexR" 
     //% block="%indexR"
     //% block.loc.fr="%indexR"
-     //% afterOnStart=true
+    //% afterOnStart=true
     //% blockHidden=true 
     //% advanced=true
     export function blixel_indexR(indexR: BLiXelIndexR): number {
@@ -2112,8 +2137,8 @@ serial.writeLine("" + (receivedData))
 
 /* Mission lights, select the Role and the Appliance (BLixel #) to turn on
     */ 
-    /** | >> En << | llenar.
-        | >> Fr << | llenar.
+    /** | >> En << | Select your role. Protect the appliance in the appropriate order.
+        | >> Fr << | Sélectionnez votre rôle. Protégez l'appareil dans l'ordre approprié.
         * @param Role in Cyberville
         * @param Appliance in School
     */
@@ -2126,25 +2151,6 @@ serial.writeLine("" + (receivedData))
         //% advanced=true
         export function MissionLights(Role: number, Appliance:number): void {       
 //            serial.writeLine("Role: " + Role)
-
-        //Flashing
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            basic.pause(600);
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            basic.pause(600);
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-            Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(1); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-        
-           // Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(500+LenPCS*1000); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-        //   Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
-     
-            //___________
-
-
         //Getting the Protection Code String
             let ApplianceStr = Appliance.toString()     //number to String
             ProtCodeStr=ProtCodeStr+ApplianceStr;       // Store the string to be sent to M5
@@ -2153,70 +2159,67 @@ serial.writeLine("" + (receivedData))
 //            serial.writeLine("The Protection Code String is: "+ ProtCodeStr)
             LenPCS = ProtCodeStr.length
 //            serial.writeLine("Lenght Protection Code String is: "+ LenPCS)
-
         //____
 
         //SENDING REQUEST GET/ + Role# + /ON_ + Appliance#            Important -> CIPRECVMODE=0  
         MSG_PCS = "GET"+Role+"/ON_"+Appliance;//Menssage to be sent as request, Protection Cose String
-//let MSG_PCS = "/?cucu=456";    //ON_"+Appliance;//Menssage to be sent as request, Protection Cose String
         //serial.writeLine("to send...:  " + (MSG_PCS))
         //serial.writeLine("The code selected was:  " + (ProtCodeStr))
 
         FullMSG_PCS = "GET"+Role+"/PCBL_"+ProtCodeStr; //message GET + Role number + currentLine.endsWith ProtectionCodeBrilliantLabs          +Appliance;//Menssage to be sent as request, Protection Cose String
 
-        }
+        } // assemble  FullMSG_PCS = "GET"+Role+"/PCBL_"+ProtCodeStr; 
 
 /* Send the protection */
-    /** | >> En << | Send the protection under attack.
-        | >> Fr << | Envoyer la protection sous attaque.      
+    /** | >> En << | Send protection sequence for attack resolution.
+        | >> Fr << | Envoi d'une séquence de protection pour la résolution de l'attaque.      
     */
         //% blockId="Send_Protection"
-        //% block="Send the Protection Code!"
-        //% block.loc.fr="Envoyez le code de protection!"
+        //% block="Send protection sequence and wait for results!"
+        //% block.loc.fr="Envoyez la séquence de protection et attendez les résultats !"
         //% advanced=true
         //% group="Mission 1: Weird Lights at School - What is the order of protection?" 
         //% weight=100
         export function sendprot(): void {
         soundExpression.giggle.play()
-//            serial.writeLine("The protection code is: "+ ProtCodeStr + " it is going to be send to m5")
-        serial.writeLine("The full protection code is: "+ FullMSG_PCS + " it is going to be send to m5")
+//        serial.writeLine("The protection code is: "+ ProtCodeStr + " it is going to be send to m5")
+//        serial.writeLine("The full protection code is: "+ FullMSG_PCS + " it is going to be send to m5")
 
         readytosend();
 
-  //      bBoard_Control.UARTSendString("AT+CIPSEND=0," + MSG_PCS.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
         bBoard_Control.UARTSendString("AT+CIPSEND=0," + FullMSG_PCS.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
         response = WiFiResponse("OK", true, CyberComTimeoutmS);
-        //___________________________    V   ________________
-  //      bBoard_Control.UARTSendString(ProtCodeStr, boardIDGlobal, clickIDGlobal); //Send the contents of the packet  
-        bBoard_Control.UARTSendString(FullMSG_PCS, boardIDGlobal, clickIDGlobal); //Send the contents of the packet  
+//____________________________________    V   _______________________________
+        bBoard_Control.UARTSendString(FullMSG_PCS, boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
         response = WiFiResponse("OK", true, CyberComTimeoutmS);
-        serial.writeLine("Sending to AP: " + ProtCodeStr + " as code proteccion")
-        serial.writeLine("Sending to AP: " + FullMSG_PCS + " as code proteccion")
-//              serial.writeLine("Lenght MSC_PCS is: " +MSG_PCS.length.toString())
+//        serial.writeLine("Sending to AP: " + ProtCodeStr + " as code proteccion")
+        serial.writeLine("Sending to AP: " + FullMSG_PCS)
+//        serial.writeLine("Lenght MSC_PCS is: " +MSG_PCS.length.toString())
 
         ProtCodeStr=""; //Delete the message to get a new one
-//        FullMSG_PCS=""; //Delete the message to get a new one
-        serial.writeLine("ProtCodeStr was sent! and deleted.")   
-   
+        FullMSG_PCS=""; //Delete the message to get a new one  // NO QUITAR
+//        serial.writeLine("ProtCodeStr was sent! and deleted.")   
+//        serial.writeLine("FULLMSG_PCS was sent! and deleted.")      
+       pause(500)//***** Important **** 
 
+        //Flashing
+        // Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(500+LenPCS*1000); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
+        // Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
+        //___________
 
-
-
-
-
+/* Receiving to confirm */
     //RECIVING  Important -> CIPRECVMODE=1
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
         response = WiFiResponse("OK", false, CyberComTimeoutmS);
         bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-        response = WiFiResponse("OK", false, CyberComTimeoutmS);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("receiveData: " + (receivedData))      
-      pause(500)//Important
+        response = WiFiResponse("OK", false, CyberComTimeoutmS);          
+        pause(500)//***** Important **** 
+
+        let RCVdonIPON =""; // Variable empty to start
 
     //Getting LENGHT data 
         bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
         response = WiFiResponse("OK", false, CyberComTimeoutmS); 
-//         serial.writeLine("ReceivedData is: " + (receivedData))
         let startIndexDrcv = receivedData.indexOf("+CIPRECVLEN:") + 12 // +CIPRECVLEN: = 12characters
 //           serial.writeLine("start-> " + startIndexDrcv)
         let endIndexDrcv = receivedData.indexOf(",", startIndexDrcv)
@@ -2227,90 +2230,225 @@ serial.writeLine("" + (receivedData))
 //            serial.writeLine("LEN Data size: " + LenDrcvSize)
         let TotLen= parseInt(LenDrcv)+LenDrcvSize
 //            serial.writeLine("Total lenght: " + TotLen)//Totalize Lenght size
-       pause(500);//Important                     
+    //_____
+//        pause(500);//***** Important ****     
+
     //Getting Data
         bBoard_Control.UARTSendString("AT+CIPRECVDATA=0," + LenDrcv + "\r\n", boardIDGlobal, clickIDGlobal);//for Link=0        //for ReceivedData, to see data length of link 
         //For ReceivedData
-            let startIndexDXrcv = receivedData.indexOf(":")+1 //Ok Ok
-            let endIndexDXrcv = receivedData.indexOf(",", startIndexDXrcv)
-            let DXrcv = receivedData.substr(startIndexDXrcv, endIndexDXrcv - startIndexDrcv+26)
-//            serial.writeLine("Frame DXrcv: " + DXrcv) //to visualize the data frame
-//            let totDX=DXrcv.length
-//            serial.writeLine("len totDX: " + totDX) //to visualize lenght amount
+        let startIndexDXrcv = receivedData.indexOf(":")+1 //Ok Ok
+        let endIndexDXrcv = receivedData.indexOf(",", startIndexDXrcv)
+        let DXrcv = receivedData.substr(startIndexDXrcv, endIndexDXrcv - startIndexDXrcv+26)
+//          serial.writeLine("Frame DXrcv: " + DXrcv) //to visualize the data frame
+        let totDX=DXrcv.length
+//          serial.writeLine("len totDX: " + totDX) //to visualize lenght amount
     //___
+
     //For RCVInfo
-        let RCVdonIPON = bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)
+        RCVdonIPON = bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)   
         let sIndexDXrcv = RCVdonIPON.indexOf(":") + LenDrcvSize + 2 // Ok Ok OK
-//              serial.writeLine("sIndexDXrcv: " + sIndexDXrcv)
+//          serial.writeLine("sIndexDXrcv: " + sIndexDXrcv)
         let eIndexDXrcv = RCVdonIPON.indexOf(",", sIndexDXrcv) + parseInt(LenDrcv)
-//              serial.writeLine("eIndexDXrcv: " + eIndexDXrcv)
+//          serial.writeLine("eIndexDXrcv: " + eIndexDXrcv)
     //___
+        let MSG_PCS_RCV  = RCVdonIPON.substr(sIndexDXrcv, parseInt(LenDrcv))
+        serial.writeLine("MSG received: " + MSG_PCS_RCV)
+    
 
-        RCVdonIPON = RCVdonIPON.substr(sIndexDXrcv, parseInt(LenDrcv))
-        serial.writeLine("Receiving: "+RCVdonIPON)// to visualize data received
-        let MSG_PCS_RCV=RCVdonIPON;
-
-       // Animation();
-        if (MSG_PCS_RCV =="allgood"){
-            soundExpression.happy.play()
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one));
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two));
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three));
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four));
-            Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five))
-            basic.showIcon(IconNames.Yes, 2000)
-            basic.clearScreen()  
-        } 
-        else if (MSG_PCS_RCV ==""){
-            soundExpression.sad.play()
-            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));
-            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));
-            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));
-            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));
-            Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five))
-            basic.showIcon(IconNames.Sad, 2000)
-            basic.clearScreen()  
-        }
+    // Read the confirmation sent by M5 and turn on the appliance 
+        let Confirm="";    // Variable empty to start
         
+        Confirm = MSG_PCS_RCV.substr(0,5-4)//First Digit Code
+//        serial.writeLine("Confirmed 1: " + Confirm)
+        if (Confirm=="1"){
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+    
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one));
+            }else{
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+     
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));}
+        Confirm = MSG_PCS_RCV.substr(1,1)//Second Digit Code
+//        serial.writeLine("Confirmed 2: " + Confirm)
+        if (Confirm=="1"){
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two));
+            }else{
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));}
+        Confirm = MSG_PCS_RCV.substr(2,1)//Third Digit Code
+//        serial.writeLine("Confirmed 3: " + Confirm)
+        if (Confirm=="1"){
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three));
+            }else{
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));}  
+        Confirm = MSG_PCS_RCV.substr(3,1)//Fourth Digit Code
+//        serial.writeLine("Confirmed 4: " + Confirm)
+        if (Confirm=="1"){
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four));
+            }else{
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));} 
+        Confirm = MSG_PCS_RCV.substr(4,1)//Fiveth Digit Code
+//        serial.writeLine("Confirmed 5: " + Confirm)
+        if (Confirm=="1"){
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+
+                Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five));
+            }else{
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                basic.pause(600);
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+
+                Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five));} 
+    //__________ 
+            
+
+       if (MSG_PCS_RCV=="11111"){
+            readytosend();
+            bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+            bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+            serial.writeLine("Good")// This is the word to confirm the code is correct!
+            basic.showIcon(IconNames.Happy,2000) 
+            soundExpression.happy.play()
+            pause(1000)
+            basic.clearScreen()
+         }
+        if (MSG_PCS_RCV!="11111"){
+            soundExpression.sad.play()
+            basic.showIcon(IconNames.Sad,2000) 
+            pause(1000)
+            basic.clearScreen()
+        }
+
+
         MSG_PCS_RCV=""; //Delete the message to get a new one
+        RCVdonIPON="";  //Delete the message to get a new one
+        Confirm="";     //Delete the message to get a new one
 
 
 //-***Close the comunication */
+        bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+//Ready to Receive done!     Important CIPRECVMODE=0 
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
 
-        bBoard_Control.UARTSendString("AT+CIPCLOSE=0\r\n", boardIDGlobal, clickIDGlobal);
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-
         serial.writeLine("Client Closed!")
-//        bBoard_Control.UARTSendString("AT+CIPCLOSE\r\n", boardIDGlobal, clickIDGlobal);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
 
 
-//        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("status to close: " + (receivedData))    
-
-//        serial.writeLine("ya closed " )    
-
-
-
-
-
+/*        if (MSG_PCS_RCV=="11111"){
+            readytosend();
+            bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+            bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+            serial.writeLine("Good")// This is the word to confirm the code is correct!
+            basic.showIcon(IconNames.Happy,2000) 
+            soundExpression.happy.play()
+            pause(1000)
+            basic.clearScreen()
+         }
+*/
 
 
 
 
+  
 
 
         }   
 
 export function readytosend(){
-
         //Getting my IP address
         bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
         response = WiFiResponse("OK", false, CyberComTimeoutmS);
@@ -2324,7 +2462,6 @@ export function readytosend(){
         let APIP = (receivedData.substr(APipStartIndex+4,11)); // get ip Address local
 //              serial.writeLine("AP IPadd is: "+APIP)//Print my IP address idex    
 //_____
-        let RCVdonIPON="";  
     //Sending MSG_PCS                    
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);//MODE0 TO SENDING
         response = WiFiResponse("OK", false, CyberComTimeoutmS);        
@@ -2332,23 +2469,6 @@ export function readytosend(){
         response = WiFiResponse("OK", false, CyberComTimeoutmS);        
         bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ APIP +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
         response = WiFiResponse("OK", true, CyberComTimeoutmS);
-//AT+HTTPCLIENT=<opt>,<content-type>,<"url">,[<"host">],[<"path">],<transport_type>[,<"data">][,<"http_req_header">][,<"http_req_header">][...]
-//XbBoard_Control.UARTSendString("AT+HTTPCLIENT=1,3,\"192.168.4.1\",,,1" + "\r\n", boardIDGlobal, clickIDGlobal);
-//XbBoard_Control.UARTSendString("AT+HTTPCLIENT=1,3,\"192.168.4.1\"\r\n", boardIDGlobal, clickIDGlobal);
-//bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,3,\"192.168.4.1\"\r\n", boardIDGlobal, clickIDGlobal);
-//bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,0,\"192.168.4.1\"\r\n", boardIDGlobal, clickIDGlobal);
-//ERROR bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,0,\"192.168.4.1\",\"192.168.4.1\",\"/get\",1\r\n", boardIDGlobal, clickIDGlobal);
-//ERROR bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,3,\"192.168.4.1/get\",\"192.168.4.1\",\"/get\",1\r\n", boardIDGlobal, clickIDGlobal);
-//bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,3,\"192.168.4.1\",\"192.168.4.1\",1\r\n", boardIDGlobal, clickIDGlobal);
-//X bBoard_Control.UARTSendString("AT+HTTPCLIENT=1,3,\"192.168.4.1\",\"192.168.4.1\",\"/\",1\r\n", boardIDGlobal, clickIDGlobal);
-//X bBoard_Control.UARTSendString("AT+HTTPCLIENT=3,3,\"192.168.4.1\",\"192.168.4.1\",\"/\",1\r\n", boardIDGlobal, clickIDGlobal);
-//X bBoard_Control.UARTSendString("AT+HTTPCLIENT=3,3,\"192.168.4.1\",1\r\n", boardIDGlobal, clickIDGlobal);
-//bBoard_Control.UARTSendString("AT+HTTPCLIENT=2,3,\"192.168.4.1/?cucu=456\",1\r\n", boardIDGlobal, clickIDGlobal);
-//bBoard_Control.UARTSendString("AT+HTTPCLIENT=1,0,\"192.168.4.1/?cucu=456\",1\r\n", boardIDGlobal, clickIDGlobal);
-
-//serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//response = WiFiResponse("OK", true, CyberComTimeoutmS);           
-
 }
 
 
@@ -2410,1025 +2530,21 @@ enum BLiXelIndexR {
 }
 
 enum ApplianceIndex {
-    //% block="Heat Cntr☼1"
+    //% block="Heat Cntr ☼1"
         one = 1,
-    //% block="Air Cond ☼2"
+    //% block="Air Cond  ☼2"
         two = 2,
-    //% block="Lamp Cafe☼3"
+    //% block="Lamp Cafe ☼3"
         three = 3,
-    //% block="Lamps Gym☼4"
+    //% block="Lamps Gym ☼4"
         four = 4,
-    //% block="Internet ☼5"
+    //% block="Internet  ☼5"
         five = 5,
 }
 
 
 
 
-//DON´T for Cyberville 1
+//backup comments in folder
 
 
-
-////------------------------- Remote Comands -----------------------------------
-//    //% block 
-//    //% group="Activity 9-Remote Commands"
-//    //% icon="\uf7c0"
-    
-///**  Send Data
-//    * @param IPAdd to IPAdd, eg: "192.168.4.1"
-//    * @param MSG to MSG, eg:"on?"
-//    */
-//    //% block="For IP number: $IPAdd | send data: $MSG"
-//    //% blockId=Wifi_Send_Message
-//    //% weight=110
-//    //% group="Remote Commands"
-//    export function send_MSG_MPCR(IPAdd: string, MSG:string): void {
-
-//        //Getting my IP address
-//        bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//        response = WiFiResponse("OK", false, 300);//use OJJO300 00ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        let ipStartIndex = receivedData.indexOf("ip:")
-//        let MyIP = (receivedData.substr(ipStartIndex+4,11)); // get ip Address local
-////        serial.writeLine("My IP is:"+MyIP)//Print my IP address idex       
-       
-//        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long       
-
-//        let MSGS = "GET /"+MSG+"\r"     // This is the message to send.   the last \r means end of tha line sended, Carriage Return
-//        let LENMSGS = MSG.length+7      // Size message     
-
-//        bBoard_Control.UARTSendString("AT+CIPSEND=0,"+LENMSGS+"\r\n", boardIDGlobal, clickIDGlobal); //s add \r to the packet 
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK
-        
-//        bBoard_Control.UARTSendString(MSGS, boardIDGlobal, clickIDGlobal); //Send the contents of the packet              
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK
-//        serial.writeLine("Sending... "+MSGS)
-////        serial.writeLine("Len... "+LENMSGS)//Lenght MSGS
-
-//        bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal); //Close ALL your connections
-//        response = WiFiResponse("OK", false, 300); //Wait for the response "OK"
-
-//    }
-
-///**  Receive Data                            
-////     @param IPAddR to IPAddR, eg: "192.168.4.1"
-////     @param DatosRCV to DatosRCV, eg: ""          //Datos Received from AP 192.168.4.1 or....
-//*/
-//    //% blockId="WiFi_Receive_Message from AP"
-//    //% block="Receive Data From IP number: $IPAddR"
-//    //% advanced=false
-//    //% group="Remote Commands"
-//    //% weight=200     
-////export function ReceiV(DatosRCV: string):string{     
-//    export function recv_MSG_MPCR(): void{      
-////    export function ReceiV(IPAdd: string, DatosRCV: string){
-//   // export function ReceiV():string{
-//    bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
-//    response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long 
-
-//        //Getting AP IP address
-//        bBoard_Control.UARTSendString("AT+CIPAP?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        let APipStartIndex = receivedData.indexOf("ip:")
-//        let APIP = (receivedData.substr(APipStartIndex+4,11)); // get ip Address local
-//        //serial.writeLine("AP IPadd is: "+APIP)//Print my IP address idex    
-//        //_____
-
-//        //Getting my IP address
-//        bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        let ipStartIndex = receivedData.indexOf("ip:")
-//        let MyIP = (receivedData.substr(ipStartIndex+4,11)); // get ip Address local
-//        //serial.writeLine("My IP is:"+MyIP)//Print my IP address idex       
-//        //_____
-
-//        //Sending request "GET /" to start communication with AP
-////WITH VARIABLE     bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ APIP +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); 
-//        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.4.1\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-        
-//        let MSGSR = "GET /\r"     // Message "GET /\r" to start communication ->Package
-
-//        bBoard_Control.UARTSendString("AT+CIPSEND=0,"+7+"\r\n", boardIDGlobal, clickIDGlobal); //size packet = 7 
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK
-
-//        bBoard_Control.UARTSendString(MSGSR, boardIDGlobal, clickIDGlobal); //Send the contents of the packet              
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK
-//        serial.writeLine("Sending... "+MSGSR)
-//        //_____
-
-//    serial.writeLine("READY TO RECEIVE...") //no usar CIPMODE
- 
-//        bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive  mode 
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);
-//        serial.writeLine("cipstatus is here: " + (receivedData))      
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-
-//        let DatosRCV="";    
-//        let RCVInfo="";
-//        let RCVdone="";  
-//        let MyData="";
-
-//        //Getting LENGHT data 
-//        bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);     //
-//        serial.writeLine("len: " + (receivedData))   
-  
-//        let LENStartIndex = receivedData.indexOf(":")
-//        let MyLEN = (receivedData.substr(LENStartIndex+1,3)); 
-//        serial.writeLine("MyLEN is:"+MyLEN)//Print my IP address idex      
-//        //_____
-
-//        //Getting data received
-//        bBoard_Control.UARTSendString("AT+CIPRECVDATA=0,"+MyLEN+"\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);     //
-////OK        let DataStartIndex = receivedData.indexOf("M5")
-//        let DataStartIndex = receivedData.indexOf("M5STACK_DATA")//pointer on webserver
-//        MyData = (receivedData.substr(DataStartIndex+1,3)); 
-//        serial.writeLine("MyData is:"+MyData)//Print my IP address idex      
-
-//        RCVdone=("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////       RCVdone=receivedData.substr(761, 3)//find a specific info
-//        serial.writeLine("esto recivi:"+RCVdone)
-
-
-//        serial.writeLine("done! RECEIVE...") 
-//        //_______
-
-//        bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300); 
-
-//        bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /** Send ON BLiXel for a IP 
-//    * @param IPAdd to IPAdd, eg: "192.168.4.1"
-//    * @param pixelONsetTEST position of the BLiXel in the strip
-//    */
-//    //% blockId="Send BLiXel_ON_# for a IP " 
-//    //% block="For IP number: $IPAdd | Ask to Turn ON BliXel #: $pixelONsetTEST=BLiXel_Index"
-//    //% advanced=false
-//    //% group="Remote Commands"
-//    //% weight=200  
-//    export function send_LEDMSG_ON(IPAdd: string, pixelONsetTEST: number): void {
-   
-   
-////SENDING REQUEST   
-//        let BLiXelBuffer = pins.createBuffer(5);
-//        let LEDMSGON = "";
-//            if (pixelONsetTEST == 0){ LEDMSGON="GET /ON_1";}
-//            if (pixelONsetTEST == 1){ LEDMSGON="GET /ON_2";}
-//            if (pixelONsetTEST == 2){ LEDMSGON="GET /ON_3";}
-//            if (pixelONsetTEST == 3){ LEDMSGON="GET /ON_4";}
-//            if (pixelONsetTEST == 4){ LEDMSGON="GET /ON_5";}
-//        serial.writeLine("" + (LEDMSGON))
-
-//    //Getting my IP address
-//        bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//        response = WiFiResponse("OK", false, 300);//use OJJO300 00ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        let ipStartIndex = receivedData.indexOf("ip:")
-//        let MyIP = (receivedData.substr(ipStartIndex+4,11)); // get ip Address local
-//        serial.writeLine("My IP is:"+MyIP)//Print my IP address idex       
-//    //______
-
-//    //Getting AP IP address
-//        bBoard_Control.UARTSendString("AT+CIPAP?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
-//        let APipStartIndex = receivedData.indexOf("ip:")
-//        let APIP = (receivedData.substr(APipStartIndex+4,11)); // get ip Address local
-//        serial.writeLine("AP IPadd is: "+APIP)//Print my IP address idex    
-//    //_____
-
-//        let RCVInfoIPON="";
-//        let RCVdoneIPON="";  
-        
-//        bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);//MODE0 TO SENDING
-//        response = WiFiResponse("OK", false, 300);        
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-////        serial.writeLine("" + (receivedData))
-
-//        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);        
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-////        serial.writeLine("" + (receivedData))
-
-
-// //EXAMPLE//    bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.4.1\",80,\r\n", boardIDGlobal, clickIDGlobal); 
-////        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,\r\n", boardIDGlobal, clickIDGlobal); 
-////        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.4.1\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
-//          bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
-//        response = WiFiResponse("OK", true, 300);
-////EXAMPLE//    bBoard_Control.UARTSendString("AT+CIPSEND=0," + 9 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-   
-//        bBoard_Control.UARTSendString("AT+CIPSEND=0," + LEDMSGON.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//        response = WiFiResponse("OK", true, 300);
-//        bBoard_Control.UARTSendString(LEDMSGON, boardIDGlobal, clickIDGlobal); //Send the contents of the packet  
-//        response = WiFiResponse("OK", true, 300);
-//        serial.writeLine("Sending" +LEDMSGON)
-//        serial.writeLine("len" +LEDMSGON.length.toString())
-        
-
-  
-////RECIVING
-
-//        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))      
-
-//    bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
-//    response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long 
-//pause(500)
-//    bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
-//    response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long 
-
-
-
-//    serial.writeLine("OTRAVES LEN")
-//        bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);        
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))
-//pause(400);//OJO 
-//        bBoard_Control.UARTSendString("AT+CIPRECVDATA=0,40\r\n", boardIDGlobal, clickIDGlobal);
-//        RCVInfoIPON = "" + bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)
-//        RCVdoneIPON=RCVInfoIPON.substr(36, 4)
-//        serial.writeLine(RCVInfoIPON)
-// //-   return (RCVInfo.substr(36, 4))   
-//        if (RCVdoneIPON == "ON_1"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one));}
-//        if (RCVdoneIPON == "ON_2"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two));}
-//        if (RCVdoneIPON == "ON_3"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three));}
-//        if (RCVdoneIPON == "ON_4"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four));}
-//        if (RCVdoneIPON == "ON_5"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five));}
-// //-   return (RCVInfoIP.substr(36, 4))
-
-////-*** Need to address this. Use CIPSTATUS to see when TCP connection is closed as thingspeak automatically closes it when message sent/received */
-//        bBoard_Control.UARTSendString("AT+CIPCLOSE=5,\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);
-
-////-        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////-        serial.writeLine("" + (receivedData))
-//        bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
-//        response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-//    }
-
-///** Send OFF BLiXel for a IP 
-//    * @param IPAdd to IPAdd, eg: "192.168.4.1"
-//    * @param pixelOFFsetTEST position of the BLiXel in the strip
-//    */
-//    //% blockId="Send BLiXel_OFF_# for a IP " 
-//    //% block="For IP number: $IPAdd | Ask to Turn OFF BliXel #: $pixelOFFsetTEST=BLiXel_Index"
-//    //% advanced=false
-//    //% group="Remote Commands"
-//    //% weight=200  
-//    export function send_LEDMSG_OFF(IPAdd: string, pixelOFFsetTEST: number): void {
-//        let BLiXelBuffer = pins.createBuffer(5);
-//        let LEDMSGOFF = "";
-//            if (pixelOFFsetTEST == 0){ LEDMSGOFF="GET /OFF1";}
-//            if (pixelOFFsetTEST == 1){ LEDMSGOFF="GET /OFF2";}
-//            if (pixelOFFsetTEST == 2){ LEDMSGOFF="GET /OFF3";}
-//            if (pixelOFFsetTEST == 3){ LEDMSGOFF="GET /OFF4";}
-//            if (pixelOFFsetTEST == 4){ LEDMSGOFF="GET /OFF5";}
-//        serial.writeLine("" + (LEDMSGOFF))
-
-//        let RCVInfoIPOFF="";
-//        let RCVdoneIPOFF="";  
-//            bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);//0=Passive  1=Active
-//            response = WiFiResponse("OK", false, 300);        
-//            serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//    //        serial.writeLine("" + (receivedData))
-
-//            bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//            response = WiFiResponse("OK", false, 300);
-//            serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//    //      serial.writeLine("" + (receivedData))
-
-////EXAMPLE//    bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.4.1\",80,\r\n", boardIDGlobal, clickIDGlobal); 
-//        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,\r\n", boardIDGlobal, clickIDGlobal); 
-////        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////        response = WiFiResponse("OK", false, 300);
-////        serial.writeLine("" + (receivedData))    
-
-////EXAMPLE//    bBoard_Control.UARTSendString("AT+CIPSEND=0," + 9 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//        bBoard_Control.UARTSendString("AT+CIPSEND=0," + LEDMSGOFF.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-////        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////        response = WiFiResponse("OK", false, 300); 
-////        serial.writeLine("" + (receivedData)) 
-
-//        bBoard_Control.UARTSendString(LEDMSGOFF, boardIDGlobal, clickIDGlobal); //Send the contents of the packet  
-////        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////        response = WiFiResponse("OK", false, 300); 
-////        serial.writeLine("" + (receivedData)) 
-
-////pause(200);
-
-//        bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))      
-    
-//        bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, 300);        
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))
-
-//        bBoard_Control.UARTSendString("AT+CIPRECVDATA=0,40\r\n", boardIDGlobal, clickIDGlobal);
-////Example//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal).substr(37, 40))//don´t move position    
-//    RCVInfoIPOFF = "" + bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)
-//    RCVdoneIPOFF=RCVInfoIPOFF.substr(36, 4)
-//    serial.writeLine(RCVInfoIPOFF)
-// //   return (RCVInfo.substr(36, 4))  
-
-//    if (RCVdoneIPOFF == "OFF1"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));}
-//    if (RCVdoneIPOFF == "OFF2"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));}
-//    if (RCVdoneIPOFF == "OFF3"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));}
-//    if (RCVdoneIPOFF == "OFF4"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));}
-//    if (RCVdoneIPOFF == "OFF5"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five));}
-
-    
-// //   return (RCVInfoIP.substr(36, 4))
-
-
-////*** Need to address this. Use CIPSTATUS to see when TCP connection is closed as thingspeak automatically closes it when message sent/received */
-////        bBoard_Control.UARTSendString("AT+CIPCLOSE=5,\r\n", boardIDGlobal, clickIDGlobal);
-////        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-////        response = WiFiResponse("OK", false, 300);
-////        serial.writeLine("" + (receivedData))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-//       //------------------------- Passwords -----------------------------------
-//            //% block
-//            //% group="Activity 10"
-//            //% icon="\uf084"
-//            export function Passwords() {
-//            }
-    
-//       //------------------------- Firewall -----------------------------------   
-//            //% block
-//            //% group="Activity 11"
-//            //% icon="\uf637"
-//            export function Firewall() {
-//            }
-    
-//       //------------------------- Intelligent Comunity -----------------------------------   
-//            //% block
-//            //% group="Activity 12"
-//            //% icon="\uf509"
-//            export function IntelligentComunity() {
-//            }   
-            
-
-
- 
-            
-
-    
-
-//   /* BLiXel ON */ 
-//        /**  LEDS  ON
-//        /** Set ON bBoard BLixel to Purple Color in a specif number
-//        * @param pixelONset position of the BLiXel in the strip
-//        */
-//        //% blockId="BLiXel_ON_Set_#"
-//        //% block="ON BLiXel #: $pixelONset=BLiXel_Index"
-//        //% advanced=false
-//        //% group="Valuable Date"
-//        //% weight=200 
-  
-//    /* BLiXel OFF */
-//        /**  LEDS OFF 
-//        /** Set OFF bBoard BLixel in a specific number
-//        * @param pixelOFFset position of the BLiXel in the strip
-//        */
-//        //% blockId="BLiXel_OFF_Set_#" 
-//        //% block="OFF BLiXel #: $pixelOFFset=BLiXel_Index"
-//        //% group="Valuable Date"
-//        //% advanced=false      
-//        //% weight=200 
-
-
-
-
-
-
-
-
-
-
-//bBoard_Control.UARTSendString("AT+CWHOSTNAME=\"Electricity\" \r\n", boardIDGlobal, clickIDGlobal);
-    //bBoard_Control.sendData(0,moduleIDs.BLiXel_module_id,BLiXel_SHOW,  // BLiXel_SHOW, [],0,0)
-      //      pause(500)
-    //        bBoard_Control.sendData(0,      0,       BLiXel_SHOW,          [],               1,       2) 
-            ////                 (BASE    MODULO       ON led     [currentBrightness]       COLOR   NUM blix)
-            ////                 0,A,B  mickrobus    Analog-Dig                              RGB        #   
-            ////Derive the address of the click port (0= on board 1=A 2=B on b.Board)(3 = on board, 4=A, 5=B on Expansion 1 etc)
-            ////    let colourBuffer = pins.createBuffer(4);  // borrar apagar color 4
-            ////     export function  blixelsOff() {
-////       let colourBuffer = pins.createBuffer(4);
-///            colourBuffer.setNumber(NumberFormat.UInt32LE, 0, 0)
-////            currentBLiXelBuffer.fill(0)
-////            bBoard_Control.BLiX(0,0,clickIOPin.PWM, moduleIDs.BLiXel_module_id, BLiXel_STRIP_SET_COLOUR, null,colourBuffer,0)
-///            show();
-
-
-
-//bBoard_Control.UARTSendString("AT+CWJAP=\"Mario SE\",\"11111111\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32 
-//        response = WiFiResponse("OK",false,defaultWiFiTimeoutmS);  
- //////  EJEMPLO    AT+CWJAP="abc","0123456789"
-        ////// EJEMPLO    AT+CWJAP=[<ssid>],[<pwd>][,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>][,<jap_timeout>][,<pmf>]
- //       bBoard_Control.UARTSendString("AT+CWSTATE?\r\n", boardIDGlobal, clickIDGlobal); NO usar cwstate
-         //let PingbB = "192.168.4.1";  //Example to introduce
-        //let PingbB = "CyberSec #1";  //Example to introduce
-
-    //-------------------------Clear ESP32  ------------------------------   
- //   bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
- //   bBoard_Control.writePin(1, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
- //   basic.pause(300)      
- //   bBoard_Control.clearUARTMPCR();
- //   bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);
- //   bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32 
- //   bBoard_Control.UARTSendString("AT+CWQAP\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
- //   bBoard_Control.UARTSendString("AT+CWAUTOCONN=0\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
- //   bBoard_Control.UARTSendString("AT+RESTORE\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
- //   bBoard_Control.UARTSendString("AT+RST\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion, now is ready to a new one
-
-
-
-
-
-
-//Vanished
-       // export function clearSerialBuffer() {
-            // serial.clearRxBuffer()
-     // }
-
-
-
-// enum BLiXelcolours {
-//    //% block=red
-//    //% block.loc.fr=rouge
-//    Red = 0xFF0000,
-//    //% block=orange
-//    Orange = 0xFFA500,
-//    //% block=yellow
-//    Yellow = 0xFFFF00,
-//    //% block=green
-//    Green = 0x00FF00,
-//    //% block=blue
-//    Blue = 0x0000FF,
-//    //% block=indigo
-//    Indigo = 0x4b0082,
-//    //% block=violet
-//    Violet = 0x8a2be2,
-//    //% block=purple
-//    Purple = 0xFF00FF,
-//    //% block=white
-//    White = 0xFFFFFF,
-//    //% block=black
-//    Black = 0x000000
-//    }
-
-
-
-
-//MESSAGES BACK TO SHOW ON SERIAL   NEVER SPACE BEFORE \r\n
-    // Behavior AT commands
-    // serial.writeLine("" + (receivedData)) //ALWAYS STATUS=2
-    // serial.writeLine("" + (response))// ALWAYS 0  MEANS OK
-    // serial.writeLine("" + (bBoard_Control.UARTSendString("AT+CIPMODE=1 \r\n", boardIDGlobal, clickIDGlobal)))// ALWAYS UNDEFINED
-    // serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))     // ALWATS ERROR
-    // response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); // GENERALY OK
-    
-//    serial.writeLine("ak1")
-//    bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("ak2")
-//    bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("ak3")
-
-//    bBoard_Control.UARTSendString("AT+CIPSTART=1,\"TCP\",\"192.168.4.1/Temp\",80\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("" + (response))
-//    serial.writeLine("" + (WiFiResponse))
-//    serial.writeLine("" + (receivedData))
-    // serial.writeLine("ak4")
-    // serial.writeLine("" + (receivedData)) //ALWAYS STATUS=2
-    // serial.writeLine("" + (response))// ALWAYS 1
-    // bBoard_Control.UARTSendString("AT+CIPSEND=4,10,\r\n", boardIDGlobal, clickIDGlobal);
-    // serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal))
-    // serial.writeLine("ak5")
-    // bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-    // serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal))
-    // response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//    serial.writeLine("ak6")
-//    bBoard_Control.UARTSendString("AT+CIPCLOSE=0\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//basic.showIcon(IconNames.Heart)
-
-
-//    OJO CIPMODE doesn´t work
-//    CIPCLOSE=5 close ALL
-
-//     let ms = "test";
-//    bBoard_Control.UARTSendString("AT+CIPSEND=0," + ms.length.toString() + "192.168.4.3" + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); 
-//    serial.writeLine("" + (receivedData)) 
-//    bBoard_Control.UARTSendString(ms, boardIDGlobal, clickIDGlobal); //Send the contents of the packet  
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); 
-//    serial.writeLine("" + (receivedData)) 
-//bBoard_Control.UARTSendString("AT+CWHOSTNAME=\"Farm\"\r\n", boardIDGlobal, clickIDGlobal);
-
-//MDNS
-
-//bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);
-//bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)
-//bBoard_Control.writePin(1, clickIOPin.CS, boardIDGlobal, clickIDGlobal)
-//bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//bBoard_Control.UARTSendString("AT+CWMODE=1\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//Cybersec.HostNamebB("Food")
-
-//bBoard_Control.UARTSendString("AT+CWDHCP=1,1\r\n", boardIDGlobal, clickIDGlobal);// ENABLE DHCP
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-
-                //bBoard_Control.UARTSendString("AT+MDNS=1,\"Food\",\"_http\",80\r\n", boardIDGlobal, clickIDGlobal);
-                //serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-                //response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-                //Cybersec.WifiConnect("M5BrilliantLabs_Ap_2", "")// conect to wifi M5 AP
-
-//bBoard_Control.UARTSendString("AT+MDNS=1,\"Food\",\"_http\",80\r\n", boardIDGlobal, clickIDGlobal);
-//        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//        basic.showIcon(IconNames.Heart)
-//bBoard_Control.UARTSendString("AT+CIPDNS?\r\n", boardIDGlobal, clickIDGlobal);
-//        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-
-
-
-
-//            serial.writeLine("Initializing")  NEver use after fuction or command wating for responce 
-
-//serial.writeLine("Initializing") // do not use first in a function
-
-
-
-//VERSION & commands
-//bBoard_Control.UARTSendString("AT+GMR\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//serial.writeLine("" + (receivedData))
-//bBoard_Control.UARTSendString("AT+CMD?\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//serial.writeLine("" + (receivedData))
-
-
-
-
-
-
-
-//RECEIVE +0-
-
-//      let RCVInfo = "";
-//      let RCVdone = "";
-//      let MILOCAL = "";
-//      let MILOCAL2 ="";
-//      bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//      MILOCAL2 = bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal);
-//      MILOCAL=MILOCAL2.substr(24, 17);
-//      serial.writeLine(MILOCAL);
-
-// CIPMUX ESTA EN 1 . CIPMODE ESTA EN 0,    
-//    bBoard_Control.UARTSendString("AT+CIPMODE?\r\n", boardIDGlobal, clickIDGlobal);  
-//    response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//    serial.writeLine("" + (receivedData))
-
-//EXAMPLE    bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.0.1\",80,,\"192.168.0.3\"\r\n", boardIDGlobal, clickIDGlobal); 
-//      bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\"192.168.0.1\",80,,\""+MILOCAL+"\"\r\n", boardIDGlobal, clickIDGlobal);
-//      response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//      serial.writeLine("" + (receivedData))    
-
-//        bBoard_Control.UARTSendString("AT+CIPSEND=0," + 9 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//      bBoard_Control.UARTSendString("AT+CIPSEND=0," + 5 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS); 
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))    
-
-//bBoard_Control.UARTSendString("GET /", boardIDGlobal, clickIDGlobal); //Send the contents of the packet
-//        response = WiFiResponse("OK", true, defaultWiFiTimeoutmS);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))    
-
-//bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//serial.writeLine("" + (receivedData))
-
-
-
-
-//        bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);        
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))
-
-
-
-
-
-//        bBoard_Control.UARTSendString("AT+CIPRECVDATA=0,50\r\n", boardIDGlobal, clickIDGlobal);
-//Example//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal).substr(37, 40))//don´t move position    
-//    RCVInfo = "" + bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)
-//    RCVdone=RCVInfo.substr(36, 4)
-//   serial.writeLine(RCVInfo)
-//   return (RCVInfo.substr(36, 4))
-//   Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five));       
-
-//   if (RCVdone == "ON_1"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one));}
-//  if (RCVdone == "ON_2"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two));}
-//  if (RCVdone == "ON_3"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three));}
-//  if (RCVdone == "ON_4"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four));}
-//  if (RCVdone == "ON_5"){Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five));}
-
-//if (RCVdone == "OFF1"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));}
-//if (RCVdone == "OFF2"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));}
-//if (RCVdone == "OFF3"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));}
-//if (RCVdone == "OFF4"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));}
-//if (RCVdone == "OFF5"){Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five));}
-
-
-
-//  return (RCVInfo.substr(36, 4))
-
-//return (RCVInfo)
-// return (receivedData);
-
-//bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
-//        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-//        serial.writeLine("" + (receivedData))
-
-
-
-//EXAMPLE//     bBoard_Control.UARTSendString("AT+CIPSEND=0," + LENMSGS + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//EXAMPLE//     bBoard_Control.UARTSendString("AT+CIPSEND=0," + 9 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//EXAMPLE//     len s ="";
-//              bBoard_Control.UARTSendString("AT+CIPSEND=0,"+s+"\r\n", boardIDGlobal, clickIDGlobal); //s add \r to the packet
-//EXAMPLE//     bBoard_Control.UARTSendString("AT+CIPSEND=0," + MSGS.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-//test bBoard_Control.UARTSendString("GET /ron?\r", boardIDGlobal, clickIDGlobal); //Send the contents of the packet              
-//EXAMPLE       bBoard_Control.UARTSendString("AT+MDNS=1,\"Food\",\"_http\",80\r\n", boardIDGlobal, clickIDGlobal);
-
-
-
-
-//EXAMPLE//  Getting my IP address
-//bBoard_Control.UARTSendString("AT+CIPSTA?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-//response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//let ipStartIndex = receivedData.indexOf("ip:")
-//let MyIP = (receivedData.substr(ipStartIndex+4,11)); 
-//serial.writeLine("My IP indx is:"+MyIP)//Print my IP address idex       
-//____
-
-//EXAMPLE//        bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ IPAdd +"\",80,30,\"192.168.4.2\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
-
-
-
-//EXAMPLE//        serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//EXAMPLE//        serial.writeLine("" + (receivedData))
-//EXAMPLE//        serial.writeLine(bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal));
-
-
-
-
-//% blockId=WiFiOff
-        //% block="Turn WiFi Off"
-        //% block.loc.fr="Définir WiFi Off"
-        //% weight=110
-        //% advanced=false
-        //% group="Initialize and Connections"
-        //% this.shadow=variables_get
-        //% this.defl="WiFiOff"
-    
-
-// #O: La station ESP32 n'est pas initialisée. #1: La station ESP32 est initialisée, mais n'a pas encore démarré de connexion Wi-Fi. #2: La station ESP32 est connectée à un AP et son adresse IP est obtenue.  #3: La station ESP32 a créé une transmission TCP/SSL. #4: Toutes les connexions TCO/UPD/SSL de la station ESP32 sont déconnectées. #5: La station ESP32 a démarré une connexion WiFi, mais n'était pas connectée à un AP ou déconnectée d'un AP.
-
-//Excellent > -60. Bon -61 à -75. Moyen -76 à -80. Mauvais -81 à -89. Très mauvais <-90.
-
-//afterOnStart=true //This block will only execute after the onStart block is finished
-
-////% blockId=onBLMQTT 
-//    //% block="on BL MQTT received $dataType $receivedData|feed $feedName|username$username|API Key$apiKey" 
-//    //% block.loc.fr="sur nuage BL reçu $dataType $receivedData|flux $feedName|nom d'utilisateur$username|API clé$apiKey"
-//    //% blockAllowMultiple=1
-//    //% afterOnStart=true                               //This block will only execute after the onStart block is finished
-//    //% receivedData.shadow=variables_get
-//    //% group="MQTT"
-//    //% subcategory="Brilliant Labs Cloud"
-//    //% draggableParameters=variable
-
-
-
-
-  //  bBoard_Control.UARTSendString("AT+CWLIF\r\n", boardIDGlobal, clickIDGlobal);
-   // bBoard_Control.UARTSendString("AT+CIFSR\r\n", boardIDGlobal, clickIDGlobal);//NO FOR IP STATIC, ONLY SOFT
-
-
-
-//_____
-//   bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
-//   response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//   serial.writeLine("" + (receivedData))
-//bBoard_Control.UARTSendString("AT+CWLAP=\"dlink-E750\"\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//serial.writeLine("" + (receivedData))
-//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
-
-//bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//basic.pause(300)
-//bBoard_Control.UARTSendString("AT+CWLAP=\"Cyberville\"\r\n", boardIDGlobal, clickIDGlobal);
-//serial.writeLine("" + (receivedData.substr(28,17)))//28,17
-//response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
-//_____
-
-
-  //  bBoard_Control.UARTSendString("AT+CWSAP?\r\n", boardIDGlobal, clickIDGlobal); 
-    //serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
- //   response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
- //basic.pause(500)
- //   serial.writeLine("" + (receivedData.substr(11, 10)))//28,17
-    //let wifiname = receivedData.substr(11, 10)
-    //serial.writeLine("wifiname is:" + wifiname)
-
-//    bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);
-//    response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//    basic.pause(500)
-//    bBoard_Control.UARTSendString("AT+CWLAP=\"dlink-E750\"\r\n", boardIDGlobal, clickIDGlobal);
-//    serial.writeLine(receivedData.substr(28, 17))
-//    response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
-//Cybersec.setBLCode(BLiXel.blixel_index(BLiXelIndex.two))
-
-
-
-
-//OK OK to get data from command
-//let wfname = ""
-//let endIndex = 0
-//let startIndex = 0
-//let endIndexMAC = 0
-//let startIndexMAC = 0
-//let macAP=""
-//let sz = 0
-//let wifiname = ""
-//bBoard_Control.UARTSendString("AT+CWJAP?\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-//serial.writeLine("" + (receivedData))
-//sz = receivedData.length
-//serial.writeLine("length-> " + sz)
-
-//startIndex = receivedData.indexOf("+CWJAP:") + 8
-//serial.writeLine("start-> " + startIndex)
-//endIndex = receivedData.indexOf(",",startIndex) - 1
-//serial.writeLine("end-> " + endIndex)
-//wfname = receivedData.substr(startIndex, endIndex - startIndex )
-//serial.writeLine(wfname)
-
-//let szwf = wfname.length
-//serial.writeLine("WFlength-> " + szwf)
-
-//startIndexMAC = receivedData.indexOf("+CWJAP:") +11 + szwf
-//serial.writeLine("startMAC-> " + startIndexMAC)
-//endIndexMAC = receivedData.indexOf(",", startIndexMAC) -2
-//serial.writeLine("endmac-> " + endIndexMAC)
-//macAP = receivedData.substr(startIndexMAC, endIndexMAC - startIndexMAC+1)
-//serial.writeLine(macAP)
-//_______
-
-
-
-
-//ejemplo importante para sacar info de responce
-//let DatosRCV = "";
-//let RCVInfo = "";
-//let RCVdone = "";
-//let MyData = "";
-//let endIndex
-//let startIndex
-//let wfname
-//let sz = 0
-
-////Getting LENGHT data 
-//bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, 300);     //NO QUItar
-//serial.writeLine("RECIVEDATA: " + (receivedData))
-//sz = receivedData.length
-//serial.writeLine("length-> " + sz)
-
-//startIndex = receivedData.indexOf("+CIPRECVLEN:")+12
-////serial.writeLine("start-> " + startIndex)
-//endIndex = receivedData.indexOf(",", startIndex) //+ 1
-////serial.writeLine("end-> " + endIndex)
-//wfname = receivedData.substr(startIndex, endIndex - startIndex)
-//serial.writeLine("LEN Comming:" + wfname)
-
-////let szwf = wfname.length
-////serial.writeLine("WFlength-> " + szwf)
-
-//bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
-//response = WiFiResponse("OK", false, 300); 
-
-//bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
-//response = WiFiResponse("OK", false, 300);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long

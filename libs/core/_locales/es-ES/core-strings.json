@@ -71,6 +71,7 @@
     "ArrowNames.South|block": "Sur",
     "ArrowNames.West|block": "Occidentet",
     "BLiXel.blixel_index|block": "%index",
+    "BLiXel.blixel_indexR|block": "%indexR",
     "BLiXel.blixelsOff|block": "apagar todos los BLiXels",
     "BLiXel.colours|block": "%colour",
     "BLiXel.hsl|block": "matiz %h|saturation %s|luminosidad %l",
