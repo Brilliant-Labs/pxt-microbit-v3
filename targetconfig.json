@@ -262,7 +262,11 @@
     },
     "galleries": {
         "Tutorials": "tutorials",
-        "b.Board Tutorials": "projects/bboard",
+        "CyberSecurity #1": "projects/bboard-cybersec",
+        "b.Board Cards": "projects/Cards",
+        "    ": "projects/Cards2",
+        "     ": "projects/Cards3",
+        "b.Board Clicks": "projects/bboard",
         " ": "projects/bboard2",
         "  ": "projects/bboard3",
         "   ": "projects/bboard4",

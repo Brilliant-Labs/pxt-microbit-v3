@@ -157,7 +157,7 @@
   "Cybersec.getMACaddressAP": "| >> En << | Display the b.Board access point MAC Address on the Console PC and on the Micro:Bit screen.\n| >> Fr << | Affichez l'adresse point d'accès MAC du b.Board sur le PC de la console et sur l'écran du Micro:Bit.",
   "Cybersec.getMACaddressbBoard": "| >> En << | Display the b.Board MAC Address on the Console PC and on the Micro:Bit screen.\n| >> Fr << | Affichez l'adresse MAC du b.Board sur le PC de la console et sur l'écran du Micro:Bit.",
   "Cybersec.getSignalStrength": "| >> En << | Get the signal strength from b.Board to the access point. \n| >> Fr << | Obtenir la force du signal entre le b.Board et le point d'accès.\n| >> \nExcellent > -60. \nGood -61 to -75. \nFair -76 to -80. \nBad -81 to -89. \nVery bad <-90.\n<< |",
-  "Cybersec.newmission": "| >> En << | New Mission.\n| >> Fr << | New Mission.",
+  "Cybersec.newmission": "| >> En << | Mission Water Treatment.\n| >> Fr << | traitement des eaux de mission.",
   "Cybersec.send_LEDMSG_OFF": "Send OFF BLiXel for a IP",
   "Cybersec.send_LEDMSG_OFF|param|IPAdd": "to IPAdd, eg: \"192.168.4.1\"",
   "Cybersec.send_LEDMSG_OFF|param|pixelOFFsetTEST": "position of the BLiXel in the strip",

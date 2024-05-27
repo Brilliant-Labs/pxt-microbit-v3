@@ -14,7 +14,7 @@ Learn to use Clickboards with your @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials/button-g/button_g.jpg",
   "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials/button-g/cover.gif",
   "cardType": "side",
-  "label": "Clickboards",
+  "label": "bBoard Clicks",
   "labelClass": "green ribbon med"
 },
 {

@@ -15,7 +15,7 @@ Learn to use Clickboards with your @boardname@.
   "imageUrl":"docs/static/mb/projects/bboard-tutorials/servo/servo-click.jpg",
   "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/servo/servogif.gif",
   "cardType": "side",
-  "label": "Clickboards",
+  "label": "bBoard Clicks",
   "labelClass": "green ribbon med"
 },
 {

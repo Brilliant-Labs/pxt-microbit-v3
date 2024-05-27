@@ -2478,18 +2478,18 @@ export function readytosend(){
 
 //------------------------- Missions -----------------------------------
 
-    /* New Mission */
-    /** | >> En << | New Mission.
-        | >> Fr << | New Mission.      
+    /* Mission Water */
+    /** | >> En << | Mission Water Treatment.
+        | >> Fr << | traitement des eaux de mission.      
     */
-        //% blockId="New_Mission"
+        //% blockId="Mission Water"
         //% block="For a New Mission!"
         //% block.loc.fr="For a New Mission!"
         //% advanced=true
-        //% group="Mission 2: tatata-tatata"
+        //% group="Mission 2: Water Treatment Plant"
         //% weight=100
         export function newmission(): void {
-            serial.writeLine("" + "New mission" + "")    
+            serial.writeLine("" + "Mission2: Water Treatment Plant" + "")    
         }   
 
 
