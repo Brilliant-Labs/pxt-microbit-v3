@@ -71,7 +71,6 @@
   "ArrowNames.South|block": "Sud",
   "ArrowNames.West|block": "Ouest",
   "BLiXel.blixel_index|block": "%index",
-  "BLiXel.blixel_indexR|block": "%indexR",
   "BLiXel.blixelsOff|block": "fermer tous les BLiXels",
   "BLiXel.colours|block": "%colour",
   "BLiXel.hsl|block": "nuance %h|saturation %s|luminosité %l",
@@ -797,9 +796,5 @@
   "{id:group}Volume": "Volume",
   "{id:group}_____________": "_____________",
   "{id:group}micro:bit (V2)": "micro:bit (V2)",
-  "{id:subcategory}Brilliant Labs Cloud": "Nuage des Labos Créatifs",
-  "{id:group}Initialize and Connections": "Initialisation et connexions",
-  "{id:group}Networking": "Mise en réseau",
-  "{id:group}Valuable Date": "Date de valeur",
-  "{id:group}Remote Commands": "Commandes à distance"
+  "{id:subcategory}Brilliant Labs Cloud": "Nuage des Labos Créatifs"
 }
