@@ -51,15 +51,6 @@ Learn to use Clickboards with your @boardname@.
   "cardType": "side",
   "label": "",
   "labelClass": ""
-},
-{
-  "name": "Activity 6",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_6/readme.md",
-  "description": "Activity 6",
-  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cybersecurity/Activity_6/En_Activity_6.png",
-  "cardType": "side",
-  "label": "",
-  "labelClass": ""
 }
 ]
 ```
