@@ -85,7 +85,8 @@
     },
     {
         "name": "           ",
-        "url": "/projects/bboard-cyberville2"
+        "url": "/projects/bboard-cyberville2",
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/School_Under_Attack.gif"
     },
     {
         "name": "Live Coding",
