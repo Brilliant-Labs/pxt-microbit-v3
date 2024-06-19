@@ -16,43 +16,43 @@
     {
         "name": "b.Board Cards",
         "url": "/projects/bboard-cards",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/1_Intro/Intro1/IMAGE_BANK.png",
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/1_Intro/Intro1/IMAGE_BANK_Icon-EN.png",
         "largeImageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/1_Intro/Intro1/ImgBank.gif"
     },
     {
         "name": "    ",
         "url": "/projects/bboard-cards2",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/2_Lights/Lights1/LIGHTS.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/2_Lights/Lights1/Mkt_Light_UP_Icon-EN.png"
     },
     {
         "name": "     ",
         "url": "/projects/bboard-cards3",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/3_LED/LED1/LED.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/3_LED/LED1/Mkt_Light_Addressable_Rainbow_Icon-EN.png"
     },
     {
         "name": "      ",
         "url": "/projects/bboard-cards4",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/4_Remote/Remote1/REMOTE.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/4_Remote/Remote1/Send-Radio_Msg_Icon-EN.png"
     },
     {
         "name": "       ",
         "url": "/projects/bboard-cards5",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/5_Move/Move1/MOVE.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/5_Move/Move1/Adding_motors_Icon-EN.png"
     },
     {
         "name": "        ",
         "url": "/projects/bboard-cards6",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/6_Control/Control1/CONTROL.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/6_Control/Control1/Use_A-B_buttons_Icon-EN.png"
     },
     {
         "name": "         ",
         "url": "/projects/bboard-cards7",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/7_Sound/Sound1/SOUND.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/7_Sound/Sound1/Mkt_Listen_Icon-EN.png"
     },
     {
         "name": "          ",
         "url": "/projects/bboard-cards8",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/8_Measure/Measure1/MEASURE.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cards/8_Measure/Measure1/Mkt_Measure_Temp_Icon-EN.png"
     },
     {
         "name": "b.Board Clicks",
@@ -81,10 +81,10 @@
     {
         "name": "CyberSecutity #2 and Cyberville",
         "url": "/projects/bboard-cyberville",
-        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon.png"
+        "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon-EN.png"
     },
     {
-        "name": "           ",
+        "name": "            ",
         "url": "/projects/bboard-cyberville2",
         "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/School_Under_Attack.gif"
     },
@@ -188,7 +188,7 @@
 [  ](/projects/bboard3),
 [   ](/projects/bboard4),
 [CyberSecutity #2 and Cyberville](/projects/bboard-cyberville),
-[           ](/projects/bboard-cyberville2),
+[            ](/projects/bboard-cyberville2),
 [Live Coding](/live-coding),
 [Games](/projects/games),
 [Radio Games](/projects/radio-games),

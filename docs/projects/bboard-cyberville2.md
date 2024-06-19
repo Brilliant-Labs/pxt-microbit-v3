@@ -14,13 +14,13 @@ Mission 1 Lights Weird !! @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/School_Under_Attack.gif",
   "cardType": "side",
   "label": "Passwords",
-  "labelClass": "green ribbon med"
+  "labelClass": "red ribbon med"
 },
 {
   "name": "1_Setting_Pws",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/1_Setting_Pws/README",
   "description": "Setting Passwords",
-  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/1_Setting_Pws/SettingPwsIcon.png",
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/1_Setting_Pws/Set_Psw_Icon-EN.png",
   "cardType": "side",
   "label": "",
   "labelClass": ""
@@ -29,7 +29,7 @@ Mission 1 Lights Weird !! @boardname@.
   "name": "2_Sequence to access",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/2_Seq_to_Access/README",
   "description": "Sequence to access",
-  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/2_Seq_to_Access/SequenceIcon.png",
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/2_Seq_to_Access/Seq_to_Access_Icon-EN.png",
   "cardType": "side",
   "label": "",
   "labelClass": ""
@@ -38,7 +38,7 @@ Mission 1 Lights Weird !! @boardname@.
   "name": "3_Penetration_Test",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/3_Pen_Test/README",
   "description": "Pentration Test",
-  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/3_Pen_Test/PenTestIcon.png",
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/3_Pen_Test/PenTest_Icon-EN.png",
   "cardType": "side",
   "label": "",
   "labelClass": ""
