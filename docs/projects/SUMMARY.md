@@ -101,7 +101,7 @@
   * [WEATHER Click](docs/static/mb/projects/bboard-tutorials/weather/weather)
 * [   ](/projects/bboard4)
   * [WiFi BLE](docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-ble)
-* [CyberSecutity #2 and Cyberville](/projects/bboard-cyberville)
+* [CyberSecurity #2, Cyberville and b.Board 1.4](/projects/bboard-cyberville)
   * [Networking - Cyberville](/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/README)
   * [1_Connecting](/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/1_Connecting/README)
   * [2_MAC & IP Address](/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/2_MAC_IP/README)

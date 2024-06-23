@@ -79,7 +79,7 @@
         "largeImageUrl": "docs/static/mb/projects/bboard-tutorials/wifi-ble/wifi-click-gif.gif"
     },
     {
-        "name": "CyberSecutity #2 and Cyberville",
+        "name": "CyberSecurity #2, Cyberville and b.Board 1.4",
         "url": "/projects/bboard-cyberville",
         "imageUrl": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon-EN.png"
     },
@@ -187,7 +187,7 @@
 [ ](/projects/bboard2),
 [  ](/projects/bboard3),
 [   ](/projects/bboard4),
-[CyberSecutity #2 and Cyberville](/projects/bboard-cyberville),
+[CyberSecurity #2, Cyberville and b.Board 1.4](/projects/bboard-cyberville),
 [            ](/projects/bboard-cyberville2),
 [Live Coding](/live-coding),
 [Games](/projects/games),

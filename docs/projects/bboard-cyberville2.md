@@ -10,16 +10,16 @@ Mission 1 Lights Weird !! @boardname@.
 [{
   "name": "Passwords - Mission 1",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/README",
-  "description": "Mission 1 - Wired Lights",
+  "description": "Weird Lights. School Under Cyber Attack!",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/School_Under_Attack.gif",
   "cardType": "side",
   "label": "Passwords",
-  "labelClass": "red ribbon med"
+  "labelClass": "orange ribbon med"
 },
 {
   "name": "1_Setting_Pws",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/1_Setting_Pws/README",
-  "description": "Setting Passwords",
+  "description": "Set passwords.",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/1_Setting_Pws/Set_Psw_Icon-EN.png",
   "cardType": "side",
   "label": "",
@@ -28,7 +28,7 @@ Mission 1 Lights Weird !! @boardname@.
 {
   "name": "2_Sequence to access",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/2_Seq_to_Access/README",
-  "description": "Sequence to access",
+  "description": "Find the right sequence to access and protect the School.",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/2_Seq_to_Access/Seq_to_Access_Icon-EN.png",
   "cardType": "side",
   "label": "",
@@ -37,7 +37,7 @@ Mission 1 Lights Weird !! @boardname@.
 {
   "name": "3_Penetration_Test",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/3_Pen_Test/README",
-  "description": "Pentration Test",
+  "description": "Perform a penetration test to prevent future attacks.",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/3_Pen_Test/PenTest_Icon-EN.png",
   "cardType": "side",
   "label": "",
