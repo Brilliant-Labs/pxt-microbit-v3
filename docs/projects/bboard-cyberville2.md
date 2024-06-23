@@ -14,7 +14,7 @@ Mission 1 Lights Weird !! @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Passwords/School_Under_Attack.gif",
   "cardType": "side",
   "label": "Passwords",
-  "labelClass": "orange ribbon med"
+  "labelClass": "blue ribbon med"
 },
 {
   "name": "1_Setting_Pws",
