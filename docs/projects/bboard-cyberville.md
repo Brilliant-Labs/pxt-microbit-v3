@@ -10,7 +10,7 @@ Welcome to CYBERVILLE!! @boardname@.
 [{
   "name": "Networking - Cyberville",
   "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/README",
-  "description": "Lear about Cybersecurity NETWORKING in Cyberville.",
+  "description": "Learn about Cybersecurity NETWORKING in Cyberville.",
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon-EN.png",
   "cardType": "side",
   "label": "Networking",

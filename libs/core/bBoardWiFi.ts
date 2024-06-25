@@ -9,13 +9,13 @@ let MQTTString: string
 
 let CyberWiFiTimeoutmS = 7000;
 let CyberWiFiConsoleTimeoutmS = 1000;
+
 let CyberComTimeoutmS=300;//use 300ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
 let ProtCode=0;
 let ProtCodeStr="";
 let MSG_PCS="";
 let FullMSG_PCS="";
 let LenPCS=0;
-
 
 function WiFiResponse(
     expectedResponse: string,
@@ -997,13 +997,6 @@ namespace bBoard_WiFi {
 
 
 
-
-
-
-
-
-
-
 //------------------------- CYBERSECURITY -----------------------------------
 /** Cybersecurity */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1102,7 +1095,7 @@ namespace bBoard_WiFi {
         //% weight=100
             export function WifiConnect(ssid: string, pwd: string): void { 
 
-                control.waitMicros(4)                                                                   // Enable Console to display info
+//\\                control.waitMicros(4)                                                                   // Enable Console to display info. It doesn´t work properly.
 
                 bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
                 bBoard_Control.writePin(1, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
@@ -1133,8 +1126,8 @@ namespace bBoard_WiFi {
                 bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);    // Mode 0 = Active (data receive instantly to MCU),  Mode 1 = Passive (data reveice keep in socket)
                 response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
 
-                bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);    // Set the Configuration for the Command AT+CWLAP "list AP´s"
-                response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);
+//                bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);    // Set the Configuration for the Command AT+CWLAP "list AP´s".  (It is not tested yet)
+//                response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);                        
                
                 bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);        // CHECK NO connection MAKE INFINITE LOOP you have to reset b.Board
                 response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
@@ -1146,7 +1139,6 @@ namespace bBoard_WiFi {
                     basic.pause(1000)
                 }
                 else{                                                                                   // WiFI Connected
-                    basic.pause(300)
                     serial.writeLine("") 
                     serial.writeLine("(Connected!)")
                     basic.showLeds(`
@@ -1647,7 +1639,7 @@ namespace bBoard_WiFi {
         //% blockHidden=false 
         export function getFirmwareESP32(): string {
             bBoard_Control.UARTSendString("AT+GMR\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+            response = WiFiResponse("OK", false,CyberWiFiConsoleTimeoutmS);
             serial.writeLine("ESP32 V.: "+(receivedData.substr(19,3)))
             basic.showString("V:" + receivedData.substr(19,3))
             return(receivedData.substr(19,3));
