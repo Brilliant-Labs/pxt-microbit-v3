@@ -147,7 +147,7 @@
   "Cybersec.WiFi_RST": "| >> En << | Reset Wi-Fi capabilities. You need to enter WiFi information. \n| >> Fr << | Réinitialiser les capacités Wi-Fi. Vous devez saisir les informations relatives au Wi-Fi.",
   "Cybersec.WifiConnect": "| >> En << | Initializes WiFi capabilities. b.Board power switch should be ON.\n| >> Fr << | Initialise les capacités WiFi. b.Board l'interrupteur d'alimentation de la carte doit être sur ON.",
   "Cybersec.WifiConnect|param|pwd": "to ssid, eg: \"\"",
-  "Cybersec.WifiConnect|param|ssid": "to ssid, eg: \"Cyberville\"           ",
+  "Cybersec.WifiConnect|param|ssid": "to ssid, eg: \"Cyberville #1\"           ",
   "Cybersec.appliance_index": "Gets the index of Appliance",
   "Cybersec.blixel_indexR": "Gets the index of Roles",
   "Cybersec.getFirmwareESP32": "| >> En << | Display the ESP32 firmware version. \n| >> Fr << | Affichez la version du firmware de l'ESP32. \n| >>  We strongly recommend version 3.2 or higher.  << |",

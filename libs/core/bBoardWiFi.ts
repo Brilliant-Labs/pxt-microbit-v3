@@ -1084,7 +1084,7 @@ namespace bBoard_WiFi {
     /* WiFi Connection */
     /** | >> En << | Initializes WiFi capabilities. b.Board power switch should be ON.
         | >> Fr << | Initialise les capacités WiFi. b.Board l'interrupteur d'alimentation de la carte doit être sur ON.         
-        * @param ssid to ssid, eg: "Cyberville"           
+        * @param ssid to ssid, eg: "Cyberville #1"           
         * @param pwd to ssid, eg: ""
     */
         //% blockId="Wifi Connection" 
@@ -1140,7 +1140,7 @@ namespace bBoard_WiFi {
                 }
                 else{                                                                                   // WiFI Connected
                     serial.writeLine("") 
-                    serial.writeLine("(Connected!)")
+                    serial.writeLine("Connected!")
                     basic.showLeds(`
                     . . . . .
                     . . . . # 
@@ -1641,7 +1641,7 @@ namespace bBoard_WiFi {
             bBoard_Control.UARTSendString("AT+GMR\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
             response = WiFiResponse("OK", false,CyberWiFiConsoleTimeoutmS);
             serial.writeLine("ESP32 V.: "+(receivedData.substr(19,3)))
-            basic.showString("V:" + receivedData.substr(19,3))
+            basic.showString("V" + receivedData.substr(19,3))
             return(receivedData.substr(19,3));
         }
 
