@@ -10,7 +10,7 @@ let MQTTString: string
 let CyberWiFiTimeoutmS = 7000;
 let CyberWiFiConsoleTimeoutmS = 1000;
 
-let CyberComTimeoutmS=300;//use 300ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
+let CyberComTimeoutmS=400;//use 300ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
 let ProtCode=0;
 let ProtCodeStr="";
 let MSG_PCS="";
@@ -1010,7 +1010,7 @@ namespace bBoard_WiFi {
 //% color=#9E4894 
 //% icon="\uf21b"      //LOGO CYBER
 //% labelLineWidth=1001
-//% groups="['Initialize and Connections', 'Networking', 'Roles','Version ESP32', 'Remote Comands', 'Missions', 'Missions1']"
+//% groups="['Initialize and Connections', 'Networking','Version ESP32', 'Remote Comands', 'Missions', 'Missions1']"
 
 //------------------------- Networking -----------------------------------   
 
@@ -1481,138 +1481,156 @@ namespace bBoard_WiFi {
 //            return("AP IP:" + APIP);
         }
     
-        
-//------------------------- Roles -----------------------------------  
-
-
-    //* Set HostName */
-    /** | >> En << | Configure your Name in Cyberville for the network. Others can then use this name to perform a PING.. 
-        | >> Fr << | Configurez votre nom d'hôte pour le réseau. D'autres personnes peuvent ensuite utiliser ce nom pour effectuer un PING.              
-        * @param HNamebB to HNamebB, eg: "SCHOOL"
-    */
-        //% blockId="SetHostName"
-        //% block="Your name in Cyberville: $HNamebB"
-        //% block.loc.fr="Votre nom à Cyberville: $HNamebB"
-        //% advanced=false
-        //% group="Roles"      
-        //% weight=100
-        
-        export function HostNamebB(HNamebB:string):void{
-            bBoard_Control.UARTSendString("AT+CWDHCP=1,1\r\n", boardIDGlobal, clickIDGlobal);                           // ENABLE DHCP with softAP
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-
-            bBoard_Control.UARTSendString("AT+CIPDNS=0\r\n", boardIDGlobal, clickIDGlobal);                             // Enable DNS automatic
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-
-            bBoard_Control.UARTSendString("AT+MDNS=1,\""+HNamebB+"\",\"_http\",80\r\n", boardIDGlobal, clickIDGlobal);  // Set MDNS same name Hostname
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-        
-            bBoard_Control.UARTSendString("AT+CIPDNS?\r\n", boardIDGlobal, clickIDGlobal);                              // Query DNS server info
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-//serial.writeLine(""+(receivedData))
-
-            bBoard_Control.UARTSendString("AT+CWHOSTNAME=\"" + HNamebB+ "\"\r\n", boardIDGlobal, clickIDGlobal);        // Set Hostname
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);        
-//serial.writeLine(""+(receivedData))
-
-            bBoard_Control.UARTSendString("AT+CIPDNS?\r\n", boardIDGlobal, clickIDGlobal);                              // Query DNS server info
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-//serial.writeLine("" + (receivedData))
-                 
-            serial.writeLine("Name in Cyberville: "+(HNamebB))
-        }
-
     /* PING IP */
     /** | >> En << | Do PING to a IP address.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
         | >> Fr << | Faites un PING vers une adresse IP.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
         | >> The response time should not exceed 10 seconds  << |
         * @param PingbB to PingbB, eg: "192.168.4.1"
     */
-        //% blockId="PINGIP"
-        //% block="Do PING to IP: $PingbB"
+        //% blockId=PINGIP
+        //% block="$this Do PING to IP: $PingbB"
         //% block.loc.fr="Effectuez un PING vers l'IP: $PingbB"
         //% advanced=false
-        //% group="Roles"      
+        //% group="Networking"      
         //% weight=100
+
+
+        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
+        //% this.shadow=variables_get
+        //% this.defl="Do_Ping"
         export function PingbBfrend(PingbB:string):void{  
+            soundExpression.hello.play()
             bBoard_Control.UARTSendString("AT+PING=\"" + PingbB +"\"\r\n", boardIDGlobal, clickIDGlobal); 
 //  serial.writeLine("" + (bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)))
-            response = WiFiResponse("OK",false,10000);//defaultWiFiTimeoutmS=30000
+            response = WiFiResponse("OK",false,3000);//defaultWiFiTimeoutmS=30000
             serial.writeLine("" + (receivedData))
             if (receivedData == "TIMEOUT"){
-                basic.showIcon(IconNames.No,2000) 
+                soundExpression.slide.play()
+                basic.showIcon(IconNames.No,4000)
                 serial.writeLine("" + (receivedData))
                 serial.writeLine("PING to IP: "+ PingbB)
+                basic.clearScreen()
             }
             if (response == 1) {                                //RESPONSE ==1 connected
-                basic.showIcon(IconNames.Happy,2000)
+                soundExpression.slide.play()
+                basic.showIcon(IconNames.Happy,4000)
                 serial.writeLine("" + (receivedData))
                 serial.writeLine("PING to IP: "+ PingbB)
+                basic.clearScreen()
             }
             if (response == 0) {   
-                basic.showIcon(IconNames.Sad,2000)            //response ==0 NO conected
+                soundExpression.slide.play()
+                basic.showIcon(IconNames.Sad,4000)            //response ==0 NO conected
                 serial.writeLine("" + (receivedData))
                 serial.writeLine("PING to IP: "+ PingbB)
+                basic.clearScreen()
             }
         }
-                   
-    /* PING HostName*/
-    /** | >> En << | Do PING to a Name in Cyberville.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
-        | >> Fr << | Faites un PING vers une nom Cyberville.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
-        | >> The response time should not exceed 10 seconds  << |
-        * @param PingbBDNS to PingbBDNS ,eg: "WiFi-BL"
-        */
-        //% blockId="PingHostName"
-        //% block="Do PING to a Name in Cyberville: $PingbBDNS"
-        //% block.loc.fr="Faire PING à un nom dans Cyberville: $PingBDNS"
-        //% advanced=false
-        //% group="Roles"      
-        //% weight=100 
-        export function PingbBDNS(PingbBDNS:string):void{
-            let dnslocal=PingbBDNS+".local"
-            serial.writeLine("dnslocal is: " + dnslocal)
-//         bBoard_Control.UARTSendString("AT+PING=\"" + PingbBDNS+"\"+\".local\"\r\n", boardIDGlobal, clickIDGlobal); 
-            bBoard_Control.UARTSendString("AT+PING=\"dnslocal\"\r\n", boardIDGlobal, clickIDGlobal); 
-            response = WiFiResponse("OK",false,10000);//defaultWiFiTimeoutmS=30000
-//serial.writeLine("" + (receivedData))
-            
-            if (receivedData == "TIMEOUT"){
-                basic.showIcon(IconNames.No,2000) 
-                serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
-            }
-            if (response == 1) {                                //RESPONSE ==1 connected
-                basic.showIcon(IconNames.Happy,2000)
-                serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
-            }
-            if (response == 0) {   
-                basic.showIcon(IconNames.Sad,2000)              //response ==0 NO conected
-                serial.writeLine("" + (receivedData))
-                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
-            }
-        }
+        
+// \\ //------------------------- Roles -----------------------------------  
+// For futures applications, it needs to be checked...  
 
-    /* Read HostName */
-    /** | >> En << | Display your current Name in Cyberville.  
-        | >> Fr << | Affichez votre nom Cyberville actuel.
-        | >> The default HostName is espressif wich is the the manufacturer of ESP32<< |
-    */       
-        //% blockId="ReadHostName"
-        //% block="$this Get your Name in Cyberville"
-        //% block.loc.fr="$this Obtenez votre nom à Cyberville"
-        //% advanced=false
-        //% group="Roles"
-        //% weight=100
-        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
-        //% receivedData.shadow=variables_get
-        //% draggableParameters=variable       
-        export function getHostNamebB(): string {
-            bBoard_Control.UARTSendString("AT+CWHOSTNAME?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
-            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-            serial.writeLine("Name in Cyberville: "+(receivedData.substr(28,10))) 
-            return("Name in Cyberville:"+receivedData.substr(28,10));
-        }
+//    //* Set HostName */
+//    /** | >> En << | Configure your Name in Cyberville for the network. Others can then use this name to perform a PING.. 
+//        | >> Fr << | Configurez votre nom d'hôte pour le réseau. D'autres personnes peuvent ensuite utiliser ce nom pour effectuer un PING.              
+//        * @param HNamebB to HNamebB, eg: "SCHOOL"
+//    */
+//        //% blockId="SetHostName"
+//        //% block="Your name in Cyberville: $HNamebB"
+//        //% block.loc.fr="Votre nom à Cyberville: $HNamebB"
+//        //% advanced=false
+//        //% group="Roles"      
+//        //% weight=100
+        
+//        export function HostNamebB(HNamebB:string):void{
+//            bBoard_Control.UARTSendString("AT+CWDHCP=1,1\r\n", boardIDGlobal, clickIDGlobal);                           // ENABLE DHCP with softAP
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+
+//            bBoard_Control.UARTSendString("AT+CIPDNS=0\r\n", boardIDGlobal, clickIDGlobal);                             // Enable DNS automatic
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+
+//            bBoard_Control.UARTSendString("AT+MDNS=1,\""+HNamebB+"\",\"_http\",80\r\n", boardIDGlobal, clickIDGlobal);  // Set MDNS same name Hostname
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+        
+//            bBoard_Control.UARTSendString("AT+CIPDNS?\r\n", boardIDGlobal, clickIDGlobal);                              // Query DNS server info
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//  //serial.writeLine(""+(receivedData))
+
+//            bBoard_Control.UARTSendString("AT+CWHOSTNAME=\"" + HNamebB+ "\"\r\n", boardIDGlobal, clickIDGlobal);        // Set Hostname
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);        
+//  //serial.writeLine(""+(receivedData))
+
+//            bBoard_Control.UARTSendString("AT+CIPDNS?\r\n", boardIDGlobal, clickIDGlobal);                              // Query DNS server info
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//  //serial.writeLine("" + (receivedData))
+                 
+//            serial.writeLine("Name in Cyberville: "+(HNamebB))
+//        }
+ 
+//    /* PING HostName*/
+//    /** | >> En << | Do PING to a Name in Cyberville.  If the destination responds, you will see a smiley face; otherwise, a sad face. 
+//        | >> Fr << | Faites un PING vers une nom Cyberville.  Si la destination répond, vous verrez un smiley ; sinon, un visage triste.
+//        | >> The response time should not exceed 10 seconds  << |
+//        * @param PingbBDNS to PingbBDNS ,eg: "WiFi_BL"
+//        */
+//        //% blockId="PingHostName"
+//        //% block="Do PING to a Name in Cyberville: $PingbBDNS"
+//        //% block.loc.fr="Faire PING à un nom dans Cyberville: $PingBDNS"
+//        //% advanced=false
+//        //% group="Roles"      
+//        //% weight=100 
+//        export function PingbBDNS(PingbBDNS:string):void{
+//            let dnslocal=PingbBDNS+".local"
+//            serial.writeLine("dnslocal is: " + dnslocal)
+// //        bBoard_Control.UARTSendString("AT+PING=\"" + PingbBDNS+"\"+\".local\"\r\n", boardIDGlobal, clickIDGlobal); 
+//            bBoard_Control.UARTSendString("AT+PING=\"dnslocal\"\r\n", boardIDGlobal, clickIDGlobal); 
+//            response = WiFiResponse("OK",false,30000);//defaultWiFiTimeoutmS=30000
+//            serial.writeLine("" + (receivedData))
+//            soundExpression.hello.playUntilDone()
+//            if (receivedData == "TIMEOUT"){
+//                basic.showIcon(IconNames.No,1000)
+//                soundExpression.slide.play()
+//                basic.showIcon(IconNames.No,2000) 
+//                serial.writeLine("" + (receivedData))
+//                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
+//            }
+//            if (response == 1) {                                //RESPONSE ==1 connected
+//                basic.showIcon(IconNames.No,1000)
+//                soundExpression.slide.play()
+//                basic.showIcon(IconNames.Happy,2000)
+//                serial.writeLine("" + (receivedData))
+//                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
+//            }
+//            if (response == 0) {   
+//                basic.showIcon(IconNames.No,1000)
+//                soundExpression.slide.play()
+//                basic.showIcon(IconNames.Sad,2000)              //response ==0 NO conected
+//                serial.writeLine("" + (receivedData))
+//                serial.writeLine("PING to Name in Cyberville: "+ PingbBDNS)
+//            }
+//        }
+
+
+//    /* Read HostName */
+//    /** | >> En << | Display your current Name in Cyberville.  
+//        | >> Fr << | Affichez votre nom Cyberville actuel.
+//        | >> The default HostName is espressif wich is the the manufacturer of ESP32<< |
+//    */       
+//        //% blockId="ReadHostName"
+//        //% block="$this Get your Name in Cyberville"
+//        //% block.loc.fr="$this Obtenez votre nom à Cyberville"
+//        //% advanced=false
+//        //% group="Roles"
+//        //% weight=100
+//        //% afterOnStart=true                               //This block will only execute after the onStart block is finished
+//        //% receivedData.shadow=variables_get
+//        //% draggableParameters=variable       
+//        export function getHostNamebB(): string {
+//            bBoard_Control.UARTSendString("AT+CWHOSTNAME?\r\n", boardIDGlobal, clickIDGlobal); //Put the clickinto station (client) mode
+//            response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//            serial.writeLine("Name in Cyberville: "+(receivedData.substr(28,10))) 
+//            return("Name in Cyberville:"+receivedData.substr(28,10));
+//        }
 
 //------------------------- Version ESP32 - Others -----------------------------------     
     //% block 

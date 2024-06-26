@@ -14,7 +14,7 @@ Welcome to CYBERVILLE!! @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon-EN.png",
   "cardType": "side",
   "label": "Networking",
-  "labelClass": "blue ribbon med"
+  "labelClass": "Indigo ribbon large"
 },
 {
   "name": "1_Connecting",
@@ -36,12 +36,47 @@ Welcome to CYBERVILLE!! @boardname@.
 },
 {
   "name": "3_Roles",
-  "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/3_Mission1_Role/README",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/3_Role/README",
   "description": "Get your ROLE in Cyberville.",
-  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/3_Mission1_Role/Roles_Icon-EN.png",
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/3_Role/Roles_Icon-EN.png",
   "cardType": "side",
   "label": "",
   "labelClass": ""
+},
+{
+  "name": "4_Do Ping",
+  "url":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/README",
+  "description": "Do a ping on the Cyberville network. See who is available.",
+  
+  "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/Do_Ping_Icon-EN.png",
+  "cardType": "side",
+  "label": "",
+  "labelClass": "",
+
+  "otherActions": [
+  {
+  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/Blocks/Blocks_Do_Ping",
+  "editor": "",
+  "cardType": "tutorial"
+  },
+  {
+  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/PY/PY_Do_Ping",
+  "editor": "py",
+  "cardType": "tutorial"
+  }, 
+  {
+  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/PY/PY_Do_Ping",
+    "editor": "js",
+    "cardType": "tutorial"
+  }]
+
+
+
+
+
+
+
+
 }
 ]
 ```
