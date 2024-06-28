@@ -14,7 +14,7 @@ Welcome to CYBERVILLE!! @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/Cyberville_Icon-EN.png",
   "cardType": "side",
   "label": "Networking",
-  "labelClass": "Indigo ribbon large"
+  "labelClass": "indigo ribbon large"
 },
 {
   "name": "1_Connecting",
@@ -55,28 +55,20 @@ Welcome to CYBERVILLE!! @boardname@.
 
   "otherActions": [
   {
-  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/Blocks/Blocks_Do_Ping",
+  "url": "/projects/bboard-tutorials-codes/PingBLK",
   "editor": "",
   "cardType": "tutorial"
   },
   {
-  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/PY/PY_Do_Ping",
+  "url": "/projects/bboard-tutorials-codes/PingPY",
   "editor": "py",
   "cardType": "tutorial"
   }, 
   {
-  "url": "/docs/static/mb/projects/bboard-tutorials-cyberville/Networking/4_Do_Ping/PY/PY_Do_Ping",
+  "url": "/projects/bboard-tutorials-codes/PingJS",
     "editor": "js",
     "cardType": "tutorial"
   }]
-
-
-
-
-
-
-
-
 }
 ]
 ```

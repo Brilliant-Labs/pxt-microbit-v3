@@ -14,7 +14,7 @@ Mission 2 Polluted Water !! @boardname@.
   "imageUrl":"/docs/static/mb/projects/bboard-tutorials-cyberville/Snd_Cmd_Remote/Water_Polluted.gif",
   "cardType": "side",
   "label": "Snd Cmds Remote",
-  "labelClass": "blue ribbon med"
+  "labelClass": "indigo ribbon large"
 }
 ]
 ```
