@@ -1115,28 +1115,41 @@ namespace bBoard_WiFi {
                 Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five)); 
                 
                 bBoard_Control.UARTSendString("AT+CWMODE=1\r\n", boardIDGlobal, clickIDGlobal);
-                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);                               // Wait for the response "OK" 
-    
+//\\                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS); //7000         // Wait for the response "OK" 
+response = WiFiResponse("OK", false, 1000);                             
+
                 bBoard_Control.UARTSendString("AT+CIPMUX=1\r\n", boardIDGlobal, clickIDGlobal);         // Enable multiple connections
-                response = WiFiResponse("OK",false,CyberWiFiTimeoutmS); 
-                
+//\\                 response = WiFiResponse("OK",false,CyberWiFiTimeoutmS); 
+response = WiFiResponse("OK", false, 1000);                   
+
                 bBoard_Control.UARTSendString("AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"\r\n", boardIDGlobal, clickIDGlobal); //Connect to WiFi Network
-                response = WiFiResponse("OK",false,CyberWiFiTimeoutmS);
+//\\                response = WiFiResponse("OK",false,CyberWiFiTimeoutmS);
+response = WiFiResponse("OK", false, 1000); 
 
                 bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal);    // Mode 0 = Active (data receive instantly to MCU),  Mode 1 = Passive (data reveice keep in socket)
-                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+//\\                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+response = WiFiResponse("OK", false, 1000); 
 
 //                bBoard_Control.UARTSendString("AT+CWLAPOPT=1,31\r\n", boardIDGlobal, clickIDGlobal);    // Set the Configuration for the Command AT+CWLAP "list AP´s".  (It is not tested yet)
 //                response = WiFiResponse("OK", false, CyberWiFiConsoleTimeoutmS);                        
                
                 bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);        // CHECK NO connection MAKE INFINITE LOOP you have to reset b.Board
-                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
-                
+//\\                response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+response = WiFiResponse("OK", false, 1000);    
+
                 if (response==0){                                                                       // WiFi Error 
                     serial.writeLine("Done! AP available? Error Try Again") 
-                    basic.showIcon(IconNames.Sad, 400)  
-                    basic.showString("Error AP not available Try Again")
-                    basic.pause(1000)
+//\\                    basic.showIcon(IconNames.Sad, 400)  
+//\\                    basic.showString("Error AP not available Try Again")
+basic.showLeds(`
+. . . . .
+. # . # . 
+. . # . .
+. # . # .
+. . . . .
+`)  
+basic.pause(1000)
+//\\ basic.showString("Error AP")                    
                 }
                 else{                                                                                   // WiFI Connected
                     serial.writeLine("") 
