@@ -2451,9 +2451,9 @@ basic.pause(1000)
         bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
         basic.showLeds(`
         . . . . .
-        . # . # .
+        . . . . .
         . . # . .
-        . # . # .
+        . # # # .
         . . . . .
         `)
 
@@ -2573,15 +2573,15 @@ enum BLiXelIndexR {
 }
 
 enum ApplianceIndex {
-    //% block="☼1 Heat Cntr"
+    //% block="☼ 1 Heat Cntr"
         one = 1,
-    //% block="☼2 Air Cond"
+    //% block="☼ 2 Air Cond"
         two = 2,
-    //% block="☼3 LampCafe"
+    //% block="☼ 3 LampCafe"
         three = 3,
-    //% block="☼4 LampGym"
+    //% block="☼ 4 LampGym"
         four = 4,
-    //% block="☼5 Internet"
+    //% block="☼ 5 Internet"
         five = 5,
 }
 
