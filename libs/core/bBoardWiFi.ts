@@ -1675,8 +1675,7 @@ basic.pause(1000)
             basic.showString("V" + receivedData.substr(19,3))
             return(receivedData.substr(19,3));
         }
-
-        
+ 
     // Colours
     // Red = 0xFF0000, Orange = 0xFFA500, Yellow = 0xFFFF00, Green = 0x00FF00, White = 0xFFFFFF
     // Blue = 0x0000FF, Indigo = 0x4b0082,Violet = 0x8a2be2,Purple = 0xFF00FF, Black = 0x000000
@@ -2165,14 +2164,14 @@ basic.pause(1000)
         * @param Role in Cyberville
         * @param Appliance in School
     */
-        //% blockId="Mission Wired Lights" 
+        //% blockId="Mission Wierd Lights" 
         //% block="Choose your Role: $Role=BLiXel_IndexR | and Protect the: $Appliance=Appliance_Index"
         //% group="Mission 1: Weird Lights at School - What is the order of protection?"
         //% afterOnStart=true
         //% weight=100        
         //% blockHidden=false 
         //% advanced=true
-        export function MissionLights(Role: number, Appliance:number): void {       
+        export function MissionLights(Role: number, Appliance:number): void {             
 //            serial.writeLine("Role: " + Role)
         //Getting the Protection Code String
             let ApplianceStr = Appliance.toString()     //number to String
@@ -2198,8 +2197,8 @@ basic.pause(1000)
         | >> Fr << | Envoi d'une séquence de protection pour la résolution de l'attaque.      
     */
         //% blockId="Send_Protection"
-        //% block="Send protection sequence and wait for results!"
-        //% block.loc.fr="Envoyez la séquence de protection et attendez les résultats !"
+        //% block="Send Code Protection Sequence"
+        //% block.loc.fr="Séquence de protection du code d’envoi"
         //% advanced=true
         //% group="Mission 1: Weird Lights at School - What is the order of protection?" 
         //% weight=100
@@ -2433,20 +2432,30 @@ basic.pause(1000)
             basic.clearScreen()
         }
 
-
         MSG_PCS_RCV=""; //Delete the message to get a new one
         RCVdonIPON="";  //Delete the message to get a new one
         Confirm="";     //Delete the message to get a new one
 
 
 //-***Close the comunication */
+//Close all ports
         bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
 //Ready to Receive done!     Important CIPRECVMODE=0 
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
 
-        serial.writeLine("Client Closed!")
+        serial.writeLine("Client Closed!, Please recconect again")
+
+        //Client required to reconnect
+        bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
+        basic.showLeds(`
+        . . . . .
+        . # . # .
+        . . # . .
+        . # . # .
+        . . . . .
+        `)
 
 
 /*        if (MSG_PCS_RCV=="11111"){
@@ -2526,42 +2535,53 @@ export function readytosend(){
 
 // This list SHOULD be out of the namespace Cybersec {}  *Important
 enum BLiXelIndexR {
-    //% block="SCHOOL ®1"
+    //% block="1 SCHOOL"
         one = 1,
-    //% block="HOSPITAL ®2"
+    
+    //% block="2 HOSPITAL"
         two = 2,
-    //% block="WATER ®3"
+    
+    //% block="3 WATER"
         three = 3,
-//    //% block="WiFi-BL ®4"
+
+//    //% block="4 WiFi-BL"
 //    four = 4,
-    //% block="GOVERNMENT ®5"
-        five = 5,
-    //% block="BRILLIANT LABS ®6"
-        six = 6,
-    //% block="BANK ®7"
-        seven = 7,
-    //% block="FACTORY ®8"
-        eight = 8,
-    //% block="INDUSTRY ®9"
-        nine = 9,
-    //% block="ARTCENTER ®10"
-        ten = 10,
-//    //% block="CYBERSEGURIDAD ®11"
+
+    //% block="5 GOVERNMENT"
+        five = 4,
+
+    //% block="6 BRILLIANT LABS"
+        six = 5,
+    
+    //% block="7 BANK"
+        seven = 6,
+
+    //% block="8 FACTORY"
+        eight = 7,
+
+    //% block="9 INDUSTRY"
+        nine = 8, 
+
+    //% block="10 ARTCENTER"
+        ten = 9,
+
+//    //% block="11CYBERSEGURIDAD"
 //        eleven = 11,
-    //% block="HOUSES ®12"
-        twelve = 12
+    
+    //% block="12 CITIZENS"
+        twelve = 0
 }
 
 enum ApplianceIndex {
-    //% block="Heat Cntr ☼1"
+    //% block="☼1 Heat Cntr"
         one = 1,
-    //% block="Air Cond  ☼2"
+    //% block="☼2 Air Cond"
         two = 2,
-    //% block="Lamp Cafe ☼3"
+    //% block="☼3 LampCafe"
         three = 3,
-    //% block="Lamps Gym ☼4"
+    //% block="☼4 LampGym"
         four = 4,
-    //% block="Internet  ☼5"
+    //% block="☼5 Internet"
         five = 5,
 }
 
