@@ -1252,8 +1252,8 @@ basic.pause(1000)
         << |
         */
         //% blockId="WiFi Check"
-        //% block="the b.Board WiFi is Connected"
-        //% block.loc.fr="le WiFi du b.Board est connecté"
+        //% block="b.Board is Connected and Available"
+        //% block.loc.fr="b.Board est Connectée et Disponible"
         //% advanced=false
         //% group="Initialize and Connections"
         //% weight=100 
@@ -2222,7 +2222,7 @@ basic.pause(1000)
         FullMSG_PCS=""; //Delete the message to get a new one  // NO QUITAR
 //        serial.writeLine("ProtCodeStr was sent! and deleted.")   
 //        serial.writeLine("FULLMSG_PCS was sent! and deleted.")      
-       pause(500)//***** Important **** 
+        pause(600)//***** Important **** (500 9july)
 
         //Flashing
         // Cybersec.setPixelColourON(BLiXel.blixel_index(Appliance-1)); basic.pause(500+LenPCS*1000); Cybersec.setPixelColourOFF(BLiXel.blixel_index(Appliance-1));//Flashing BLixel
@@ -2235,7 +2235,7 @@ basic.pause(1000)
         response = WiFiResponse("OK", false, CyberComTimeoutmS);
         bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
         response = WiFiResponse("OK", false, CyberComTimeoutmS);          
-        pause(500)//***** Important **** 
+        pause(600)//***** Important **** (500 9july)
 
         let RCVdonIPON =""; // Variable empty to start
 
@@ -2413,29 +2413,34 @@ basic.pause(1000)
     //__________ 
             
 
-       if (MSG_PCS_RCV=="11111"){
+        if (MSG_PCS_RCV=="11111"){
             readytosend();
             bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
             response = WiFiResponse("OK", true, CyberComTimeoutmS);
             bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
             response = WiFiResponse("OK", true, CyberComTimeoutmS);
             serial.writeLine("Good")// This is the word to confirm the code is correct!
-            basic.showIcon(IconNames.Happy,2000) 
+            
+            basic.showIcon(IconNames.Happy,100) 
             soundExpression.happy.play()
-            pause(1000)
-            basic.clearScreen()
+            pause(7000)
+            soundExpression.happy.play()
+            pause(7000)
+            soundExpression.happy.play()
+            pause(7000)
+            soundExpression.happy.play()
+            Winner();
          }
         if (MSG_PCS_RCV!="11111"){
             soundExpression.sad.play()
             basic.showIcon(IconNames.Sad,2000) 
             pause(1000)
             basic.clearScreen()
-        }
+         }
 
         MSG_PCS_RCV=""; //Delete the message to get a new one
         RCVdonIPON="";  //Delete the message to get a new one
         Confirm="";     //Delete the message to get a new one
-
 
 //-***Close the comunication */
 //Close all ports
@@ -2444,9 +2449,7 @@ basic.pause(1000)
 //Ready to Receive done!     Important CIPRECVMODE=0 
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
         response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-
         serial.writeLine("Client Closed!, Please recconect again")
-
         //Client required to reconnect
         bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
         basic.showLeds(`
@@ -2456,29 +2459,12 @@ basic.pause(1000)
         . # # # .
         . . . . .
         `)
+ }   
 
-
-/*        if (MSG_PCS_RCV=="11111"){
-            readytosend();
-            bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-            response = WiFiResponse("OK", true, CyberComTimeoutmS);
-            bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
-            response = WiFiResponse("OK", true, CyberComTimeoutmS);
-            serial.writeLine("Good")// This is the word to confirm the code is correct!
-            basic.showIcon(IconNames.Happy,2000) 
-            soundExpression.happy.play()
-            pause(1000)
-            basic.clearScreen()
-         }
-*/
-
-
-
-
-  
-
-
-        }   
+export function Winner(){//infinite loop
+        basic.showIcon(IconNames.Happy,100)     
+        Winner();
+ }
 
 export function readytosend(){
         //Getting my IP address
@@ -2501,7 +2487,7 @@ export function readytosend(){
         response = WiFiResponse("OK", false, CyberComTimeoutmS);        
         bBoard_Control.UARTSendString("AT+CIPSTART=0,\"TCP\",\""+ APIP +"\",80,30,\""+ MyIP +"\"\r\n", boardIDGlobal, clickIDGlobal); //Start comuninication
         response = WiFiResponse("OK", true, CyberComTimeoutmS);
-}
+ }
 
 
 
@@ -2524,69 +2510,52 @@ export function readytosend(){
             serial.writeLine("" + "Mission2: Water Treatment Plant" + "")    
         }   
 
-
-
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //"""""""""""""""""""""""""""""""""""""""""""" 2024 """""""""""""""""""""""""""""""""""""""
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 }  
 
 // This list SHOULD be out of the namespace Cybersec {}  *Important
 enum BLiXelIndexR {
     //% block="1 SCHOOL"
-        one = 1,
-    
+        one = 1,    
     //% block="2 HOSPITAL"
-        two = 2,
-    
+        two = 2,    
     //% block="3 WATER"
         three = 3,
-
 //    //% block="4 WiFi-BL"
 //    four = 4,
-
     //% block="5 GOVERNMENT"
         five = 4,
-
     //% block="6 BRILLIANT LABS"
-        six = 5,
-    
+        six = 5,    
     //% block="7 BANK"
         seven = 6,
-
     //% block="8 FACTORY"
         eight = 7,
-
     //% block="9 INDUSTRY"
         nine = 8, 
-
     //% block="10 ARTCENTER"
         ten = 9,
-
 //    //% block="11CYBERSEGURIDAD"
-//        eleven = 11,
-    
+//        eleven = 11,    
     //% block="12 CITIZENS"
         twelve = 0
-}
+ }
 
 enum ApplianceIndex {
-    //% block="☼ 1 Heat Cntr"
+    //% block="☼ 1 HeatCntr"
         one = 1,
     //% block="☼ 2 Air Cond"
         two = 2,
     //% block="☼ 3 LampCafe"
         three = 3,
-    //% block="☼ 4 LampGym"
+    //% block="☼ 4 Lamp Gym"
         four = 4,
     //% block="☼ 5 Internet"
         five = 5,
 }
-
-
-
 
 //backup comments in folder
 
