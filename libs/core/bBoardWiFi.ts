@@ -2232,9 +2232,9 @@ basic.pause(1000)
 /* Receiving to confirm */
     //RECIVING  Important -> CIPRECVMODE=1
         bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
-        response = WiFiResponse("OK", false, CyberComTimeoutmS);
+        response = WiFiResponse("OK", false, 500);//CyberComTimeoutmS=400 (500 July10)
         bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
-        response = WiFiResponse("OK", false, CyberComTimeoutmS);          
+        response = WiFiResponse("OK", false, 500);  // CyberComTimeoutmS=400 (500 July10)      
         pause(600)//***** Important **** (500 9july)
 
         let RCVdonIPON =""; // Variable empty to start
@@ -2275,7 +2275,59 @@ basic.pause(1000)
     //___
         let MSG_PCS_RCV  = RCVdonIPON.substr(sIndexDXrcv, parseInt(LenDrcv))
         serial.writeLine("MSG received: " + MSG_PCS_RCV)
+
+        
+//jul10
+
+if (MSG_PCS_RCV=="11111"){
+    readytosend();
+    bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+    response = WiFiResponse("OK", true, CyberComTimeoutmS);
+    bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
+    response = WiFiResponse("OK", true, CyberComTimeoutmS);
+    serial.writeLine("Good")// This is the word to confirm the code is correct!
     
+    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(500); 
+    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(500); 
+    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(500); 
+    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(500); 
+    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(500); 
+
+    basic.showIcon(IconNames.Happy,100) 
+    soundExpression.happy.play()
+    pause(7000)
+    soundExpression.happy.play()
+    pause(7000)
+    soundExpression.happy.play()
+    pause(7000)
+    soundExpression.happy.play()
+    Winner();
+ }
+
+
+
+
+
+
+  //-***Close the comunication */
+  //Close all ports
+          bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
+          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+  //Ready to Receive done!     Important CIPRECVMODE=0 
+          bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
+          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
+          serial.writeLine("Client Closed!, Please recconect again")
+          //Client required to reconnect
+          bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
+//          basic.showLeds(`
+//          . . . . .
+//          . . . . .
+//          . . # . .
+//          . # # # .
+//          . . . . .
+//          `)
+
+
 
     // Read the confirmation sent by M5 and turn on the appliance 
         let Confirm="";    // Variable empty to start
@@ -2413,24 +2465,24 @@ basic.pause(1000)
     //__________ 
             
 
-        if (MSG_PCS_RCV=="11111"){
-            readytosend();
-            bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
-            response = WiFiResponse("OK", true, CyberComTimeoutmS);
-            bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
-            response = WiFiResponse("OK", true, CyberComTimeoutmS);
-            serial.writeLine("Good")// This is the word to confirm the code is correct!
+//        if (MSG_PCS_RCV=="11111"){
+//            readytosend();
+//            bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+//            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+//            bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
+//            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+//            serial.writeLine("Good")// This is the word to confirm the code is correct!
             
-            basic.showIcon(IconNames.Happy,100) 
-            soundExpression.happy.play()
-            pause(7000)
-            soundExpression.happy.play()
-            pause(7000)
-            soundExpression.happy.play()
-            pause(7000)
-            soundExpression.happy.play()
-            Winner();
-         }
+//            basic.showIcon(IconNames.Happy,100) 
+//            soundExpression.happy.play()
+//            pause(7000)
+//            soundExpression.happy.play()
+//            pause(7000)
+//            soundExpression.happy.play()
+//            pause(7000)
+//            soundExpression.happy.play()
+//            Winner();
+//         }
         if (MSG_PCS_RCV!="11111"){
             soundExpression.sad.play()
             basic.showIcon(IconNames.Sad,2000) 
@@ -2442,23 +2494,25 @@ basic.pause(1000)
         RCVdonIPON="";  //Delete the message to get a new one
         Confirm="";     //Delete the message to get a new one
 
-//-***Close the comunication */
-//Close all ports
-        bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//Ready to Receive done!     Important CIPRECVMODE=0 
-        bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
-        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-        serial.writeLine("Client Closed!, Please recconect again")
-        //Client required to reconnect
-        bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
-        basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . # . .
-        . # # # .
-        . . . . .
-        `)
+
+//  //-***Close the comunication */
+//  //Close all ports
+//          bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
+//          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+//  //Ready to Receive done!     Important CIPRECVMODE=0 
+//          bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
+//          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
+//          serial.writeLine("Client Closed!, Please recconect again")
+//          //Client required to reconnect
+//          bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
+          basic.showLeds(`
+          . . . . .
+          . . . . .
+          . . # . .
+          . # # # .
+          . . . . .
+          `)
+
  }   
 
 export function Winner(){//infinite loop
