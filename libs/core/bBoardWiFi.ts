@@ -2494,17 +2494,6 @@ if (MSG_PCS_RCV=="11111"){
         RCVdonIPON="";  //Delete the message to get a new one
         Confirm="";     //Delete the message to get a new one
 
-
-//  //-***Close the comunication */
-//  //Close all ports
-//          bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
-//          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
-//  //Ready to Receive done!     Important CIPRECVMODE=0 
-//          bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
-//          response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
-//          serial.writeLine("Client Closed!, Please recconect again")
-//          //Client required to reconnect
-//          bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
           basic.showLeds(`
           . . . . .
           . . . . .
@@ -2515,9 +2504,22 @@ if (MSG_PCS_RCV=="11111"){
 
  }   
 
-export function Winner(){//infinite loop
-        basic.showIcon(IconNames.Happy,100)     
+export function Winner(){//infinite loop   //Disconect and OFF wifi
+        basic.showIcon(IconNames.Happy,100)    
+        
+        bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+        bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
+        response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
+        bBoard_Control.clearUARTRxBuffer(boardIDGlobal, clickIDGlobal);             //  bBoard.clearUARTRxBuffer(clickBoardNum);
+        bBoard_Control.writePin(0, clickIOPin.CS, boardIDGlobal, clickIDGlobal)     
+        bBoard_Control.writePin(1, clickIOPin.CS, boardIDGlobal, clickIDGlobal)
+        bBoard_Control.UARTSendString("AT+CWQAP\r\n", boardIDGlobal, clickIDGlobal); //Disconnect the created conextion,
+        response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
+        bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
+        response = WiFiResponse("OK", false, CyberWiFiTimeoutmS);
         Winner();
+
  }
 
 export function readytosend(){
