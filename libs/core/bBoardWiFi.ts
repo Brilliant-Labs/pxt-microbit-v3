@@ -17,6 +17,15 @@ let MSG_PCS="";
 let FullMSG_PCS="";
 let LenPCS=0;
 
+let RatioCode=0;
+let RatioCodeStr="";
+let MSG_RCS="";
+let FullMSG_RCS="";
+let LenRCS=0;
+let indexclStr="";
+let indexflStr="";
+
+
 function WiFiResponse(
     expectedResponse: string,
     IPDResponseTrue: boolean,
@@ -2166,7 +2175,7 @@ basic.pause(1000)
     */
         //% blockId="Mission Wierd Lights" 
         //% block="Choose your Role: $Role=BLiXel_IndexR | and Protect the: $Appliance=Appliance_Index"
-        //% group="Mission 1: Weird Lights at School - What is the order of protection?"
+        //% group="Mission 1: Weird Lights at School - What is the Code Protection?"
         //% afterOnStart=true
         //% weight=100        
         //% blockHidden=false 
@@ -2200,7 +2209,7 @@ basic.pause(1000)
         //% block="Send Code Protection Sequence"
         //% block.loc.fr="Séquence de protection du code d’envoi"
         //% advanced=true
-        //% group="Mission 1: Weird Lights at School - What is the order of protection?" 
+        //% group="Mission 1: Weird Lights at School - What is the Code Protection?"
         //% weight=100
         export function sendprot(): void {
         soundExpression.giggle.play()
@@ -2550,21 +2559,348 @@ export function readytosend(){
 
 
 
-//------------------------- Missions -----------------------------------
+//------------------------- Missions #2 -----------------------------------
 
-    /* Mission Water */
-    /** | >> En << | Mission Water Treatment.
-        | >> Fr << | traitement des eaux de mission.      
+    /* Levels Cloride */
+    /** | >> En << | Select the level for Cloride.
+        | >> Fr << | Sélectionner le niveau pour Clorure.      
+        * @param Level_CL Level of Cloride
     */
-        //% blockId="Mission Water"
-        //% block="For a New Mission!"
-        //% block.loc.fr="For a New Mission!"
+        //% blockId="Level of Cloride Solution" 
+        //% block="%indexCL"
+        //% block.loc.fr="%indexCL"
         //% advanced=true
-        //% group="Mission 2: Water Treatment Plant"
-        //% weight=100
-        export function newmission(): void {
-            serial.writeLine("" + "Mission2: Water Treatment Plant" + "")    
-        }   
+        //% afterOnStart=true
+        //% group="Mission 2: Water Treatment Plant Polluted - What is the correct ratio?"
+        //% weight=100  
+        export function indexcl(indexCL: Index_CL): number {
+            indexclStr=indexCL.toString();
+            return indexCL;
+        }
+    /* Levels Floride */
+    /** | >> En << | Select the level for Floride.
+        | >> Fr << | Sélectionner le niveau pour Florure.      
+        * @param Level_FL Level of Floride
+    */
+        //% blockId="Level of Floride Solution" 
+        //% block="%indexFL"
+        //% block.loc.fr="%indexFL"
+        //% advanced=true
+        //% afterOnStart=true
+         //% group="Mission 2: Water Treatment Plant Polluted - What is the correct ratio?"
+        //% weight=100  
+        export function indexfl(indexFL: Index_FL): number {
+            indexflStr=indexFL.toString();
+            return indexFL;
+        }
+
+/* Mission Water, select your Role and send the Ratio */ 
+    /** | >> En << | Select your role and send the Ratio Cloride:Floride.
+        | >> Fr << | Sélectionnez votre rôle et envoyez le bon ratio Clorure:Florure.
+        * @param Role in Cyberville
+    */
+        //% blockId="Mission Water Treatment Polluted" 
+        //% block="Choose your Role: $Role=BLiXel_IndexR | and send the Ratio"
+         //% group="Mission 2: Water Treatment Plant Polluted - What is the correct ratio?"
+        //% afterOnStart=true
+        //% weight=100        
+        //% blockHidden=false 
+        //% advanced=true
+        export function MissionWater(Role: number): void {             
+        //Getting the Ratio and Role String
+//serial.writeLine("The ratio: "+indexclStr+indexflStr)
+            let RatioStr = indexclStr+indexflStr;  //number to String
+            RatioCodeStr=RatioCodeStr+RatioStr;       // Store the string to be sent to M5
+//serial.writeLine("The Ratio String is: " + RatioStr)
+//serial.writeLine("The Ratio String is: "+ RatioCodeStr)
+            LenRCS = RatioCodeStr.length//LenPCS = ProtCodeStr.length
+//serial.writeLine("Lenght Protection Code String is: "+ LenRCS)
+        //____
+            
+        //SENDING REQUEST GET/ + Role# + /ON_ + Ratio#            Important -> CIPRECVMODE=0  
+            MSG_RCS = "GET"+Role+"/ON_"+RatioStr;//Menssage to be sent as request, Ratio Cose String
+//serial.writeLine("to send...:  " + (MSG_RCS))
+//serial.writeLine("The ratio selected was:  " + (RatioCodeStr))
+            FullMSG_RCS = "GET"+Role+"/RCBL_"+RatioCodeStr; //message GET + Role number + currentLine.endsWith RatioCodeBrilliantLabs+Ratio;//Menssage to be sent as request, Ratio Code String
+        //____  assemble  FullMSG_RCS = "GET"+Role+"/RCBL_"+RatioCodeStr; 
+       
+
+            soundExpression.giggle.play()
+//serial.writeLine("The Ratio code is: "+ RatioCodeStr + " it is going to be send to m5")
+//serial.writeLine("The full Ratio code is: "+ FullMSG_RCS + " it is going to be send to m5")
+    
+            readytosend();
+    
+            bBoard_Control.UARTSendString("AT+CIPSEND=0," + FullMSG_PCS.length.toString() + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+    //____________________________________    V   _______________________________
+            bBoard_Control.UARTSendString(FullMSG_RCS, boardIDGlobal, clickIDGlobal); //Send FULLMSG_RCS the contents of the packet  
+            response = WiFiResponse("OK", true, CyberComTimeoutmS);
+    //        serial.writeLine("Sending to AP: " + RatioCodeStr + " as Ratio")
+            serial.writeLine("Sending to AP: " + FullMSG_RCS)
+    //        serial.writeLine("Lenght MSC_RCS is: " +MSG_RCS.length.toString())
+    
+            RatioCodeStr=""; //Delete the message to get a new one
+            FullMSG_RCS=""; //Delete the message to get a new one  // NO QUITAR
+    //        serial.writeLine("RatioCodeStr was sent! and deleted.")   
+    //        serial.writeLine("FULLMSG_RCS was sent! and deleted.")      
+            pause(600)//***** Important **** 
+    //___________
+    
+    /* Receiving to confirm */
+        //RECIVING  Important -> CIPRECVMODE=1
+            bBoard_Control.UARTSendString("AT+CIPRECVMODE=1\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send  1=PASSIVE to receive mode it is "Important"
+            response = WiFiResponse("OK", false, 500);//CyberComTimeoutmS=400 (500 July10)
+            bBoard_Control.UARTSendString("AT+CIPSTATUS\r\n", boardIDGlobal, clickIDGlobal);
+            response = WiFiResponse("OK", false, 500);  // CyberComTimeoutmS=400 (500 July10)      
+            pause(600)//***** Important **** 
+    
+            let RCVdonIPON =""; // Variable empty to start
+    
+        //Getting LENGHT data 
+            bBoard_Control.UARTSendString("AT+CIPRECVLEN?\r\n", boardIDGlobal, clickIDGlobal);
+            response = WiFiResponse("OK", false, CyberComTimeoutmS); 
+            let startIndexDrcv = receivedData.indexOf("+CIPRECVLEN:") + 12 // +CIPRECVLEN: = 12 characters ,  I mean: {+CIPRECVLEN:}
+    //           serial.writeLine("start-> " + startIndexDrcv)
+            let endIndexDrcv = receivedData.indexOf(",", startIndexDrcv)
+    //            serial.writeLine("end-> " + endIndexDrcv)
+            let LenDrcv = receivedData.substr(startIndexDrcv, endIndexDrcv - startIndexDrcv)
+            let LenDrcvSize=LenDrcv.length
+    //            serial.writeLine("LEN Data ReceiVed: " + LenDrcv)
+    //            serial.writeLine("LEN Data size: " + LenDrcvSize)
+            let TotLen= parseInt(LenDrcv)+LenDrcvSize
+    //            serial.writeLine("Total lenght: " + TotLen)//Totalize Lenght size
+        //_____
+    //        pause(500);//***** Important ****     
+    
+        //Getting Data
+            bBoard_Control.UARTSendString("AT+CIPRECVDATA=0," + LenDrcv + "\r\n", boardIDGlobal, clickIDGlobal);//for Link=0        //for ReceivedData, to see data length of link 
+            //For ReceivedData
+            let startIndexDXrcv = receivedData.indexOf(":")+1 //Ok Ok
+            let endIndexDXrcv = receivedData.indexOf(",", startIndexDXrcv)
+            let DXrcv = receivedData.substr(startIndexDXrcv, endIndexDXrcv - startIndexDXrcv+26)
+    //          serial.writeLine("Frame DXrcv: " + DXrcv) //to visualize the data frame
+            let totDX=DXrcv.length
+    //          serial.writeLine("len totDX: " + totDX) //to visualize lenght amount
+        //___
+    
+        //For RCVInfo
+            RCVdonIPON = bBoard_Control.getUARTData(boardIDGlobal, clickIDGlobal)   
+            let sIndexDXrcv = RCVdonIPON.indexOf(":") + LenDrcvSize + 2 // Ok Ok OK
+    //          serial.writeLine("sIndexDXrcv: " + sIndexDXrcv)
+            let eIndexDXrcv = RCVdonIPON.indexOf(",", sIndexDXrcv) + parseInt(LenDrcv)
+    //          serial.writeLine("eIndexDXrcv: " + eIndexDXrcv)
+        //___
+            let MSG_RCS_RCV  = RCVdonIPON.substr(sIndexDXrcv, parseInt(LenDrcv))
+            serial.writeLine("MSG received: " + MSG_RCS_RCV)
+    
+            
+    //jul10
+    
+    if (MSG_RCS_RCV=="11111"){
+        readytosend();
+        bBoard_Control.UARTSendString("AT+CIPSEND=0," + 4 + "\r\n", boardIDGlobal, clickIDGlobal); //Get ready to send a packet and specifiy the size
+        response = WiFiResponse("OK", true, CyberComTimeoutmS);
+        bBoard_Control.UARTSendString("Good", boardIDGlobal, clickIDGlobal); //Send FULLMSG_PCS the contents of the packet  
+        response = WiFiResponse("OK", true, CyberComTimeoutmS);
+        serial.writeLine("Good")// This is the word to confirm the code is correct!
+        
+        Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one)); basic.pause(500); 
+        Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two)); basic.pause(500); 
+        Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three)); basic.pause(500); 
+        Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four)); basic.pause(500); 
+        Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five)); basic.pause(500); 
+    
+        basic.showIcon(IconNames.Happy,100) 
+        soundExpression.happy.play()
+        pause(7000)
+        soundExpression.happy.play()
+        pause(7000)
+        soundExpression.happy.play()
+        pause(7000)
+        soundExpression.happy.play()
+        Winner();
+     }
+    
+    
+    
+    
+    
+    
+      //-***Close the comunication */
+      //Close all ports
+              bBoard_Control.UARTSendString("AT+CIPCLOSE=5\r\n", boardIDGlobal, clickIDGlobal);
+              response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);
+      //Ready to Receive done!     Important CIPRECVMODE=0 
+              bBoard_Control.UARTSendString("AT+CIPRECVMODE=0\r\n", boardIDGlobal, clickIDGlobal); //MODE 0=ACTIVE only to send
+              response = WiFiResponse("OK", false, defaultWiFiTimeoutmS);//use 200ms wating for OK, I am not using defaultWiFiTimeoutmS because it is too long
+              serial.writeLine("Client Closed!, Please recconect again")
+              //Client required to reconnect
+              bBoard_Control.UARTSendString("AT+CWJAP=\"SSID_CLEAR\",\"pwd_CLEAR\"\r\n", boardIDGlobal, clickIDGlobal);  //SSID_CLEAR and pwd_CLEAR are nothing, I use them to clear de ESP32, close the connection  
+
+        // Read the confirmation sent by M5 and turn on the appliance 
+            let Confirm="";    // Variable empty to start
+            
+            Confirm = MSG_RCS_RCV.substr(0,5-4)//First Digit Code
+    //        serial.writeLine("Confirmed 1: " + Confirm)
+            if (Confirm=="1"){
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+        
+                    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.one));
+                }else{
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(0)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(0));//Flashing BLixel
+         
+                    Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.one));}
+            Confirm = MSG_RCS_RCV.substr(1,1)//Second Digit Code
+    //        serial.writeLine("Confirmed 2: " + Confirm)
+            if (Confirm=="1"){
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+    
+                    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.two));
+                }else{
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(1)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(1));//Flashing BLixel
+    
+                    Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.two));}
+            Confirm = MSG_RCS_RCV.substr(2,1)//Third Digit Code
+    //        serial.writeLine("Confirmed 3: " + Confirm)
+            if (Confirm=="1"){
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+    
+                    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.three));
+                }else{
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(2)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(2));//Flashing BLixel
+    
+                    Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.three));}  
+            Confirm = MSG_RCS_RCV.substr(3,1)//Fourth Digit Code
+    //        serial.writeLine("Confirmed 4: " + Confirm)
+            if (Confirm=="1"){
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+    
+                    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.four));
+                }else{
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(3)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(3));//Flashing BLixel
+    
+                    Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.four));} 
+            Confirm = MSG_RCS_RCV.substr(4,1)//Fiveth Digit Code
+    //        serial.writeLine("Confirmed 5: " + Confirm)
+            if (Confirm=="1"){
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+    
+                    Cybersec.setPixelColourON(BLiXel.blixel_index(BLiXelIndex.five));
+                }else{
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(500); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(100); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(400); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(50); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    basic.pause(600);
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(10); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(5); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+                    Cybersec.setPixelColourRED(BLiXel.blixel_index(4)); basic.pause(3); Cybersec.setPixelColourOFF(BLiXel.blixel_index(4));//Flashing BLixel
+    
+                    Cybersec.setPixelColourOFF(BLiXel.blixel_index(BLiXelIndex.five));} 
+        //__________ 
+                
+    
+            if (MSG_RCS_RCV!="11111"){
+                soundExpression.sad.play()
+                basic.showIcon(IconNames.Sad,2000) 
+                pause(1000)
+                basic.clearScreen()
+             }
+    
+            MSG_RCS_RCV=""; //Delete the message to get a new one
+            RCVdonIPON="";  //Delete the message to get a new one
+            Confirm="";     //Delete the message to get a new one
+    
+              basic.showLeds(`
+              . . . . .
+              . . . . .
+              . . # . .
+              . # # # .
+              . . . . .
+              `)
+    
+     }   
+
+
+
+
+
+
+
 
 //"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 //"""""""""""""""""""""""""""""""""""""""""""" 2024 """""""""""""""""""""""""""""""""""""""
@@ -2612,6 +2948,54 @@ enum ApplianceIndex {
     //% block="☼ 5 Internet"
         five = 5,
 }
+
+enum Index_CL {
+    //% block="Level of Cloride: 0"
+        one = 0,    
+    //% block="Level of Cloride: 1"
+        two = 1,    
+    //% block="Level of Cloride: 2"
+        three = 2,
+    //% block="Level of Cloride: 3"
+        four = 3,
+    //% block="Level of Cloride: 4"
+        five = 4,
+    //% block="Level of Cloride: 5"
+        six = 5,    
+    //% block="Level of Cloride: 6"
+        seven = 6,
+    //% block="Level of Cloride: 7"
+        eight = 7,
+    //% block="Level of Cloride: 8"
+        nine = 8, 
+    //% block="Level of Cloride: 9"
+        ten = 9,
+ }
+
+ enum Index_FL {
+    //% block="Level of Floride: 0"
+        one = 0,    
+    //% block="Level of Floride: 1"
+        two = 1,    
+    //% block="Level of Floride: 2"
+        three = 2,
+    //% block="Level of Floride: 3"
+        four = 3,
+    //% block="Level of Floride: 4"
+        five = 4,
+    //% block="Level of Floride: 5"
+        six = 5,    
+    //% block="Level of Floride: 6"
+        seven = 6,
+    //% block="Level of Floride: 7"
+        eight = 7,
+    //% block="Level of Floride: 8"
+        nine = 8, 
+    //% block="Level of Floride: 9"
+        ten = 9,
+ }
+
+
 
 //backup comments in folder
 
